@@ -3,7 +3,7 @@ package com.blockbank.database.domain;
 /**
  * @author Alex Shijan
  *Unit testsvoor Account Model.
- * Tests zijn geimplementeerd metArrange-Act-Assertpattern.
+ * Tests zijn geimplementeerd met Arrange-Act-Assertpattern.
  */
 
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ class AccountTest {
     @Test
     public void constructionValidArguementsCreatesInstance() {
         // Arrange - niet nodig in dit geval.
+
         // Act.
         var instance = new Account(10);
         instance.setIban("NLkk BBBB 9999 9999 99");
@@ -25,7 +26,9 @@ class AccountTest {
 
     @Test
     public void constructionNegativeArguementThrowsException() {
+        // Assert
         assertThrows(IllegalArgumentException.class, () -> {
+            // Act
             var instance = new Account(-10);
             instance.setIban("NLkk BBBB 9999 9999 99");
         });
