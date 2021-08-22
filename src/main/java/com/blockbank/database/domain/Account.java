@@ -1,5 +1,14 @@
 package com.blockbank.database.domain;
 
+/**
+ * @author Alex Shijan
+ * Model voor het aanmaken van accounts voor klanten.
+ * Heeft eeen iban, balance en clientId.
+ * iban is een string omdat die bestaat uit alphanumerieke tekens.
+ * iban wordt gegenereert in de bijbehorende service klasse.
+ */
+
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +46,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return String.format("Account with iban %s belongs to client with id %d. Balamce: %.2f.",
+        return String.format("Account with iban %s belongs to client with id %d. Balance: %.2f.",
                 iban, clientId, balance);
     }
 
