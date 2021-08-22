@@ -8,8 +8,6 @@ package com.blockbank.database.domain;
  * iban wordt gegenereert in de bijbehorende service klasse.
  */
 
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,15 +19,17 @@ public class Account {
     private String iban;
     private double balance;
     private  int clientId;
+    private final double STARTING_BALANCE = 0;
+    private final String EMPTY_IBAN = "";
 
-    public Account(double balance, int clientId) throws IllegalArgumentException {
+    public Account(int clientId) throws IllegalArgumentException {
         super();
-        if (balance < 0) {
+        if (clientId < 0) {
             throw new IllegalArgumentException();
         }
         // iban must be generated via a service class.
-        this.iban = "";
-        this.balance = balance;
+        this.iban = EMPTY_IBAN;
+        this.balance = STARTING_BALANCE;
         this.clientId = clientId;
         logger.info("New Account for client " + clientId);
     }
@@ -42,7 +42,12 @@ public class Account {
 
     public void setIban(String iban) {this.iban = iban;}
 
-    public void setBalance(double balance) {this.balance = balance;}
+    // balance cant be set to negative.
+    public void setBalance(double balance) throws IllegalArgumentException {
+        if(balance < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.balance = balance;}
 
     @Override
     public String toString() {

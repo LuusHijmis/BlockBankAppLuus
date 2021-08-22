@@ -16,7 +16,7 @@ class AccountTest {
     public void constructionValidArguementsCreatesInstance() {
         // Arrange - niet nodig in dit geval.
         // Act.
-        var instance = new Account(1000, 10);
+        var instance = new Account(10);
         instance.setIban("NLkk BBBB 9999 9999 99");
 
         // Assert.
@@ -26,8 +26,19 @@ class AccountTest {
     @Test
     public void constructionNegativeArguementThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            var instance = new Account(-1000, 10);
+            var instance = new Account(-10);
             instance.setIban("NLkk BBBB 9999 9999 99");
+        });
+    }
+
+    @Test
+    public void setBalanceNegativeArguementThrowsException() {
+        //Arrange.
+        var instance = new Account(10);
+        instance.setIban("NLkk BBBB 9999 9999 99");
+        // Act.
+        assertThrows(IllegalArgumentException.class, () -> {
+            instance.setBalance(-1000.00);
         });
     }
 
@@ -36,13 +47,13 @@ class AccountTest {
         //Arrange - niet nodig in dit geval.
 
         // Act.
-        var instance = new Account(1000, 10);
+        var instance = new Account(10);
         instance.setIban("NLkk BBBB 9999 9999 99");
         String output = instance.toString();
         System.out.println(output);
 
         //Assert.
-        assertEquals("Account with iban NLkk BBBB 9999 9999 99 belongs to client with id 10. Balance: 1000.00."
+        assertEquals("Account with iban NLkk BBBB 9999 9999 99 belongs to client with id 10. Balance: 0.00."
                 , output);
 
     }
