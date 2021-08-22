@@ -9,32 +9,35 @@ import java.util.Objects;
 public class Account {
 
     private final Logger logger = LoggerFactory.getLogger(Account.class);
-    private int iban;
+    private String iban;
     private double balance;
     private  int clientId;
 
-    public Account(double balance, int clientId) {
+    public Account(double balance, int clientId) throws IllegalArgumentException {
         super();
+        if (balance < 0) {
+            throw new IllegalArgumentException();
+        }
         // iban must be generated via a service class.
-        this.iban = 0;
+        this.iban = "";
         this.balance = balance;
         this.clientId = clientId;
         logger.info("New Account for client " + clientId);
     }
 
-    public int getIban() {return iban;}
+    public String getIban() {return iban;}
 
     public double getBalance() {return balance;}
 
     public int getClientId() {return  clientId;}
 
-    public void setIban(int iban) {this.iban = iban;}
+    public void setIban(String iban) {this.iban = iban;}
 
     public void setBalance(double balance) {this.balance = balance;}
 
     @Override
     public String toString() {
-        return String.format("Account with iban %s belongs to client with id %d. Balamce: %f.",
+        return String.format("Account with iban %s belongs to client with id %d. Balamce: %.2f.",
                 iban, clientId, balance);
     }
 
