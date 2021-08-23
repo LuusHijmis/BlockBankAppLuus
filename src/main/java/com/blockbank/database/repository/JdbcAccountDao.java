@@ -88,7 +88,7 @@ public class JdbcAccountDao implements AccountDao{
 
     private static class AccountRowMapper implements RowMapper<Account> {
         @Override
-        public Account mapRow(ResultSet resultSet, int id) throws SQLException {
+        public Account mapRow(ResultSet resultSet, int i) throws SQLException {
             String iban = resultSet.getString(1);
             double balance = resultSet.getDouble(2);
             int clientId = resultSet.getInt(3);
