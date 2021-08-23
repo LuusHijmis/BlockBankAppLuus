@@ -36,6 +36,10 @@ public class Portfolio {
         return clientId;
     }
 
+    public Map<Asset, Integer> getAssetList() {
+        return assetList;
+    }
+
     @Override
     public String toString() {
         return "Portfolio{" +
