@@ -1,5 +1,10 @@
 package com.blockbank.database.repository;
 
+/**
+ * @author hannahvd
+ * <description>
+ */
+
 import com.blockbank.database.domain.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +40,4 @@ public class RootRepository {
     public Account findByClientId(int clientId) {
         return accountDao.findByClientId(clientId);
     }
-
-
 }
