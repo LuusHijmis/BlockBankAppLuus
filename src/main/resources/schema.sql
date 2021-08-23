@@ -1,16 +1,13 @@
-CREATE TABLE IF NOT EXISTS User (
-    `userID` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE User (
+    `userID` int auto_increment primary key,
     `username` VARCHAR(25) NOT NULL,
     `password` VARCHAR(45) NOT NULL,
     `role` VARCHAR(45) NOT NULL,
     `salt` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`userID`),
-    UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
+    UNIQUE INDEX `username_UNIQUE` (`username` ASC)
+    );
 
-
-
-
-CREATE TABLE IF NOT EXISTS Client (
+CREATE TABLE Client (
     `firstname` VARCHAR(45) NOT NULL,
     `prefix` VARCHAR(25) NULL,
     `lastname` VARCHAR(45) NOT NULL,
@@ -24,53 +21,56 @@ CREATE TABLE IF NOT EXISTS Client (
     `clientID` INT NOT NULL,
     `emailaddress` VARCHAR(100) NOT NULL,
     PRIMARY KEY (`clientID`),
-    INDEX `fk_Client_User1_idx` (`clientID` ASC) VISIBLE,
-    UNIQUE INDEX `emailaddress_UNIQUE` (`emailaddress` ASC) VISIBLE,
-    CONSTRAINT `fk_Client_User1`
-    FOREIGN KEY (`clientID`)
-    REFERENCES `blockBank`.`User` (`userID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    INDEX `fk_Client_User1_idx` (`clientID` ASC),
+    UNIQUE INDEX `emailaddress_UNIQUE` (`emailaddress` ASC)
+    --CONSTRAINT `fk_Client_User1`
+    --constraint fk_Client_User1
+    --foreign key (clientID) references User (userID)
+    --FOREIGN KEY (`clientID`),
+    --REFERENCES `blockBank`.`User` (`userID`),
+    --ON DELETE NO ACTION,
+    --ON UPDATE NO ACTION
+    );
 
-
-
-
-CREATE TABLE IF NOT EXISTS Account(
+CREATE TABLE Account(
     `IBAN` VARCHAR(20) NOT NULL,
     `balance` DOUBLE NOT NULL,
     `ClientID` INT NOT NULL,
-    PRIMARY KEY (`IBAN`),
-    INDEX `fk_Account_Client1_idx` (`ClientID` ASC) VISIBLE,
-    CONSTRAINT `fk_Account_Client1`
-    FOREIGN KEY (`ClientID`)
-    REFERENCES `blockBank`.`Client` (`clientID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+     PRIMARY KEY (`IBAN`),
+     INDEX `fk_Account_Client1_idx` (`ClientID` ASC)
+    --CONSTRAINT `fk_Account_Client1`
+    --FOREIGN KEY (`ClientID`)
+    --REFERENCES `blockBank`.`Client` (`clientID`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION
+    );
 
 
-CREATE TABLE IF NOT EXISTS Administrator(
+CREATE TABLE Administrator(
     `afdeling` VARCHAR(45) NOT NULL,
     `adminID` INT NOT NULL,
-    PRIMARY KEY (`adminID`),
-    CONSTRAINT `fk_Administrator_User1`
-    FOREIGN KEY (`adminID`)
-    REFERENCES `blockBank`.`User` (`userID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    PRIMARY KEY (`adminID`)
+    --CONSTRAINT `fk_Administrator_User1`
+    --FOREIGN KEY (`adminID`)
+    --REFERENCES `blockBank`.`User` (`userID`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION
+    );
 
 
-CREATE TABLE IF NOT EXISTS Portfolio (
+CREATE TABLE Portfolio (
     `clientID` INT NOT NULL,
-    `asset(temp)` VARCHAR(10) NOT NULL,
+    `asset(temp)` VARCHAR(10),
     `aantal` INT NOT NULL,
-    INDEX `fk_Portfolio_Client1_idx` (`clientID` ASC) VISIBLE,
     PRIMARY KEY (`asset(temp)`, `clientID`),
-    CONSTRAINT `fk_Portfolio_Client1`
-    FOREIGN KEY (`clientID`)
+    INDEX `fk_Portfolio_Client1_idx` (`clientID` ASC)
+    --CONSTRAINT `fk_Portfolio_Client1`
+    --FOREIGN KEY (`clientID`)
 
-    REFERENCES `blockBank`.`Client` (`clientID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    --REFERENCES `blockBank`.`Client` (`clientID`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION
+    );
 
 
 
