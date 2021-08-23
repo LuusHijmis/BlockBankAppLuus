@@ -60,7 +60,7 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return iban == account.iban && Double.compare(account.balance, balance) == 0 && clientId == account.clientId;
+        return Double.compare(account.balance, balance) == 0 && clientId == account.clientId && iban.equals(account.iban);
     }
 
     @Override
