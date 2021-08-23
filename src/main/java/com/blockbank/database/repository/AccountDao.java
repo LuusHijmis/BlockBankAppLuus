@@ -8,8 +8,8 @@ import com.blockbank.database.domain.Account;
 
 public interface AccountDao {
 
-    void save (Account account);
-    void update(Account account);
+    Account save (Account account);
+    Account update(Account account);
     Account findByIban(String iban);
     Account findByClientId(int clientId);
 }

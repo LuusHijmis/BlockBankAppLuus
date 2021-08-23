@@ -52,15 +52,17 @@ public class JdbcAccountDao implements AccountDao{
     }
 
     @Override
-    public void save(Account account) {
+    public Account save(Account account) {
         logger.debug("accountDao called for save");
         jdbcTemplate.update(connection -> insertAccountStatement(account, connection));
+        return account;
     }
 
     @Override
-    public void update(Account account) {
+    public Account update(Account account) {
         logger.debug("accountDao called for update");
         jdbcTemplate.update(connection -> updateAccountStatement(account, connection));
+        return account;
     }
 
     @Override
