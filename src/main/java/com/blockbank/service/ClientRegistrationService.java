@@ -1,8 +1,11 @@
+/*
 package com.blockbank.service;
 
+*/
 /*@author Karish Resodikromo
  * Deze serviceklasse heeft methode register om een klant te registreren
- * */
+ * *//*
+
 
 public class ClientRegistrationService {
 
@@ -18,3 +21,4 @@ public class ClientRegistrationService {
         mapDatabase.insertUsernameWithHash(username, hashService.hash(password));
     }
 }
+*/

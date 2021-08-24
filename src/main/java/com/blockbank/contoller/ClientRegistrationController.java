@@ -1,7 +1,10 @@
+/*
 package com.blockbank.contoller;
 
+*/
 /*@author Karish Resodikromo
- * Deze klasse behelst requesthandlers voor registreren van klanten */
+ * Deze klasse behelst requesthandlers voor registreren van klanten *//*
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,3 +42,4 @@ public class ClientRegistrationController {
     }
 }
 
+*/
