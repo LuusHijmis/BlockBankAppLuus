@@ -17,4 +17,29 @@ public class Client extends User {
         this.address = address;
     }
 
+    public PersonalData getPersonalData() {
+        return personalData;
+    }
+
+    public void setPersonalData(PersonalData personalData) {
+        this.personalData = personalData;
+    }
+
+    @Override
+    public int getClientID() {
+        return clientID;
+    }
+
+    @Override
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
