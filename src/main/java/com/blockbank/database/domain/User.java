@@ -5,7 +5,7 @@ package com.blockbank.database.domain;
 
 public abstract class User {
 
-    private int clientID = 0;
+    private int userID = 0;
     private String username;
     private String role;
     private String password;
@@ -25,16 +25,16 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        clientID = 0;
+        userID = 0;
     }
 
 
-    public int getClientID() {
-        return clientID;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {
