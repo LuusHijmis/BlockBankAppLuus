@@ -1,5 +1,7 @@
 /*
+
 package com.blockbank.service;
+
 
 */
 /*@author Karish Resodikromo
@@ -7,18 +9,25 @@ package com.blockbank.service;
  * *//*
 
 
+import com.blockbank.database.domain.UserDTO;
+import org.springframework.stereotype.Service;
+
+@Service
 public class ClientRegistrationService {
 
-    //private final MapDatabase database;
-    //private final Hashservice hashservice;
 
-    public ClientRegistrationService(MapDatabase mapDatabase, HashService hashService) {
-        this.mapDatabase = mapDatabase;
-        this.hashService = this.hashService;
-    }
+    private HashService hashservice = new HashService();
+    //private ValidationService validationService;
 
-    public void register(String username, String password) {
-        mapDatabase.insertUsernameWithHash(username, hashService.hash(password));
+//   public ClientRegistrationService(ValidationService validationService
+//                                      HashService hashService) {
+//        this.hashservice = hashService;
+//    }
+
+    //TODO METHODE AFMAKEN
+    public void register(UserDTO userDTO) {
+//        validationservice.insertUsernameWithHash(userDTO.getUsername(), hashservice.hash(userDTO.getPassword(), userDTO.getPassword()));
     }
 }
+
 */
