@@ -1,9 +1,12 @@
+/*
 
 package com.blockbank.contoller;
 
 
+*/
 /*@author Karish Resodikromo
- * Deze klasse behelst requesthandlers voor registreren van klanten */
+ * Deze klasse behelst requesthandlers voor registreren van klanten *//*
+
 
 
 import com.blockbank.database.domain.UserDTO;
@@ -43,3 +46,4 @@ public class ClientRegistrationController {
 }
 
 
+*/
