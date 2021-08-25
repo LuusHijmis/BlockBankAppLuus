@@ -16,7 +16,7 @@ public class Portfolio {
     private final Logger logger = LoggerFactory.getLogger(Portfolio.class);
 
     private int clientId; //should be linked to Client model?
-    private Map<Asset, Integer> assetList;
+    private Map<Asset, Double> assetList;
 
     public Portfolio(int clientId) {
         super();
@@ -25,7 +25,7 @@ public class Portfolio {
         logger.info("New portfolio created for client " + clientId);
     }
 
-    public void addToAssetList(Asset asset, int amount) {
+    public void addToAssetList(Asset asset, double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be 1 or more");
         }
@@ -36,7 +36,7 @@ public class Portfolio {
         return clientId;
     }
 
-    public Map<Asset, Integer> getAssetList() {
+    public Map<Asset, Double> getAssetList() {
         return assetList;
     }
 
