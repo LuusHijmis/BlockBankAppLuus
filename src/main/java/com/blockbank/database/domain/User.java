@@ -12,9 +12,13 @@ public abstract class User {
     private String salt;
 
     public User(String username, String password, String role, String salt) {
-        this(username, password);
+        this(username, password, salt);
         this.role = role;
         userID = 0;
+    }
+
+    public User(String username, String password, String salt) {
+        this(username, password);
         this.salt = salt; // maken wij zelf (automatisch)
     }
 
