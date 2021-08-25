@@ -21,9 +21,9 @@ public class HashHelper {
     public static final String ALGORITME_BESTAAT_NIET = "Algoritme bestaat niet";
     public static final String PEPPER = "FioKerHanAleHarLuuBLBK2021";
 
-    public static String generateStrongPasswordHash (String ww, String salt){
+    public static String generateStrongPasswordHash (String password, String salt){
         try {
-            char[] chars = ww.toCharArray();
+            char[] chars = password.toCharArray();
             byte[] saltToByte = salt.getBytes(StandardCharsets.UTF_8);
             PBEKeySpec spec = new PBEKeySpec(chars, saltToByte, ITERATIONS, KEYLENGTH * KEYLENGTH_FACTOR);
             SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2);
