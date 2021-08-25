@@ -16,7 +16,6 @@ public class SaltGenerator {
         this(SALT_LENGTH);
     }
 
-
     public String generateSalt() {
         int tempLengte = saltLength / 2;
         byte[] arr = new byte[saltLength % 2 == 0 ? tempLengte : tempLengte + 1]; // 1 byte geeft 2 karakters, bij oneven lengte geet integer deling onderwaarde
