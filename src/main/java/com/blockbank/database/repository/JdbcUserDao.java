@@ -30,17 +30,71 @@ public class JdbcUserDao implements UserDao {
         logger.info("New JdbcUserDao");
     }
     //TODO: SQLException afvangen
-    private PreparedStatement insertUserStatement (User user, Connection connection) throws SQLException{
+
+
+    private PreparedStatement insertAdminStatement (UserDetails userDetails, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
-                "insert into user_table (username, role, password, salt) values (?, ?, ?, ?)",
+                "INSERT INTO `user` (`username`, `password`, `salt`, `role`) VALUES (?,?,?,?);",
                 Statement.RETURN_GENERATED_KEYS
         );
-        ps.setString(1, user.getUsername());
-        ps.setString(2, user.getRole());
-        ps.setString(3, user.getPassword());
-        ps.setString(4, user.getSalt());
+        ps.setString(1, userDetails.getUsername());
+        ps.setString(2, userDetails.getPassword());
+        ps.setString(3, userDetails.getSalt());
+        ps.setString(4, userDetails.getRole());
         return ps;
     }
+
+    private PreparedStatement insertClientStatement (UserDetails userDetails, Connection connection) throws SQLException{
+        PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO `user` (`username`, `password`, `salt`, `role`, `emailaddress`, `firstname`, `prefix`," +
+                        "`lastname`, `address`, `houseNumber`, `postalcode`, `city`, `country`,`dateOfBirth`, `bsn`)" +
+                        " VALUES (?, ?,?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?);",
+                Statement.RETURN_GENERATED_KEYS
+        );
+        ps.setString(1, userDetails.getUsername());
+        ps.setString(2, userDetails.getPassword());
+        ps.setString(3, userDetails.getSalt());
+        ps.setString(4, userDetails.getRole());
+        ps.setString(5, userDetails.getClientDetails().getEmailAddress());
+        ps.setString(6, userDetails.getClientDetails().getFirstname());
+        ps.setString(7, userDetails.getClientDetails().getPrefix());
+        ps.setString(8, userDetails.getClientDetails().getLastname());
+        ps.setString(9, userDetails.getAddress().getAddress());
+        ps.setInt(10, userDetails.getAddress().getHouseNumber());
+        ps.setString(11, userDetails.getAddress().getPostalCode());
+        ps.setString(12, userDetails.getAddress().getCity());
+        ps.setString(13, userDetails.getAddress().getCountry());
+        ps.setString(14, userDetails.getClientDetails().getDateOfBirth().toString());
+        ps.setInt(15, userDetails.getClientDetails().getBsn());
+        return ps;
+    }
+
+    private PreparedStatement insertBankStatement (UserDetails userDetails, Connection connection) throws SQLException{
+        PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO `user` (`username`, `password`, `salt`, `role`, `address`, `houseNumber`, " +
+                        "`postalcode`, `city`, `country`) VALUES (?,?,?,?,?,?,?,?,?);",
+                Statement.RETURN_GENERATED_KEYS
+        );
+        ps.setString(1, userDetails.getUsername());
+        ps.setString(2, userDetails.getPassword());
+        ps.setString(3, userDetails.getSalt());
+        ps.setString(4, userDetails.getRole());
+        ps.setString(5, userDetails.getAddress().getAddress());
+        ps.setInt(6, userDetails.getAddress().getHouseNumber());
+        ps.setString(7, userDetails.getAddress().getPostalCode());
+        ps.setString(8, userDetails.getAddress().getCity());
+        ps.setString(9, userDetails.getAddress().getCountry());
+
+        return ps;
+    }
+
+
+
+
+
+
+
+
 
     private PreparedStatement updateUserStatement (User user, Connection connection) throws SQLException{
         PreparedStatement ps = connection.prepareStatement(
@@ -53,13 +107,25 @@ public class JdbcUserDao implements UserDao {
 
 
     @Override
-    public User save(User user) {
+    public UserDetails save(UserDetails userDetails) {
         logger.debug("UserDao called for save");
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> insertUserStatement(user, connection),keyHolder);
+        switch(userDetails.getRole()){
+            case "client" :
+                jdbcTemplate.update(connection -> insertClientStatement(userDetails, connection),keyHolder);
+                break;
+            case "administrator" :
+                jdbcTemplate.update(connection -> insertAdminStatement(userDetails, connection),keyHolder);
+                break;
+            case "bank" :
+                jdbcTemplate.update(connection -> insertBankStatement(userDetails, connection),keyHolder);
+                break;
+            default :
+                System.out.println("Rol bestaat niet");
+        }
         int newKey = keyHolder.getKey().intValue();
-        user.setUserID(newKey);
-        return user;
+        userDetails.setUserID(newKey);
+        return userDetails;
     }
 
     @Override
