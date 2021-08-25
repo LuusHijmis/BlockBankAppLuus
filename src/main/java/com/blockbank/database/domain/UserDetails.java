@@ -7,23 +7,22 @@ public class UserDetails extends User {
     private ClientDetails clientDetails;
     private Address address;
 
-    public UserDetails(String username, String password, ClientDetails clientDetails, Address address) {
-        super(username, password);
+    // Constructor for the Client
+    public UserDetails(String username, String password, String salt, ClientDetails clientDetails, Address address) {
+        super(username, password, "client", salt);
         this.clientDetails = clientDetails;
         this.address = address;
-//        this.getUserID();
     }
 
     // Constructor for the Bank
-    public UserDetails(String username, String password, Address address) {
-          this(username, password, null, address);
-//        this.getUserID();
+    public UserDetails(String username, String password, String salt, Address address) {
+        super(username, password, "bank", salt);
+        this.address = address;
     }
 
     // Constructor for the Administrator
-    public UserDetails(String username, String password) {
-        this(username, password, null, null);
-        this.getUserID();
+    public UserDetails(String username, String password, String salt) {
+        super(username, password, "administrator", salt);
     }
 
     public ClientDetails getClientDetails() {
