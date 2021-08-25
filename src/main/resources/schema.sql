@@ -4,7 +4,7 @@ CREATE TABLE `User` (
     `password` VARCHAR(45) NOT NULL,
     `salt` VARCHAR(45) NOT NULL,
     `role` VARCHAR(45) NOT NULL,
-    `emailaddress` VARCHAR(100) NOT NULL,
+    `emailaddress` VARCHAR(100) NULL,
     `firstname` VARCHAR(45) NULL,
     `prefix` VARCHAR(25) NULL,
     `lastname` VARCHAR(45) NULL,
