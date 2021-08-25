@@ -1,5 +1,9 @@
 package com.blockbank.service;
 
+/**
+ * @author Alex Shijan
+ */
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IbanGenerator {
