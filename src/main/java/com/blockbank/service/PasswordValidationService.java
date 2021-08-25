@@ -4,6 +4,10 @@ package com.blockbank.service;
  * @author hannahvd
  */
 
+//TODO: populaire wachtwoorden check
+//TODO: username check
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -31,7 +35,7 @@ public class PasswordValidationService {
     private boolean isValid;
 
     protected boolean isValid(String password) {
-        if (!checkEmpty(password)) {
+        if (checkEmpty(password)) {
             System.out.println(EMPTY_OR_NULL_PASSWORD);
             return false;
         }
@@ -56,45 +60,55 @@ public class PasswordValidationService {
 
     //not need to check(if)Empty because of min. length?
     private boolean checkEmpty(String password) {
-        isValid = true;
-        if (password == null || password.equals("")) {
-            isValid = false;
-        }
+        isValid = password == null || password.equals("");
         return isValid;
     }
 
     private boolean checkLength(String password) {
-        isValid = true;
-        if (password.length() < 12 || password.length() > 24){
-            isValid = false;
-        }
+        isValid = password.length() < 12 || password.length() > 24;
         return isValid;
     }
 
     private boolean checkCase(String password) {
-        isValid = true;
+        isValid = false;
         Matcher matcher = casePattern.matcher(password);
-        if (matcher.find()) {
-            isValid = false;
+        if (!matcher.find()) {
+            isValid = true;
         }
         return isValid;
     }
 
     private boolean checkLetterAndDigit(String password) {
-        isValid = true;
+        isValid = false;
         Matcher matcher = letterAndDigitPattern.matcher(password);
-        if (matcher.find()) {
-            isValid = false;
+        if (!matcher.find()) {
+            isValid = true;
         }
         return isValid;
     }
 
     private boolean checkSymbol(String password) {
-        isValid = true;
+        isValid = false;
         Matcher matcher = specialSymbolPattern.matcher(password);
-        if (matcher.find()) {
-            isValid = false;
+        if (!matcher.find()) {
+            isValid = true;
         }
         return isValid;
     }
 }
+
+
+/*
+
+meest gebruikte wachtwoorden
+
+123456.
+qwerty.
+123456789.
+welkom.
+12345.
+password.
+welkom01.
+wachtwoord.
+
+ */
