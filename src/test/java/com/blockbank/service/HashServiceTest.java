@@ -14,8 +14,7 @@ class HashServiceTest {
         String password = "test 19";
         String salt = "594ea4b2";
         String actual = hashService.hash(password,salt);
-        String expected = "0f9187e33456e9c08d6e112685316714d75d9d703c0802434305a335b7a01d4a25d94fc3cf001d18d707d35ed803" +
-                "08831e9562f04f4ebf249091848f764d98a6";
+        String expected = "0f9187e33456e9c08d6e112685316714d75d9d703c0802434305a335b7a01d4a25d94fc3cf001d18d707d35ed80308831e9562f04f4ebf249091848f764d98a6";
         assertThat(expected).isEqualTo(actual);
     }
 
@@ -34,12 +33,11 @@ class HashServiceTest {
     }
     @Test
     public void hashServiceUltimateHash(){
-        String password = "test 19";
-        String salt = "994ad5318deaf6273ff858c4fa2225ef";
+        String password = "test 20";
+        String salt = "ef0c7192a5b85a5af6a905629a961713";
         String actual = hashService.ultimateHash(password,salt);
-        String expected = "a75083ea0ca57e10cc51ce1f3770b8d333f9bbacf29555dd495b84c9de18b1ceb13b9e5ce9a26f934ff2f3bbc1a33d52ac4cb5776f6f5cd791f1d30c557760cf";
+        String expected = "e6cb955ef8e3fa94be53e571dcca5f3abfca62fb5c318e1a4ff745c3082b73e1a504ca69d4a7a6fd9b3f4a18c088a76222bd2ceeb29f979a699f3a47bb76efe9";
         assertThat(expected).isEqualTo(actual);
     }
-
 
 }
