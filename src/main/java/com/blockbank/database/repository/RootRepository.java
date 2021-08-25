@@ -38,6 +38,6 @@ public class RootRepository {
     }
 
     public Account findByClientId(int clientId) {
-        return accountDao.findByClientId(clientId);
+        return accountDao.findByUserId(clientId);
     }
 }

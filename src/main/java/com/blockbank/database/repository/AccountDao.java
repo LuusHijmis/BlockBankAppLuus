@@ -11,5 +11,5 @@ public interface AccountDao {
     Account save (Account account);
     Account update(Account account);
     Account findByIban(String iban);
-    Account findByClientId(int clientId);
+    Account findByUserId(int UserId);
 }
