@@ -1,13 +1,11 @@
-package com.blockbank.contoller;
+package com.blockbank.service;
 
 /**
  * @author hannahvd
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.validation.Validator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,25 +16,39 @@ public class PasswordValidationService {
     public static final String ERROR_PASSWORD_LENGTH = "Password must be between 12 and 24 characters long."; //128 is a bit long? db-wise?
     public static final String ERROR_PASSWORD_CASE = "Password must include both upper and lowercase letters.";
     public static final String ERROR_LETTER_AND_DIGIT = "Password must contain both a letter and a digit between 0-9.";
-
-    //public static final String ERROR_PASSWORD_SEQUENCE_REPEATED = "Password must not contain any sequence of characters immediately followed by the same sequence.";
-    //private Pattern checkSequenceRepetition = Pattern.compile("(\\w{2,})\\1");
+    public static final String ERROR_SPECIAL_SYMBOL = "Password must contain a special symbol: @,#$%!^*().";
 
     /*
-
     @Size(min = 12, max = 24)
     @NotNull
-
      */
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-    private final Pattern checkCasePattern = Pattern.compile("[A-Z][a-z]"); //added [a-z]
-    private final Pattern checkLetterAndDigit = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
+    private final Pattern casePattern = Pattern.compile("[A-Z][a-z]"); //added [a-z]
+    private final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
+    private final Pattern specialSymbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
     private boolean isValid;
 
-
-
+    protected boolean isValid(String password) {
+        isValid = true;
+        isValid = !checkEmpty(password);
+        isValid = !checkLength(password);
+        isValid = !checkCase(password);
+        isValid = !checkLetterAndDigit(password);
+        isValid = !checkSymbol(password);
+        return isValid;
+    }
+/*
+    protected boolean isValiid(String password) {
+        checkEmpty(password);
+        checkLength(password);
+        checkCase(password);
+        checkLetterAndDigit(password);
+        checkSymbol(password);
+        return isValid;
+    }
+*/
     //not need to check because of min. length?
     private boolean checkEmpty(String password) {
         isValid = true;
@@ -58,7 +70,7 @@ public class PasswordValidationService {
 
     private boolean checkCase(String password) {
         isValid = true;
-        Matcher matcher = checkCasePattern.matcher(password);
+        Matcher matcher = casePattern.matcher(password);
         if (matcher.find()) {
             System.out.println(ERROR_PASSWORD_CASE);
             isValid = false;
@@ -68,9 +80,19 @@ public class PasswordValidationService {
 
     private boolean checkLetterAndDigit(String password) {
         isValid = true;
-        Matcher matcher = checkLetterAndDigit.matcher(password);
+        Matcher matcher = letterAndDigitPattern.matcher(password);
         if (matcher.find()) {
             System.out.println(ERROR_LETTER_AND_DIGIT);
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean checkSymbol(String password) {
+        isValid = true;
+        Matcher matcher = specialSymbolPattern.matcher(password);
+        if (matcher.find()) {
+            System.out.println(ERROR_SPECIAL_SYMBOL);
             isValid = false;
         }
         return isValid;
