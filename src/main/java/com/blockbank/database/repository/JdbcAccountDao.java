@@ -34,7 +34,7 @@ public class JdbcAccountDao implements AccountDao{
 
     private PreparedStatement insertAccountStatement(Account account, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
-                "insert into account (IBAN, balance, clientID) values (?,?,?)"
+                "insert into account (IBAN, balance, UserID) values (?,?,?)"
         );
         ps.setString(1, account.getIban());
         ps.setDouble(2, account.getBalance());
@@ -78,10 +78,10 @@ public class JdbcAccountDao implements AccountDao{
     }
 
     @Override
-    public Account findByClientId(int clientId) {
+    public Account findByUserId(int clientId) {
         logger.debug("accountDao called for findByClientId");
         List<Account> accounts = jdbcTemplate.query(
-                "select * from account where clientID = ?", new AccountRowMapper(), clientId);
+                "select * from account where UserID = ?", new AccountRowMapper(), clientId);
         if(accounts.size() == 1) {
             return accounts.get(0);
         }
@@ -93,8 +93,8 @@ public class JdbcAccountDao implements AccountDao{
         public Account mapRow(ResultSet resultSet, int i) throws SQLException {
             String iban = resultSet.getString(1);
             double balance = resultSet.getDouble(2);
-            int clientId = resultSet.getInt(3);
-            Account account = new Account(clientId);
+            int userId = resultSet.getInt(3);
+            Account account = new Account(userId);
             account.setIban(iban);
             account.setBalance(balance);
             return account;
