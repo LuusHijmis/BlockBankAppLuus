@@ -2,7 +2,7 @@ package com.blockbank.database.domain;
 
 import java.util.Date;
 
-public class PersonalData {
+public class ClientDetails {
 
     private String firstname;
     private String prefix;
@@ -11,7 +11,7 @@ public class PersonalData {
     private int bsn;
     private String emailAddress;
 
-    public PersonalData(String firstname, String prefix, String lastname, Date dateOfBirth, int bsn, String emailAddress) {
+    public ClientDetails(String firstname, String prefix, String lastname, Date dateOfBirth, int bsn, String emailAddress) {
         this.firstname = firstname;
         this.prefix = prefix;
         this.lastname = lastname;
