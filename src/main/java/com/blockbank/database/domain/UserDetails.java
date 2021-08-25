@@ -41,4 +41,12 @@ public class UserDetails extends User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" + super.toString() +
+                "clientDetails=" + clientDetails +
+                ", address=" + address +
+                '}';
+    }
 }
