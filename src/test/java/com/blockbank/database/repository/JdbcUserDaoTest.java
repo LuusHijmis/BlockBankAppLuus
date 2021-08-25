@@ -1,5 +1,6 @@
 package com.blockbank.database.repository;
 
+import com.blockbank.database.domain.Account;
 import com.blockbank.database.domain.Address;
 import com.blockbank.database.domain.ClientDetails;
 import com.blockbank.database.domain.UserDetails;
@@ -39,30 +40,51 @@ class JdbcUserDaoTest {
     @Test
     void saveClient() {
         //arrange
-        ClientDetails clientDetails = new ClientDetails("Pietje", "","Puk",
+        ClientDetails clientDetails = new ClientDetails("Pietje", null,"Puk",
                 LocalDate.parse("1988-04-02"),123456007,"pietjepuk@hva.nl");
-        Address address = new Address("Oosthoutlaan",132,"","2215MC",
+        Address address = new Address("Oosthoutlaan",132,null,"2215MC",
                 "Voorhout","Nederland");
         UserDetails userDetails = new UserDetails("pietje","ejteip","1235",clientDetails,address);
         //act
         var actual = userDaoUnderTest.save(userDetails);
+        var found = userDaoUnderTest.findUserById(5);
+        assertThat(found).isEqualTo(actual);
+
     }
     @Test
     void saveBank() {
         //arrange
-        Address address = new Address("Oosthoutlaan",132,"","2215MC",
+        Address address = new Address("Oosthoutlaan",132,null,"2215MC",
                 "Voorhout","Nederland");
-        UserDetails userDetails = new UserDetails("pietje","ejteip","1235",address);
+        UserDetails userDetails = new UserDetails("klaasje","ejteip","12356",address);
         //act
         var actual = userDaoUnderTest.save(userDetails);
+        var found = userDaoUnderTest.findUserById(4);
+        assertThat(found).isEqualTo(actual);
     }
 
     @Test
     void saveAdministrator() {
         //arrange
-        UserDetails userDetails = new UserDetails("pietje","ejteip","1235");
+        UserDetails userDetails = new UserDetails("marietje","ejteip","123567");
         //act
         var actual = userDaoUnderTest.save(userDetails);
+        var found = userDaoUnderTest.findUserById(6);
+        assertThat(found).isEqualTo(actual);
     }
+
+    @Test
+    void findByClientId() {
+        var instance = userDaoUnderTest.findUserById(1);
+        ClientDetails clientDetails = new ClientDetails("Harold", "","Stevens",
+                LocalDate.parse("1973-09-25"),123456007,"info@hjstevens.nl");
+        Address address = new Address("Pieter Woutersstraat",26,null,"2215MC",
+                "Voorhout","");
+        UserDetails expected = new UserDetails("Harold","dlorah","123",clientDetails,address);
+        expected.setUserID(1);
+
+        assertThat(instance).isEqualTo(expected);
+    }
+
 
 }

@@ -1,5 +1,7 @@
 package com.blockbank.database.domain;
 
+import java.util.Objects;
+
 public class Address {
     private String address;
     private int houseNumber;
@@ -75,5 +77,18 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address1 = (Address) o;
+        return houseNumber == address1.houseNumber && Objects.equals(address, address1.address) && Objects.equals(affix, address1.affix) && Objects.equals(postalCode, address1.postalCode) && Objects.equals(city, address1.city) && Objects.equals(country, address1.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address, houseNumber, affix, postalCode, city, country);
     }
 }

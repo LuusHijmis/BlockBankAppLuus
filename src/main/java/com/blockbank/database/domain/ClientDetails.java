@@ -2,6 +2,7 @@ package com.blockbank.database.domain;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class ClientDetails {
 
@@ -79,5 +80,18 @@ public class ClientDetails {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientDetails that = (ClientDetails) o;
+        return bsn == that.bsn && Objects.equals(firstname, that.firstname) && Objects.equals(prefix, that.prefix) && Objects.equals(lastname, that.lastname) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(emailAddress, that.emailAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, prefix, lastname, dateOfBirth, bsn, emailAddress);
     }
 }
