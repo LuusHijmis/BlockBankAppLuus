@@ -17,6 +17,7 @@ public class HashHelper {
     public static final int KEYLENGTH_FACTOR= 8;
 
     private static final String SHA_512 = "SHA-512";
+    private static final String PBKDF2 = "PBKDF2WithHmacSHA1";
     public static final String ALGORITME_BESTAAT_NIET = "Algoritme bestaat niet";
     public static final String PEPPER = "FioKerHanAleHarLuuBLBK2021";
 
@@ -25,7 +26,7 @@ public class HashHelper {
             char[] chars = ww.toCharArray();
             byte[] saltToByte = salt.getBytes(StandardCharsets.UTF_8);
             PBEKeySpec spec = new PBEKeySpec(chars, saltToByte, ITERATIONS, KEYLENGTH * KEYLENGTH_FACTOR);
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2);
             byte[] hash = skf.generateSecret(spec).getEncoded();
             return ByteArrayToHexHelper.encodeHexString(hash);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException noSuchAlgorithmException) {
