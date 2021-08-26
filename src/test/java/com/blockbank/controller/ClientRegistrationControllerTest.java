@@ -60,7 +60,8 @@ public class ClientRegistrationControllerTest {
                 "Nederland");
         Mockito.when(clientRegistrationService.register(userDTO)).thenReturn(true);
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/register");
-        request.equals(userDTO);
+//        request.equals(userDTO);
+        request.param(userDTO.toString(), userDTO.toString());
         try {
             ResultActions actions = mockMvc.perform(request);
             MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();
