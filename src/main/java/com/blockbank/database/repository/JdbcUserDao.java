@@ -129,16 +129,16 @@ public class JdbcUserDao implements UserDao {
         return userDetails;
     }
 
-    /*@Override
-    public User findByUsername(String username) {
+    @Override
+    public UserDetails findByUsername(String username) {
         logger.debug("userDao called for findByUsername");
-        List<User> users = jdbcTemplate.query(
-                "select * from user where username = ?", new JdbcUserDao.UserRowMapper(), username);
-        if(username.size() == 1) {
+        List<UserDetails> users = jdbcTemplate.query(
+                "select * from user where username = ?",  new JdbcUserDao.UserRowMapper(), username);
+        if(users.size() == 1) {
             return users.get(0);
         }
         return null;
-    }*/
+    }
 
     @Override
     public UserDetails findUserById(int userId) {

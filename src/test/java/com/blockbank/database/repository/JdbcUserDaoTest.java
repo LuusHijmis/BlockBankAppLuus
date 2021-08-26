@@ -86,5 +86,22 @@ class JdbcUserDaoTest {
         assertThat(instance).isEqualTo(expected);
     }
 
+    @Test
+    void findByUsername() {
+        //Arrange
+        String username = "Harold";
+        ClientDetails clientDetails = new ClientDetails("Harold", "","Stevens",
+                LocalDate.parse("1973-09-25"),123456007,"info@hjstevens.nl");
+        Address address = new Address("Pieter Woutersstraat",26,null,"2215MC",
+                "Voorhout","");
+        //Act
+        var instance = userDaoUnderTest.findByUsername(username);
+        UserDetails expected = new UserDetails("Harold","dlorah","123",clientDetails,address);
+        expected.setUserID(1);
+
+        assertThat(instance).isEqualTo(expected);
+
+    }
+
 
 }

@@ -47,4 +47,6 @@ public class RootRepository {
     public UserDetails saveUserDetails(UserDetails userDetails) { return  userDao.save(userDetails);}
 
     public UserDetails findUserByUserId(int userId) { return  userDao.findUserById(userId);}
+
+    public UserDetails  findUserByUsername(String username) { return  userDao.findByUsername(username);}
 }
