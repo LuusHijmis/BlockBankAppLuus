@@ -12,6 +12,7 @@ package com.blockbank.contoller;
 
 
 
+import com.blockbank.database.domain.UserDTO;
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ClientRegistrationService;
 import org.slf4j.Logger;
@@ -40,9 +41,9 @@ public class ClientRegistrationController {
 
     //TODO PostMapping checken
     @PutMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDetails userDetails) {
-        if (clientregistrationservice.register(userDetails)) {
-            return ResponseEntity.ok(userDetails);
+    public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
+        if (clientregistrationservice.register(userDTO)) {
+            return ResponseEntity.ok(userDTO);
         } else {
             return ResponseEntity.badRequest().build();
         }

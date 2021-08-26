@@ -5,6 +5,7 @@ package com.blockbank.controller;
 
 import com.blockbank.database.domain.Address;
 import com.blockbank.database.domain.ClientDetails;
+import com.blockbank.database.domain.UserDTO;
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ClientRegistrationService;
 import org.junit.jupiter.api.Test;
@@ -47,16 +48,19 @@ public class ClientRegistrationControllerTest {
     //TODO TEST
     @Test
     public void registerTest() {
-        LocalDate dateOfBirth = new LocalDate(1990, 10, 10);
-        ClientDetails testClientDetails = new ClientDetails("Dagobert", "", "Duck",
+/*        ClientDetails testClientDetails = new ClientDetails("Dagobert", "", "Duck",
                 dateOfBirth, 1, "dd@duck.nl");
         Address testAdress = new Address("wasstraat", 1, "", "1111xx", "Den Haag",
                 "Nederland");
         UserDetails testUser = new UserDetails("username", "hallometmij", "salt", testClientDetails,
-                testAdress);
-        Mockito.when(clientRegistrationService.register(testUser)).thenReturn(true);
+                testAdress);*/
+        UserDTO userDTO = new UserDTO("Dagobert", "", "Duck",
+                LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "hallometmij",
+                "wasstraat", 1, "", "1111xx", "Den Haag",
+                "Nederland");
+        Mockito.when(clientRegistrationService.register(userDTO)).thenReturn(true);
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/register");
-        request.equals(testUser);
+        request.equals(userDTO);
         try {
             ResultActions actions = mockMvc.perform(request);
             MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();

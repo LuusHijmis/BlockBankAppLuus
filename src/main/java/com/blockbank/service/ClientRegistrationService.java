@@ -8,8 +8,7 @@ package com.blockbank.service;
  * */
 
 
-import com.blockbank.database.domain.Account;
-import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.domain.*;
 import com.blockbank.database.repository.RootRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,14 +35,17 @@ public class ClientRegistrationService {
     }
 
     //TODO METHODE AFMAKEN UsernameValidationService.isValid
-    public boolean register(UserDetails userDetails) {
+    public boolean register(UserDTO userDTO) {
         // check isValid username en password
-        if (passwordValidationService.isValid(userDetails.getPassword())) {
+        if (passwordValidationService.isValid(userDTO.getPassword())) {
             String salt = saltGenerator.generateSalt();
-            String hashedPassword = hashservice.ultimateHash(userDetails.getPassword(), salt);
-            // userdetails bijwerken
-            userDetails.setSalt(salt);
-            userDetails.setPassword(hashedPassword);
+            String hashedPassword = hashservice.ultimateHash(userDTO.getPassword(), salt);
+            //Maak objecten voor User
+            ClientDetails clientDetails = new ClientDetails(userDTO.getFirstname(),userDTO.getPrefix(),
+                    userDTO.getLastname(),userDTO.getDateOfBirth(), userDTO.getBsn(), userDTO.getEmailAddress());
+            Address address = new Address(userDTO.getAddress(), userDTO.getHouseNumber(), userDTO.getAffix(),
+                    userDTO.getPostalCode(), userDTO.getCity(), userDTO.getCountry());
+            UserDetails userDetails = new UserDetails(userDTO.getUsername(), hashedPassword, salt, clientDetails, address);
             // userdetails opslaan
             rootrepository.saveUserDetails(userDetails);
             // account aanmaken
