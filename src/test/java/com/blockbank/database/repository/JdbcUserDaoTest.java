@@ -60,6 +60,7 @@ class JdbcUserDaoTest {
         //act
         var actual = userDaoUnderTest.save(userDetails);
         var found = userDaoUnderTest.findUserById(4);
+        System.out.println(found);
         assertThat(found).isEqualTo(actual);
     }
 

@@ -101,4 +101,24 @@ public class UserDTO {
     public String getCountry() {
         return country;
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "firstname='" + firstname + '\'' +
+                ", prefix='" + prefix + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", bsn=" + bsn +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", houseNumber=" + houseNumber +
+                ", affix='" + affix + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }
