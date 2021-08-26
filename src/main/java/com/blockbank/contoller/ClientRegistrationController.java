@@ -1,15 +1,18 @@
-/*
+
 
 package com.blockbank.contoller;
 
 
-*/
-/*@author Karish Resodikromo
- * Deze klasse behelst requesthandlers voor registreren van klanten *//*
+
+/**@author Karish Resodikromo
+ * Deze klasse behelst requesthandlers voor registreren van klanten
+ */
 
 
 
-import com.blockbank.database.domain.UserDTO;
+
+
+import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ClientRegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+
 
 
 @RestController
@@ -37,13 +40,14 @@ public class ClientRegistrationController {
 
     //TODO PostMapping checken
     @PutMapping("/register")
-    public ResponseEntity<?> register (@RequestBody UserDTO userDTO) {
-        clientregistrationservice.register(userDTO);
-        URI uri = URI.create(String.format("http://miw-team-4.nl/users/%d", userDTO.getUsername()));
-        return ResponseEntity.created(uri)
-                .body(userDTO);
+    public ResponseEntity<?> register(@RequestBody UserDetails userDetails) {
+        if (clientregistrationservice.register(userDetails)) {
+            return ResponseEntity.ok(userDetails);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
 
 
-*/
+
