@@ -35,7 +35,7 @@ public class ClientRegistrationService {
     }
 
     //TODO METHODE AFMAKEN UsernameValidationService.isValid
-    public boolean register(UserDTO userDTO) {
+    public UserDetails register(UserDTO userDTO) {
         // check isValid username en password
         if (passwordValidationService.isValid(userDTO.getPassword())) {
             String salt = saltGenerator.generateSalt();
@@ -56,9 +56,9 @@ public class ClientRegistrationService {
             newAccount.setIban(iban);
             // nieuw account opslaan
             rootrepository.saveAccount(newAccount);
-            return true;
+            return userDetails;
         } else {
-            return false;
+            return null;
         }
     }
 }

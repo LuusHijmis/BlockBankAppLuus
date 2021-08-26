@@ -49,9 +49,11 @@ public class ClientRegistrationController {
                                       @RequestParam int houseNumber, @RequestParam String affix,
                                       @RequestParam String postalCode, @RequestParam String city,
                                       @RequestParam String country) {
-        UserDTO userDTO = null;
-        if (clientregistrationservice.register(userDTO)) {
-            return ResponseEntity.ok(userDTO);
+        UserDTO userDTO = new UserDTO(firstname, prefix, lastname, dateOfBirth, bsn, emailAddress,
+                username, password, address, houseNumber, affix, postalCode, city, country);
+        UserDetails userDetails = clientregistrationservice.register(userDTO);
+        if (userDetails != null) {
+            return ResponseEntity.ok(userDetails);
         } else {
             return ResponseEntity.badRequest().build();
         }
