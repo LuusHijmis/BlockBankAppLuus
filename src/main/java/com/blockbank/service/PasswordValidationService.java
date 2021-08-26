@@ -33,7 +33,7 @@ public class PasswordValidationService {
     private static final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
     private static final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
-    protected boolean isPasswordIdentical(String password1, String password2) {
+    protected boolean passwordNotIdentical(String password1, String password2) {
         return !password1.equals(password2);
     }
 

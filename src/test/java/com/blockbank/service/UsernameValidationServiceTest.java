@@ -7,25 +7,23 @@ package com.blockbank.service;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UsernameValidationServiceTest {
 
-    UsernameValidationService usernameValidationService = new UsernameValidationService();
+    UsernameValidationService usernameService = new UsernameValidationService();
 
     @Test   //TODO: testUniqueUsername() fails because "this.rootRepository" is null (???)
     void testUniqueUsername() {
-        assertFalse(usernameValidationService.isValid("Harold"));
-        assertFalse(usernameValidationService.isValid("Hannah"));
+        assertFalse(usernameService.isValid("Harold"));
+        assertFalse(usernameService.isValid("Hannah"));
     }
 
     @ParameterizedTest(name = "#{index} - Run test with username = {0}")
     @MethodSource("validUsernameProvider")
     void testValidUsernames(String username) {
-        assertTrue(usernameValidationService.isValid(username));
+        assertTrue(usernameService.isValid(username));
         //to run this test you need to comment-off the boolean-check 'checkNotUnique(String username)'
          //in the isValid() method in UsernameValidationService.class
     }
@@ -33,7 +31,7 @@ class UsernameValidationServiceTest {
     @ParameterizedTest(name = "#{index} - Run test with username = {0}")
     @MethodSource("invalidUsernameProvider")
     void testInvalidUsernames(String username) {
-        assertFalse(usernameValidationService.isValid(username));
+        assertFalse(usernameService.isValid(username));
         //to run this test you need to comment-off the boolean-check 'checkNotUnique(String username)'
          //in the isValid() method in UsernameValidationService.class
     }
