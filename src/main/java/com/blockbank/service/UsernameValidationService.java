@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 @Service
 public class UsernameValidationService {
 
-    private RootRepository rootRepository;
-    private Logger logger = LoggerFactory.getLogger(UsernameValidationService.class);
+    private final RootRepository rootRepository;
+    private final Logger logger = LoggerFactory.getLogger(UsernameValidationService.class);
 
     private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
     private static final String ERROR_EMPTY_USERNAME = "Username can not be empty.";
@@ -31,8 +31,8 @@ public class UsernameValidationService {
             "Username allowed of the dot (.), underscore (_), and hyphen (-).\n" +
             "The dot (.), underscore (_), or hyphen (-) must not be the first or last character.\n" +
             "The dot (.), underscore (_), or hyphen (-) does not appear consecutively, e.g., java..regex\n" +
-            "The number of characters must be between 5 to 20.";
-    private static final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
+            "The number of characters must be between 5 to 20.\n";
+    private static final Pattern PATTERN = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
 
     @Autowired
     public UsernameValidationService(RootRepository rootRepository) {
@@ -71,7 +71,7 @@ public class UsernameValidationService {
     }
 
     private boolean checkSymbolsAccents(String username) {
-        Matcher matcher = usernamePattern.matcher(username);
+        Matcher matcher = PATTERN.matcher(username);
         if (matcher.find()) {
             return false;
         }

@@ -4,10 +4,7 @@ package com.blockbank.service;
  * @author hannahvd
  */
 
-import com.blockbank.database.domain.Address;
-import com.blockbank.database.domain.ClientDetails;
 import com.blockbank.database.domain.UserDetails;
-import com.blockbank.database.repository.JdbcUserDao;
 import com.blockbank.database.repository.RootRepository;
 import com.blockbank.database.repository.UserDao;
 import org.junit.jupiter.api.AfterAll;
@@ -18,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
-import java.time.LocalDate;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +37,8 @@ class UsernameValidationServiceTest {
         usernameService = null;
     }
 
-    @Test               //TODO: test verbeteren.
+    //TODO: test fixen
+    @Test
     void testUniqueUsername() {
         UserDetails exists = new UserDetails("okidokie123", "vEryg00dpassW.1", "salt");
         mockRepo.saveUserDetails(exists);
@@ -53,16 +50,12 @@ class UsernameValidationServiceTest {
     @MethodSource("validUsernameProvider")
     void testValidUsernames(String username) {
         assertTrue(usernameService.isValid(username));
-        //to run this test you need to comment-off the boolean-check 'checkNotUnique(String username)'
-         //in the isValid() method in UsernameValidationService.class
     }
 
     @ParameterizedTest(name = "#{index} - Run test with username = {0}")
     @MethodSource("invalidUsernameProvider")
     void testInvalidUsernames(String username) {
         assertFalse(usernameService.isValid(username));
-        //to run this test you need to comment-off the boolean-check 'checkNotUnique(String username)'
-         //in the isValid() method in UsernameValidationService.class
     }
 
     static Stream<String> validUsernameProvider() {

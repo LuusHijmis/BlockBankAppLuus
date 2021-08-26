@@ -6,7 +6,8 @@ package com.blockbank.service;
  * Method isValid(String password) returns true only if every requirement is met.
  */
 
-//TODO: tweede password check
+//TODO: check if input password1 matches password2
+//TODO: popular passwords check
 
 import org.springframework.stereotype.Service;
 
