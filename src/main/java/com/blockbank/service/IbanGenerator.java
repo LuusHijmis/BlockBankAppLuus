@@ -4,10 +4,19 @@ package com.blockbank.service;
  * @author Alex Shijan
  */
 
+import com.blockbank.database.repository.JdbcAccountDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import java.math.BigInteger;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Service
 public class IbanGenerator {
+
+    private final Logger logger = LoggerFactory.getLogger(IbanGenerator.class);
+
     private final String LAND_CODE = "NL";
     private final String BANK_CODE = "BLOK";
     private final int ACCOUNT_NUMBER_MAX_LENGTH = 10;
@@ -37,6 +46,7 @@ public class IbanGenerator {
         controlDigits = bigInteger.longValue();
         controlNumber = checkDigitResult(controlDigits);
         iban = construcIban(controlNumber,accountNumber);
+        logger.info("New IBAN generated.");
         return iban;
     }
 

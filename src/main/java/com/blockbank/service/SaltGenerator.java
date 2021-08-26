@@ -1,16 +1,25 @@
 package com.blockbank.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.security.SecureRandom;
 
+@Service
 public class SaltGenerator {
 
     private static final int SALT_LENGTH = 8;
     private int saltLength;
     private SecureRandom secureRNG;
 
+    private final Logger logger = LoggerFactory.getLogger(SaltGenerator.class);
+
     public SaltGenerator(int saltLength) {
         this.saltLength = saltLength;
         secureRNG = new SecureRandom();
+        logger.info("New SaltGenerator");
     }
     public SaltGenerator() {
         this(SALT_LENGTH);
