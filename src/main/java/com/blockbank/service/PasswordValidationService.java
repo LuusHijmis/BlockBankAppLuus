@@ -4,21 +4,28 @@ package com.blockbank.service;
  * @author hannahvd
  */
 
-//TODO: populaire wachtwoorden check
+//TODO: populaire wachtwoorden check via extern
 //https://stackoverflow.com/questions/46116139/password-validation-service
 //TODO: username check
+/*
+    - unique
+    - not identical to e-mail*?
+    - min. + max. characters to username?
+    - wel cijfers
+    - niet symbolen
+    - toLowerCase / niet hoofdlettergevoelig
+    - é ö ø
+ */
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class PasswordValidationService {
 
-        /*
+     /*
     @Size(min = 12, max = 24)
     @NotNull
      */
@@ -28,88 +35,50 @@ public class PasswordValidationService {
     private static final String ERROR_PASSWORD_CASE = "Password must include both upper and lowercase letters.";
     private static final String ERROR_LETTER_AND_DIGIT = "Password must contain both a letter and a digit between 0-9.";
     private static final String ERROR_SPECIAL_SYMBOL = "Password must contain a symbol: @,#$%!^*().";
+    private static final int MIN_PASSWORD_LENGTH = 12;
+    private static final int MAX_PASSWORD_LENGTH = 24;
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-    private final Pattern casePattern = Pattern.compile("[A-Z][a-z]"); //added [a-z]
+    private final Pattern casePattern = Pattern.compile("[A-Z][a-z]");
     private final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
     private final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
     private boolean isValid = true;
 
-    //isValid = true;
-        //else return listOfFailures;
-        //return false;
-    //return isValid;
-
     protected boolean isValid(String password) {
-        List<String> failures = new ArrayList<>();
-        if (checkEmpty(password, failures)) {
+        if (checkEmpty(password)) {
             return false;
         }
         if (checkLength(password)) {
-            System.out.println(ERROR_PASSWORD_LENGTH);
             return false;
         }
         if (checkCase(password)) {
-            System.out.println(ERROR_PASSWORD_CASE);
             return false;
         }
         if (checkLetterAndDigit(password)) {
-            System.out.println(ERROR_LETTER_AND_DIGIT);
             return false;
         }
         if (checkSymbol(password)) {
-            System.out.println(ERROR_SPECIAL_SYMBOL);
             return false;
         }
         return isValid;
     }
 
-    //isValid = true;
-        //else return listOfFailures;
-        //return false;
-    //return isValid;
-
-    protected boolean isValiid(String password) {
-        List<String> failures = new ArrayList<>();
-
-
-
-        /*
-        if (checkEmpty(password, failures)) {
-            return false;
+    private boolean checkEmpty(String password) {
+        isValid = false;
+        if (password == null || password.equals("")) {
+            System.out.println(EMPTY_OR_NULL_PASSWORD);
+            isValid = true;
         }
-        if (checkLength(password)) {
-            System.out.println(ERROR_PASSWORD_LENGTH);
-            return false;
-        }
-        if (checkCase(password)) {
-            System.out.println(ERROR_PASSWORD_CASE);
-            return false;
-        }
-        if (checkLetterAndDigit(password)) {
-            System.out.println(ERROR_LETTER_AND_DIGIT);
-            return false;
-        }
-        if (checkSymbol(password)) {
-            System.out.println(ERROR_SPECIAL_SYMBOL);
-            return false;
-        }
-        */
-        return isValid;
-    }
-
-
-
-    //not need to check(if)Empty because of min. length?
-    private boolean checkEmpty(String password, List<String> failures) {
-        isValid = password == null || password.equals("");
-        failures.add(EMPTY_OR_NULL_PASSWORD);
         return isValid;
     }
 
     private boolean checkLength(String password) {
-        isValid = password.length() < 12 || password.length() > 24;
+        isValid = false;
+        if (password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH) {
+            System.out.println(ERROR_PASSWORD_LENGTH);
+            isValid = true;
+        }
         return isValid;
     }
 
@@ -117,6 +86,7 @@ public class PasswordValidationService {
         isValid = false;
         Matcher matcher = casePattern.matcher(password);
         if (!matcher.find()) {
+            System.out.println(ERROR_PASSWORD_CASE);
             isValid = true;
         }
         return isValid;
@@ -126,6 +96,7 @@ public class PasswordValidationService {
         isValid = false;
         Matcher matcher = letterAndDigitPattern.matcher(password);
         if (!matcher.find()) {
+            System.out.println(ERROR_LETTER_AND_DIGIT);
             isValid = true;
         }
         return isValid;
@@ -135,8 +106,23 @@ public class PasswordValidationService {
         isValid = false;
         Matcher matcher = symbolPattern.matcher(password);
         if (!matcher.find()) {
+            System.out.println(ERROR_SPECIAL_SYMBOL);
             isValid = true;
         }
+        return isValid;
+    }
+
+    //via List
+    private boolean checkPopularPasswords(String password) {
+        isValid = false;
+
+        return isValid;
+    }
+
+    //via resource file
+    private boolean checkPopularPws(String password) {
+        isValid = false;
+
         return isValid;
     }
 }

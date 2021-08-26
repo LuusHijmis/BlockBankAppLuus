@@ -17,7 +17,7 @@ class PasswordValidationServiceTest {
 
     @Test
     void isValid() {
-        String password = "SUPERLangwACHTWo0RD!";
+        String password = "zonderuppercaSe1)";
         assert passwordService.isValid(password);
 
         //assertThat("");
