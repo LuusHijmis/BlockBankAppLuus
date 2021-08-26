@@ -5,20 +5,11 @@ package com.blockbank.service;
  */
     /*
     - not identical to e-mail ?
-    - length ?
-    - toLowerCase / niet hoofdlettergevoelig ; vanuit controller aanpassen?
-
-    - password affirmations (twee keer invoeren voor) waar wordt dat gecheckt?
+    - toLowerCase / niet hoofdlettergevoelig ; vanuit waar aanpassen?
     - password char[] = more safe than using String;
-
-    - logger vs sout?
-    - jdbc wat
     */
 
-import com.blockbank.database.repository.JdbcUserDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.blockbank.database.repository.RootRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -27,13 +18,16 @@ import java.util.regex.Pattern;
 @Service
 public class UsernameValidationService {
 
-    private JdbcTemplate jdbcTemplate;
-    private final JdbcUserDao jdbcUserDao = new JdbcUserDao(null); // ?
-    private final Logger logger = LoggerFactory.getLogger(UsernameValidationService.class);
+    private static final String ERROR_EMPTY_NULL_USERNAME = "Username can not be empty.";
+    private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
+    private final String ERROR_LENGTH_USERNAME = String.format("Username should be between " + MIN_USERNAME_LENGTH + "-" + MAX_USERNAME_LENGTH + " characters long.");
+    private static final String ERROR_SYMBOLS_AND_ACCENTS = "Username can not contain any symbols or accents.";
+    private static final int MIN_USERNAME_LENGTH = 6; //discutabel
+    private static final int MAX_USERNAME_LENGTH = 30; //discutabel
 
-    private static final int MIN_USERNAME_LENGTH = 3; //discutabel
-    private static final int MAX_USERNAME_LENGTH = 27; //discutabel
     private final Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
+    private RootRepository rootRepository;
+    // [a-zA-Z0-9.]+@){0,1}([a-zA-Z0-9.]    // check op spaties !!!
 
     protected boolean isValid(String username) {
         if (checkEmpty(username)) {
@@ -53,19 +47,23 @@ public class UsernameValidationService {
 
     private boolean checkEmpty(String username) {
         if (username == null || username.equals("")) {
-            logger.info("Username can not be empty.");
+            System.out.println(ERROR_EMPTY_NULL_USERNAME);
             return true;
         }
         return false;
     }
 
     private boolean checkNotUnique(String username) {
-        return jdbcUserDao.findByUsername(username) != null;
+        if (rootRepository.findUserByUsername(username) != null) {
+            System.out.println(ERROR_UNIQUE_USERNAME);
+            return true;
+        }
+        return false;
     }
 
     private boolean checkIncorrectLength(String username) {
         if (username.length() < MIN_USERNAME_LENGTH || username.length() > MAX_USERNAME_LENGTH) {
-            logger.info("Username should be between " + MIN_USERNAME_LENGTH + "-" + MAX_USERNAME_LENGTH + " characters long.");
+            System.out.println(ERROR_LENGTH_USERNAME);
         }
         return false;
     }
@@ -75,7 +73,7 @@ public class UsernameValidationService {
         if (matcher.find()) {
             return false;
         }
-        logger.info("Username can not contain any symbols or accents");
+        System.out.println(ERROR_SYMBOLS_AND_ACCENTS);
         return true;
     }
 }
