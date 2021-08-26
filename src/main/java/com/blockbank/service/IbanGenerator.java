@@ -19,14 +19,6 @@ public class IbanGenerator {
     private String accountNumber;
     private String controlNumber;
 
-    public String generateSimpleIban() {
-        String accountNumber = generateAccountNumber();
-        int controlNumber = ThreadLocalRandom.current().nextInt(10,
-                99 + 1);
-        String iban = String.format(LAND_CODE+controlNumber+BANK_CODE+accountNumber);
-        return iban;
-    }
-
     public String generateIban() {
         String iban;
         accountNumber = generateAccountNumber();
