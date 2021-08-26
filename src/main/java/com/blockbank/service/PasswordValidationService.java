@@ -6,6 +6,8 @@ package com.blockbank.service;
  * Method isValid(String password) returns true only if every requirement is met.
  */
 
+//TODO: tweede password check
+
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -30,6 +32,10 @@ public class PasswordValidationService {
     private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]");
     private static final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
     private static final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
+
+    protected boolean isPasswordIdentical(String password1, String password2) {
+        return !password1.equals(password2);
+    }
 
     protected boolean isValid(String password) {
         if (checkEmpty(password)) {
