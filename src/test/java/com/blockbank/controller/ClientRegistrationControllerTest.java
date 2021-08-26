@@ -56,7 +56,7 @@ public class ClientRegistrationControllerTest {
         UserDetails testUser = new UserDetails("username", "hallometmij", "salt", testClientDetails,
                 testAdress);*/
         UserDTO userDTO = new UserDTO("Dagobert", "", "Duck",
-                LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "123HPss82cmdmslZa!",
+                LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "HOOFDLETTERs.1",
                 "wasstraat", 1, "", "1111xx", "Den Haag",
                 "Nederland");
 
@@ -78,7 +78,7 @@ public class ClientRegistrationControllerTest {
         request.param("bsn" , "1");
         request.param("emailAddress" , "dd@duck.nl");
         request.param("username" , "username");
-        request.param("password" , "123HPss82cmdmslZa!");
+        request.param("password" , "HOOFDLETTERs.1");
         request.param("address" , "wasstraat");
         request.param("houseNumber" , "1");
         request.param("affix" , "");
@@ -88,8 +88,8 @@ public class ClientRegistrationControllerTest {
 
         try {
             ResultActions actions = mockMvc.perform(request);
-            MockHttpServletResponse response = actions.andDo(print()).andReturn().getResponse();
-            //MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();
+            //MockHttpServletResponse response = actions.andDo(print()).andReturn().getResponse();
+            MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();
             System.out.println(response.getContentAsString());
             assertThat(response.getContentType()).isEqualTo("application/json");
         } catch (Exception e) {

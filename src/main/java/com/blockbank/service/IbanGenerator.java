@@ -7,6 +7,7 @@ package com.blockbank.service;
 import com.blockbank.database.repository.JdbcAccountDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -27,6 +28,10 @@ public class IbanGenerator {
     private final int BIG_INT = 98;
     private String accountNumber;
     private String controlNumber;
+
+    @Autowired
+    public IbanGenerator() {
+    }
 
     public String generateIban() {
         String iban;
