@@ -22,12 +22,12 @@ import java.util.regex.Pattern;
 public class PasswordValidationService {
 
     private static final String EMPTY_OR_NULL_PASSWORD = "Password can not be empty.";
-    private final String ERROR_LENGTH = String.format("Password must be between %d and %d characters long.", MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH); //128 is a bit long? db-wise?
+    private final String ERROR_LENGTH = String.format("Password must be between %d and %d characters long.", MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
     private static final String ERROR_CASE = "Password must include both upper and lowercase letters.";
     private static final String ERROR_LETTER_AND_DIGIT = "Password must contain both a letter and a digit between 0-9.";
     private static final String ERROR_SPECIAL_SYMBOL = "Password must contain a symbol: @,#$%!^*().";
     private static final int MIN_PASSWORD_LENGTH = 12;
-    private static final int MAX_PASSWORD_LENGTH = 24;
+    private static final int MAX_PASSWORD_LENGTH = 128;
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
     private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]*");

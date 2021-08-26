@@ -48,7 +48,8 @@ class PasswordValidationServiceTest {
     static Stream<String> invalidPasswordProvider() {
         return Stream.of(
                 "aBc1.",                        //invalid length 4; length must between 12-128
-                "012345678901pPdS@!£23456789a", //invalid length 128+; length must between 12-128
+                "012345678901pPdS@!£234567sajkdhjskhgqelkhasdGGG89aasldkjaskf!£@$odiwjaskljfdaskjfdksahfdsvklhka" +
+                        "slj987324987qjkwdhslakshhJfdlkasjd", //invalid length 128+; length must between 12-128
                 "onlysmallcharacters.1",        //password must contain both upper and lower case
                 "ONLYBIGCHARACTERS.1",          //password must contain both upper and lower case
                 "012345678902",                 //password must contain a letter
