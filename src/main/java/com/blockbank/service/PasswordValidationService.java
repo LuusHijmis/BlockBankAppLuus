@@ -2,33 +2,21 @@ package com.blockbank.service;
 
 /**
  * @author hannahvd
- */
-
-//TODO: populaire wachtwoorden check via extern
-//https://stackoverflow.com/questions/46116139/password-validation-service
-//TODO: username check
-/*
-    - unique
-    - not identical to e-mail*?
-    - min. + max. characters to username?
-    - wel cijfers
-    - niet symbolen
-    - toLowerCase / niet hoofdlettergevoelig
-    - é ö ø
+ * Serviceclass that checks new passwords created by user on given requirements.
+ * Method isValid(String password) returns true only if every requirement is met.
  */
 
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class PasswordValidationService {
-
-     /*
-    @Size(min = 12, max = 24)
-    @NotNull
-     */
 
     private static final String EMPTY_OR_NULL_PASSWORD = "Password can not be empty";
     private static final String ERROR_PASSWORD_LENGTH = "Password must be between 12 and 24 characters long."; //128 is a bit long? db-wise?
@@ -43,95 +31,110 @@ public class PasswordValidationService {
     private final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
     private final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
-    private boolean isValid = true;
-
     protected boolean isValid(String password) {
         if (checkEmpty(password)) {
             return false;
         }
-        if (checkLength(password)) {
+        if (checkIncorrectLength(password)) {
             return false;
         }
-        if (checkCase(password)) {
+        if (checkNoUpperCase(password)) {
             return false;
         }
-        if (checkLetterAndDigit(password)) {
+        if (checkNoLetterAndDigit(password)) {
             return false;
         }
-        if (checkSymbol(password)) {
+        if (checkNoSymbol(password)) {
             return false;
         }
-        return isValid;
+        return true;
     }
 
     private boolean checkEmpty(String password) {
-        isValid = false;
         if (password == null || password.equals("")) {
             System.out.println(EMPTY_OR_NULL_PASSWORD);
-            isValid = true;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
-    private boolean checkLength(String password) {
-        isValid = false;
+    private boolean checkIncorrectLength(String password) {
         if (password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH) {
             System.out.println(ERROR_PASSWORD_LENGTH);
-            isValid = true;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
-    private boolean checkCase(String password) {
-        isValid = false;
+    private boolean checkNoUpperCase(String password) {
         Matcher matcher = casePattern.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_PASSWORD_CASE);
-            isValid = true;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
-    private boolean checkLetterAndDigit(String password) {
-        isValid = false;
+    private boolean checkNoLetterAndDigit(String password) {
         Matcher matcher = letterAndDigitPattern.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_LETTER_AND_DIGIT);
-            isValid = true;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
-    private boolean checkSymbol(String password) {
-        isValid = false;
+    private boolean checkNoSymbol(String password) {
         Matcher matcher = symbolPattern.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_SPECIAL_SYMBOL);
-            isValid = true;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
-    //via List
-    private boolean checkPopularPasswords(String password) {
-        isValid = false;
+    //TODO: populaire wachtwoorden check via extern
+      //drie opties:
 
-        return isValid;
+    //1. via API / extern ?
+    private boolean checkPopularPasswordsExtern(String password) {
+        return false;
     }
 
-    //via resource file
-    private boolean checkPopularPws(String password) {
-        isValid = false;
+    //2. via resource File (import/update via extern?)
+    private boolean checkPopularPasswordsFile(String password) {
+        try {
+            File passwordsFile = new File("passwordsFile.txt");
+            Scanner readPasswords = new Scanner(passwordsFile);
+            while (readPasswords.hasNextLine()) {
+                //bla
+            }
+        } catch (FileNotFoundException exception) {
+            System.out.println("An error occurred.");
+            exception.printStackTrace();
+        }
+        return false;
+    }
 
-        return isValid;
+    //3. via List (ain't the way imo)
+    private boolean checkPopularPasswordsList(String password) {
+        ArrayList<String> popularPasswords = new ArrayList<>();
+        popularPasswords.add("Welkom12345.");
+        popularPasswords.add("Welcome12345.");
+        popularPasswords.add("Wachtwoord12345.");
+        popularPasswords.add("Password12345.");
+        for (int i = 0; i < popularPasswords.size(); i++) {
+            if (popularPasswords.contains(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
-
 /*
 
-meest gebruikte wachtwoorden
-
+meest gebruikte wachtwoorden:    //these wouldn't pass anywway
 123456.
 qwerty.
 123456789.
