@@ -3,6 +3,17 @@ package com.blockbank.service;
 /**
  * @author hannahvd
  */
+    /*
+    - not identical to e-mail ?
+    - length ?
+    - toLowerCase / niet hoofdlettergevoelig ; vanuit controller aanpassen?
+
+    - password affirmations (twee keer invoeren voor) waar wordt dat gecheckt?
+    - password char[] = more safe than using String;
+
+    - logger vs sout?
+    - jdbc wat
+    */
 
 import com.blockbank.database.repository.JdbcUserDao;
 import org.slf4j.Logger;
@@ -22,17 +33,23 @@ public class UsernameValidationService {
 
     private static final int MIN_USERNAME_LENGTH = 3; //discutabel
     private static final int MAX_USERNAME_LENGTH = 27; //discutabel
-
     private final Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
 
-    /*
-    - not identical to e-mail ?
-    - length ?
-    - toLowerCase / niet hoofdlettergevoelig
-
-    - logger vs sout?
-    - jdbc wat
-    */
+    protected boolean isValid(String username) {
+        if (checkEmpty(username)) {
+            return false;
+        }
+        if (checkNotUnique(username)) {
+            return false;
+        }
+        if (checkIncorrectLength(username)) {
+            return false;
+        }
+        if (checkSymbolsAccents(username)) {
+            return false;
+        }
+        return true;
+    }
 
     private boolean checkEmpty(String username) {
         if (username == null || username.equals("")) {
