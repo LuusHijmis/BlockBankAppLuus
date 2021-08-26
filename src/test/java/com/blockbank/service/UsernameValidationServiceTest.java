@@ -4,20 +4,49 @@ package com.blockbank.service;
  * @author hannahvd
  */
 
+import com.blockbank.database.domain.Address;
+import com.blockbank.database.domain.ClientDetails;
+import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.repository.JdbcUserDao;
+import com.blockbank.database.repository.RootRepository;
+import com.blockbank.database.repository.UserDao;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
+
+import java.time.LocalDate;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UsernameValidationServiceTest {
 
-    UsernameValidationService usernameService = new UsernameValidationService();
+    private RootRepository mockRepo;
+    private UsernameValidationService usernameService;
+    private UserDao userDao;
 
-    @Test   //TODO: testUniqueUsername() fails because "this.rootRepository" is null (???)
+    @BeforeAll
+    void setup() {
+        mockRepo = Mockito.mock(RootRepository.class);
+        usernameService = new UsernameValidationService(mockRepo);
+    }
+
+    @AfterAll
+    void tearDown() {
+        mockRepo = null;
+        usernameService = null;
+    }
+
+    @Test               //TODO: test verbeteren.
     void testUniqueUsername() {
-        assertFalse(usernameService.isValid("Harold"));
-        assertFalse(usernameService.isValid("Hannah"));
+        UserDetails exists = new UserDetails("okidokie123", "vEryg00dpassW.1", "salt");
+        mockRepo.saveUserDetails(exists);
+        //assertFalse(usernameService.isValid(exists.getUsername()));
+        assertTrue(usernameService.isValid("very_unique"));
     }
 
     @ParameterizedTest(name = "#{index} - Run test with username = {0}")
