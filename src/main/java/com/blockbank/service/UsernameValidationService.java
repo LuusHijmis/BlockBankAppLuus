@@ -18,39 +18,25 @@ import java.util.regex.Pattern;
 @Service
 public class UsernameValidationService {
 
-    private static final String ERROR_EMPTY_NULL_USERNAME = "Username can not be empty.";
-    private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
-    private final String ERROR_LENGTH_USERNAME = String.format("Username should be between " + MIN_USERNAME_LENGTH + "-" + MAX_USERNAME_LENGTH + " characters long.");
-    private static final String ERROR_SYMBOLS_AND_ACCENTS = "Username can not contain any symbols or accents.";
-    private static final int MIN_USERNAME_LENGTH = 6; //discutabel
-    private static final int MAX_USERNAME_LENGTH = 30; //discutabel
-
-    private final Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
     private RootRepository rootRepository;
-    // [a-zA-Z0-9.]+@){0,1}([a-zA-Z0-9.]    // check op spaties !!!
+
+    private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
+    private static final String ERROR_USERNAME =
+            "Username consists of alphanumeric characters (a-zA-Z0-9), lowercase, or uppercase.\n" +
+            "Username allowed of the dot (.), underscore (_), and hyphen (-).\n" +
+            "The dot (.), underscore (_), or hyphen (-) must not be the first or last character.\n" +
+            "The dot (.), underscore (_), or hyphen (-) does not appear consecutively, e.g., java..regex\n" +
+            "The number of characters must be between 5 to 20.";
+    private static final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
 
     protected boolean isValid(String username) {
-        if (checkEmpty(username)) {
-            return false;
-        }
         if (checkNotUnique(username)) {
-            return false;
-        }
-        if (checkIncorrectLength(username)) {
             return false;
         }
         if (checkSymbolsAccents(username)) {
             return false;
         }
         return true;
-    }
-
-    private boolean checkEmpty(String username) {
-        if (username == null || username.equals("")) {
-            System.out.println(ERROR_EMPTY_NULL_USERNAME);
-            return true;
-        }
-        return false;
     }
 
     private boolean checkNotUnique(String username) {
@@ -61,19 +47,12 @@ public class UsernameValidationService {
         return false;
     }
 
-    private boolean checkIncorrectLength(String username) {
-        if (username.length() < MIN_USERNAME_LENGTH || username.length() > MAX_USERNAME_LENGTH) {
-            System.out.println(ERROR_LENGTH_USERNAME);
-        }
-        return false;
-    }
-
     private boolean checkSymbolsAccents(String username) {
-        Matcher matcher = pattern.matcher(username);
+        Matcher matcher = usernamePattern.matcher(username);
         if (matcher.find()) {
             return false;
         }
-        System.out.println(ERROR_SYMBOLS_AND_ACCENTS);
+        System.out.println(ERROR_USERNAME);
         return true;
     }
 }
