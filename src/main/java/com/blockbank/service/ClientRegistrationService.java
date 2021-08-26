@@ -27,6 +27,7 @@ public class ClientRegistrationService {
     public ClientRegistrationService(HashService hashservice, RootRepository rootrepository,
                                      PasswordValidationService passwordValidationService, SaltGenerator saltGenerator,
                                      IbanGenerator ibanGenerator) {
+        super();
         this.hashservice = hashservice;
         this.rootrepository = rootrepository;
         this.passwordValidationService = passwordValidationService;
@@ -35,8 +36,7 @@ public class ClientRegistrationService {
     }
 
     //TODO METHODE AFMAKEN UsernameValidationService.isValid
-    public boolean register(UserDTO userDTO) {
-        // check isValid username en password
+    public UserDetails register(UserDTO userDTO) {
         if (passwordValidationService.isValid(userDTO.getPassword())) {
             String salt = saltGenerator.generateSalt();
             String hashedPassword = hashservice.ultimateHash(userDTO.getPassword(), salt);
@@ -56,9 +56,9 @@ public class ClientRegistrationService {
             newAccount.setIban(iban);
             // nieuw account opslaan
             rootrepository.saveAccount(newAccount);
-            return true;
+            return userDetails;
         } else {
-            return false;
+            return null;
         }
     }
 }
