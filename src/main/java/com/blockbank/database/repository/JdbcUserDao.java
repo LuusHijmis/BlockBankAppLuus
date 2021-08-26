@@ -123,10 +123,10 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User udatePassword(User user) {
+    public UserDetails udatePassword(UserDetails userDetails) {
         logger.debug("UserDao called for updatePassword");
-        jdbcTemplate.update(connection -> updateUserStatement(user, connection));
-        return user;
+        jdbcTemplate.update(connection -> updateUserStatement(userDetails, connection));
+        return userDetails;
     }
 
     /*@Override
@@ -141,7 +141,7 @@ public class JdbcUserDao implements UserDao {
     }*/
 
     @Override
-    public User findUserById(int userId) {
+    public UserDetails findUserById(int userId) {
         logger.debug("UserDao called for findByUserId");
         List<UserDetails> userDetails = jdbcTemplate.query(
                 "select * from user where UserID = ?", new JdbcUserDao.UserRowMapper(), userId);

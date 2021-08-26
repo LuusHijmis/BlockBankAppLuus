@@ -1,11 +1,12 @@
 package com.blockbank.database.repository;
 
 /**
- * @author hannahvd
+ * @author hannahvd, Alex Shijan
  * <description>
  */
 
 import com.blockbank.database.domain.Account;
+import com.blockbank.database.domain.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ public class RootRepository {
     private final Logger logger = LoggerFactory.getLogger(RootRepository.class);
 
     private AccountDao accountDao;
+    private UserDao userDao;
 
     @Autowired
-    public RootRepository(AccountDao accountDao) {
+    public RootRepository(AccountDao accountDao, UserDao userDao) {
         super();
+        this.userDao = userDao;
         this.accountDao = accountDao;
         logger.info("New RootRepository");
     }
@@ -33,11 +36,15 @@ public class RootRepository {
         return accountDao.update(account);
     }
 
-    public Account findByIban(String iban) {
+    public Account findAccountByIban(String iban) {
         return accountDao.findByIban(iban);
     }
 
-    public Account findByClientId(int clientId) {
-        return accountDao.findByUserId(clientId);
+    public Account findAccountByUserId(int userId) {
+        return accountDao.findByUserId(userId);
     }
+
+    public UserDetails saveUserDetails(UserDetails userDetails) { return  userDao.save(userDetails);}
+
+    public UserDetails findUserByUserId(int userId) { return  userDao.findUserById(userId);}
 }
