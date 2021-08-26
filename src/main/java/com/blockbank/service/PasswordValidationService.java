@@ -18,18 +18,18 @@ import java.util.regex.Pattern;
 @Service
 public class PasswordValidationService {
 
-    private static final String EMPTY_OR_NULL_PASSWORD = "Password can not be empty";
-    private static final String ERROR_PASSWORD_LENGTH = "Password must be between 12 and 24 characters long."; //128 is a bit long? db-wise?
-    private static final String ERROR_PASSWORD_CASE = "Password must include both upper and lowercase letters.";
+    private static final String EMPTY_OR_NULL_PASSWORD = "Password can not be empty.";
+    private final String ERROR_LENGTH = String.format("Password must be between %d and %d characters long.", MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH); //128 is a bit long? db-wise?
+    private static final String ERROR_CASE = "Password must include both upper and lowercase letters.";
     private static final String ERROR_LETTER_AND_DIGIT = "Password must contain both a letter and a digit between 0-9.";
     private static final String ERROR_SPECIAL_SYMBOL = "Password must contain a symbol: @,#$%!^*().";
     private static final int MIN_PASSWORD_LENGTH = 12;
     private static final int MAX_PASSWORD_LENGTH = 24;
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-    private final Pattern casePattern = Pattern.compile("[A-Z][a-z]");
-    private final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
-    private final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
+    private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]");
+    private static final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
+    private static final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
     protected boolean isValid(String password) {
         if (checkEmpty(password)) {
@@ -60,7 +60,7 @@ public class PasswordValidationService {
 
     private boolean checkIncorrectLength(String password) {
         if (password.length() < MIN_PASSWORD_LENGTH || password.length() > MAX_PASSWORD_LENGTH) {
-            System.out.println(ERROR_PASSWORD_LENGTH);
+            System.out.println(ERROR_LENGTH);
             return true;
         }
         return false;
@@ -69,7 +69,7 @@ public class PasswordValidationService {
     private boolean checkNoUpperCase(String password) {
         Matcher matcher = casePattern.matcher(password);
         if (!matcher.find()) {
-            System.out.println(ERROR_PASSWORD_CASE);
+            System.out.println(ERROR_CASE);
             return true;
         }
         return false;
@@ -93,7 +93,7 @@ public class PasswordValidationService {
         return false;
     }
 
-    //TODO: populaire wachtwoorden check via extern
+    //TODO: populaire wachtwoorden check
       //drie opties:
 
     //1. via API / extern ?
@@ -104,7 +104,7 @@ public class PasswordValidationService {
     //2. via resource File (import/update via extern?)
     private boolean checkPopularPasswordsFile(String password) {
         try {
-            File passwordsFile = new File("passwordsFile.txt");
+            File passwordsFile = new File("passwordsFile.txt"); //file bestaat nog niet
             Scanner readPasswords = new Scanner(passwordsFile);
             while (readPasswords.hasNextLine()) {
                 //bla
@@ -125,23 +125,10 @@ public class PasswordValidationService {
         popularPasswords.add("Password12345.");
         for (int i = 0; i < popularPasswords.size(); i++) {
             if (popularPasswords.contains(password)) {
+                System.out.println("Commonly used password.");
                 return true;
             }
         }
         return false;
     }
 }
-
-/*
-
-meest gebruikte wachtwoorden:    //these wouldn't pass anywway
-123456.
-qwerty.
-123456789.
-welkom.
-12345.
-password.
-welkom01.
-wachtwoord.
-
- */
