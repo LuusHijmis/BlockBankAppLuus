@@ -10,6 +10,9 @@ package com.blockbank.service;
     */
 
 import com.blockbank.database.repository.RootRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -19,6 +22,7 @@ import java.util.regex.Pattern;
 public class UsernameValidationService {
 
     private RootRepository rootRepository;
+    private Logger logger = LoggerFactory.getLogger(UsernameValidationService.class);
 
     private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
     private static final String ERROR_EMPTY_USERNAME = "Username can not be empty.";
@@ -29,6 +33,13 @@ public class UsernameValidationService {
             "The dot (.), underscore (_), or hyphen (-) does not appear consecutively, e.g., java..regex\n" +
             "The number of characters must be between 5 to 20.";
     private static final Pattern usernamePattern = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
+
+    @Autowired
+    public UsernameValidationService(RootRepository rootRepository) {
+        super();
+        this.rootRepository = rootRepository;
+        logger.info("New UsernameValidationService");
+    }
 
     protected boolean isValid(String username) {
         if (checkNotUnique(username)) {
