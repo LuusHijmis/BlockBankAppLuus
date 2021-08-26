@@ -55,18 +55,19 @@ class UsernameValidationServiceTest {
 
     static Stream<String> invalidUsernameProvider() {
         return Stream.of(
-                "abc",                      // invalid length 3; length must between 5-20
-                "01234567890123456789a",    // invalid length 21; length must between 5-20
-                "_javaregex_",              // invalid start and last character
-                ".javaregex.",              // invalid start and last character
-                "-javaregex-",              // invalid start and last character
-                "javaregex#$%@123",         // invalid symbols, support dot, hyphen and underscore
-                "java..regex",              // dot cant appear consecutively
-                "java--regex",              // hyphen can't appear consecutively
-                "java__regex",              // underscore can't appear consecutively
-                "java._regex",              // dot and underscore can't appear consecutively
-                "java.-regex",              // dot and hyphen can't appear consecutively
-                " ",                        // empty
-                "");                        // empty
+                "abc",                      //invalid length 3; length must between 5-20
+                "01234567890123456789a",    //invalid length 21; length must between 5-20
+                "_javaregex_",              //invalid start and last character
+                ".javaregex.",              //invalid start and last character
+                "-javaregex-",              //invalid start and last character
+                "javaregex#$%@123",         //invalid symbols, support dot, hyphen and underscore
+                "java..regex",              //dot cant appear consecutively
+                "java--regex",              //hyphen can't appear consecutively
+                "java__regex",              //underscore can't appear consecutively
+                "java._regex",              //dot and underscore can't appear consecutively
+                "java.-regex",              //dot and hyphen can't appear consecutively
+                " ",                        //empty
+                "",                         //empty
+                null);                      //empty
     }
 }

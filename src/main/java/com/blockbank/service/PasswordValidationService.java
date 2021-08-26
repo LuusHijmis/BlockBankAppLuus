@@ -29,7 +29,7 @@ public class PasswordValidationService {
     private static final int MAX_PASSWORD_LENGTH = 24;
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-    private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]");
+    private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]*");
     private static final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
     private static final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
 

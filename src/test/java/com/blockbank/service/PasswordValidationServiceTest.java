@@ -38,8 +38,8 @@ class PasswordValidationServiceTest {
     static Stream<String> validPasswordProvider() {
         return Stream.of(
                 "12345678901aB45678@1234",
-                "HOOFDLETTERs.1",
-                "kleineletterS.1",
+                "UPPERCASECHARs.1",
+                "lowercasecharS.1",
                 " spaaaTi3ss. ",
                 "_!heLLo0ooo!_#",
                 "012345aBBa567.9");
@@ -47,9 +47,13 @@ class PasswordValidationServiceTest {
 
     static Stream<String> invalidPasswordProvider() {
         return Stream.of(
-                "aBc1.",                        //invalid length 4; length must between 12-24
-                "012345678901pPdS@!£23456789a", //invalid length 24+; length must between 12-24
-                " ",                            //empty
-                "");                            //empty
+                "aBc1.",                        //invalid length 4; length must between 12-128
+                "012345678901pPdS@!£23456789a", //invalid length 128+; length must between 12-128
+                "onlysmallcharacters.1",        //password must contain both upper and lower case
+                "ONLYBIGCHARACTERS.1",          //password must contain both upper and lower case
+                "012345678902",                 //password must contain a letter
+                "!@£$%^&*()aBa",                //password must contain a digit
+                "",                             //empty
+                null);                          //empty
     }
 }

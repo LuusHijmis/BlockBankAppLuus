@@ -21,6 +21,7 @@ public class UsernameValidationService {
     private RootRepository rootRepository;
 
     private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
+    private static final String ERROR_EMPTY_USERNAME = "Username can not be empty.";
     private static final String ERROR_USERNAME =
             "Username consists of alphanumeric characters (a-zA-Z0-9), lowercase, or uppercase.\n" +
             "Username allowed of the dot (.), underscore (_), and hyphen (-).\n" +
@@ -33,6 +34,9 @@ public class UsernameValidationService {
         if (checkNotUnique(username)) {
             return false;
         }
+        if (checkEmpty(username)) {
+            return false;
+        }
         if (checkSymbolsAccents(username)) {
             return false;
         }
@@ -42,6 +46,14 @@ public class UsernameValidationService {
     private boolean checkNotUnique(String username) {
         if (rootRepository.findUserByUsername(username) != null) {
             System.out.println(ERROR_UNIQUE_USERNAME);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkEmpty(String username) {
+        if (username == null || username.equals("")) {
+            System.out.println(ERROR_EMPTY_USERNAME);
             return true;
         }
         return false;
