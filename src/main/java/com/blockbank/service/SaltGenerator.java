@@ -10,7 +10,7 @@ import java.security.SecureRandom;
 @Service
 public class SaltGenerator {
 
-    private static final int SALT_LENGTH = 8;
+    private static final int SALT_LENGTH = 32;
     private int saltLength;
     private SecureRandom secureRNG;
 
