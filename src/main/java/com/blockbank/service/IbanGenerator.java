@@ -4,6 +4,7 @@ package com.blockbank.service;
  * @author Alex Shijan
  */
 
+import java.math.BigInteger;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IbanGenerator {
@@ -15,6 +16,8 @@ public class IbanGenerator {
     private final int CONTROL_DIGIT_MIN_VALUE = 10;
     private final int MOD_97 = 97;
     private final int BIG_INT = 98;
+    private String accountNumber;
+    private String controlNumber;
 
     public String generateSimpleIban() {
         String accountNumber = generateAccountNumber();
@@ -26,18 +29,20 @@ public class IbanGenerator {
 
     public String generateIban() {
         String iban;
-        String accountNumber = generateAccountNumber();
-        String controlNumber;
+        accountNumber = generateAccountNumber();
         String numericAccountNumber;
         String calc;
+        BigInteger bigInteger;
         long controlDigits;
 
         calc = addBankCode(accountNumber);
         calc = addCountryCode(calc);
         numericAccountNumber = convertToNumeric(calc);
         numericAccountNumber = addTwoZeroes(numericAccountNumber);
-        controlDigits = Long.parseLong(numericAccountNumber)%MOD_97;
-        controlDigits = BIG_INT - controlDigits;
+        bigInteger = new BigInteger(numericAccountNumber);
+        bigInteger = bigInteger.remainder(BigInteger.valueOf(MOD_97));
+        bigInteger = BigInteger.valueOf(BIG_INT).subtract(bigInteger);
+        controlDigits = bigInteger.longValue();
         controlNumber = checkDigitResult(controlDigits);
         iban = construcIban(controlNumber,accountNumber);
         return iban;
@@ -92,4 +97,19 @@ public class IbanGenerator {
         return numericAccountNumber.toString();
     }
 
+    public String getLAND_CODE() {
+        return LAND_CODE;
+    }
+
+    public String getBANK_CODE() {
+        return BANK_CODE;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getControlNumber() {
+        return controlNumber;
+    }
 }
