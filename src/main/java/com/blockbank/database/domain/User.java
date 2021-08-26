@@ -27,6 +27,13 @@ public abstract class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", role='" + role + '\'' +
+                '}';
+    }
 
     public int getUserID() {
         return userID;
