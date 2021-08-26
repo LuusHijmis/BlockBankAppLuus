@@ -8,9 +8,9 @@ import com.blockbank.database.domain.UserDetails;
 
 public interface UserDao {
     UserDetails save(UserDetails userDetails);
-    User udatePassword(User user);
-    //User findByUsername(String username);
-    User findUserById (int userId);
+    UserDetails udatePassword(UserDetails userDetails);
+    UserDetails findByUsername(String username);
+    UserDetails findUserById (int userId);
 
 
 

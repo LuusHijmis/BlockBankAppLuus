@@ -26,8 +26,19 @@ class IbanGeneratorTest {
     }
 
     @Test
-    public void generateIbanTest() {
+    public void generateIbanSimpleTest() {
+        String LAND_CODE = "NL";
+        String BANK_CODE = "BLOK";
+
         String iban = ibanGenerator.generateSimpleIban();
         System.out.println(iban);
+        assertThat(iban).startsWith(LAND_CODE).contains(BANK_CODE);
     }
+
+    @Test
+    public void generateIbanTest() {
+        String iban = ibanGenerator.generateIban();
+        System.out.println(iban);
+    }
+
 }
