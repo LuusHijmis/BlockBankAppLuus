@@ -18,4 +18,6 @@ class SaltGeneratorTest {
 
         assertThat(saltGenerator.generateSalt()).isBetween("0", "f");
     }
+
+
 }
