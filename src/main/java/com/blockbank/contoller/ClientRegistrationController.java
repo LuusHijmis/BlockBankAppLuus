@@ -1,5 +1,3 @@
-
-
 package com.blockbank.contoller;
 
 
@@ -40,16 +38,27 @@ public class ClientRegistrationController {
 
 
     //TODO PostMapping checken
+    @PostMapping("/registerDTO")
+    public ResponseEntity<?> registerDTO(@RequestBody UserDTO userDTO) {
+        UserDetails userDetails = clientregistrationservice.register(userDTO);
+        if (userDetails != null) {
+            return ResponseEntity.ok(userDetails);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    //TODO PostMapping checken
     @PutMapping("/register")
     public ResponseEntity<?> register(@RequestParam String firstname, @RequestParam String prefix,
-                                      @RequestParam String lastname, @RequestParam LocalDate dateOfBirth,
+                                      @RequestParam String lastname, @RequestParam String dateOfBirth,
                                       @RequestParam int bsn, @RequestParam String emailAddress,
                                       @RequestParam String username, @RequestParam String password,
                                       @RequestParam String address,
                                       @RequestParam int houseNumber, @RequestParam String affix,
                                       @RequestParam String postalCode, @RequestParam String city,
                                       @RequestParam String country) {
-        UserDTO userDTO = new UserDTO(firstname, prefix, lastname, dateOfBirth, bsn, emailAddress,
+        UserDTO userDTO = new UserDTO(firstname, prefix, lastname, LocalDate.parse(dateOfBirth), bsn, emailAddress,
                 username, password, address, houseNumber, affix, postalCode, city, country);
         UserDetails userDetails = clientregistrationservice.register(userDTO);
         if (userDetails != null) {
@@ -59,6 +68,3 @@ public class ClientRegistrationController {
         }
     }
 }
-
-
-
