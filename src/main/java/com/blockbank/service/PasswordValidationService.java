@@ -6,8 +6,9 @@ package com.blockbank.service;
  * Method isValid(String password) returns true only if every requirement is met.
  */
 
-//TODO: check if input password1 matches password2
+//TODO: check if input password1 matches password2 //done?
 //TODO: popular passwords check
+//TODO: fix regex into 1 regex to shorten method
 
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,9 @@ public class PasswordValidationService {
     private static final int MAX_PASSWORD_LENGTH = 128;
 
     //String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-    private static final Pattern casePattern = Pattern.compile("[A-Z][a-z]*");
-    private static final Pattern letterAndDigitPattern = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
-    private static final Pattern symbolPattern = Pattern.compile("(.*[@,#$%!^*().].*$)");
+    private static final Pattern CASE_PATTERN = Pattern.compile("[A-Z][a-z]*");
+    private static final Pattern LETTER_AND_DIGIT_PATTERN = Pattern.compile("(?=.*[a-z])(?=.*[0-9])");
+    private static final Pattern SYMBOL_PATTERN = Pattern.compile("(.*[@,#$%!^*().].*$)");
 
     protected boolean passwordNotIdentical(String password1, String password2) {
         return !password1.equals(password2);
@@ -74,7 +75,7 @@ public class PasswordValidationService {
     }
 
     private boolean checkNoUpperCase(String password) {
-        Matcher matcher = casePattern.matcher(password);
+        Matcher matcher = CASE_PATTERN.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_CASE);
             return true;
@@ -83,7 +84,7 @@ public class PasswordValidationService {
     }
 
     private boolean checkNoLetterAndDigit(String password) {
-        Matcher matcher = letterAndDigitPattern.matcher(password);
+        Matcher matcher = LETTER_AND_DIGIT_PATTERN.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_LETTER_AND_DIGIT);
             return true;
@@ -92,7 +93,7 @@ public class PasswordValidationService {
     }
 
     private boolean checkNoSymbol(String password) {
-        Matcher matcher = symbolPattern.matcher(password);
+        Matcher matcher = SYMBOL_PATTERN.matcher(password);
         if (!matcher.find()) {
             System.out.println(ERROR_SPECIAL_SYMBOL);
             return true;
