@@ -57,7 +57,6 @@ class UsernameValidationServiceTest {
         assertThat(usernameService).isNotNull();
     }
 
-    //TODO: test fixen
     @Test
     void testUniqueUsername() {
         assertFalse(usernameService.isValid("Harold"));
