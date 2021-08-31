@@ -4,7 +4,7 @@ package com.blockbank.service;
  * @author hannahvd
  */
 
-import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.repository.AccountDao;
 import com.blockbank.database.repository.RootRepository;
 import com.blockbank.database.repository.UserDao;
 import org.junit.jupiter.api.AfterAll;
@@ -14,35 +14,53 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.stream.Stream;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+@ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UsernameValidationServiceTest {
 
-    private RootRepository mockRepo;
+    private RootRepository rootRepository;
     private UsernameValidationService usernameService;
     private UserDao userDao;
+    private AccountDao accountDao;
+
+    @Autowired
+    public UsernameValidationServiceTest(UserDao dao) {
+        super();
+        this.userDao = dao;
+    }
 
     @BeforeAll
     void setup() {
-        mockRepo = Mockito.mock(RootRepository.class);
-        usernameService = new UsernameValidationService(mockRepo);
+        accountDao = Mockito.mock(AccountDao.class);
+        rootRepository = new RootRepository(accountDao, userDao);
+        usernameService = new UsernameValidationService(rootRepository);
     }
 
     @AfterAll
     void tearDown() {
-        mockRepo = null;
+        rootRepository = null;
         usernameService = null;
+    }
+
+    @Test
+    public void setUsernameServiceNotNull() {
+        assertThat(usernameService).isNotNull();
     }
 
     //TODO: test fixen
     @Test
     void testUniqueUsername() {
-        UserDetails exists = new UserDetails("okidokie123", "vEryg00dpassW.1", "salt");
-        mockRepo.saveUserDetails(exists);
-        //assertFalse(usernameService.isValid(exists.getUsername()));
+        assertFalse(usernameService.isValid("Harold"));
         assertTrue(usernameService.isValid("very_unique"));
     }
 
