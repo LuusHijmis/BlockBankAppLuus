@@ -1,6 +1,7 @@
 package com.blockbank.contoller;
 
 import com.blockbank.database.domain.LoginDTO;
+import com.blockbank.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ import java.net.URI;
 @RestController
 public class LoginController {
 
-    //private LoginService loginService;
+    private LoginService loginService;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 //    @Value("${jwt.secret}")
@@ -42,28 +43,29 @@ public class LoginController {
 
     @Autowired
     public LoginController(  ) {
-        //this.loginService = loginService;
+        this.loginService = loginService;
         logger.info("New LoginController");
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
-        //String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
-        //authentication
-        //if (jwtUser != null) {
+        String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
 
-        //}
+        //authentication
+        if (jwtUser != null) {
+            //bla
+        }
         //return ResponseEntity.status(HttpStatus.CREATED).body(JwtTokenGenerator.generateToken(jwtUserDto, jwtSecret));
         //
 
         //authorisation
-        //switch case per role
-        //redirect to target-page
+          //switch case per role
+            //redirect to target-page
 
 
         //else {
-        //user login rejected
-        //clear password box and inform about unaccepted user-password combination
+           //user login rejected
+           //clear password box and inform about unaccepted user-password combination
 
 
 
