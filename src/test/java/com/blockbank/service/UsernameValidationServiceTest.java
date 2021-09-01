@@ -6,6 +6,7 @@ package com.blockbank.service;
 
 import com.blockbank.database.repository.AccountDao;
 import com.blockbank.database.repository.RootRepository;
+import com.blockbank.database.repository.TransactionDao;
 import com.blockbank.database.repository.UserDao;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,6 +33,7 @@ class UsernameValidationServiceTest {
     private UsernameValidationService usernameService;
     private UserDao userDao;
     private AccountDao accountDao;
+    private TransactionDao transactionDao;
 
     @Autowired
     public UsernameValidationServiceTest(UserDao dao) {
@@ -42,7 +44,7 @@ class UsernameValidationServiceTest {
     @BeforeAll
     void setup() {
         accountDao = Mockito.mock(AccountDao.class);
-        rootRepository = new RootRepository(accountDao, userDao);
+        rootRepository = new RootRepository(accountDao, userDao,transactionDao);
         usernameService = new UsernameValidationService(rootRepository);
     }
 
