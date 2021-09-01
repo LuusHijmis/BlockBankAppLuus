@@ -22,22 +22,25 @@ public class ClientRegistrationService {
     private PasswordValidationService passwordValidationService;
     private SaltGenerator saltGenerator;
     private IbanGenerator ibanGenerator;
+    private UsernameValidationService usernameValidationService;
 
     @Autowired
     public ClientRegistrationService(HashService hashservice, RootRepository rootrepository,
                                      PasswordValidationService passwordValidationService, SaltGenerator saltGenerator,
-                                     IbanGenerator ibanGenerator) {
+                                     IbanGenerator ibanGenerator, UsernameValidationService usernameValidationService) {
         super();
         this.hashservice = hashservice;
         this.rootrepository = rootrepository;
         this.passwordValidationService = passwordValidationService;
         this.saltGenerator = saltGenerator;
         this.ibanGenerator = ibanGenerator;
+        this.usernameValidationService = usernameValidationService;
     }
 
-    //TODO METHODE AFMAKEN UsernameValidationService.isValid
+    //TODO METHODE AFMAKEN met return
     public UserDetails register(UserDTO userDTO) {
-        if (passwordValidationService.isValid(userDTO.getPassword())) {
+        if (passwordValidationService.isValid(userDTO.getPassword())
+                && usernameValidationService.isValid(userDTO.getUsername())) {
             String salt = saltGenerator.generateSalt();
             String hashedPassword = hashservice.ultimateHash(userDTO.getPassword(), salt);
             //Maak objecten voor User
