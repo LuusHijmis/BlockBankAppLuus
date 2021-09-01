@@ -29,19 +29,17 @@ public class LoginValidationService {
 
     public boolean validate(String username, String password) {
         UserDetails userDetails = null;
-        try {
-            userDetails = rootRepository.findUserByUsername(username);
-        } catch (Exception sqlException) {
-            //TODO goed afhandelen foutmelding.
-            sqlException.printStackTrace();
-        }
-        String hashedPassword = hashService.ultimateHash(password, userDetails.getSalt());
-        if (userDetails.getUsername().equals(username) && userDetails.getPassword().equals(hashedPassword)) {
-            return true;
+        userDetails = rootRepository.findUserByUsername(username);
+        if (userDetails != null) {
+            String hashedPassword = hashService.ultimateHash(password, userDetails.getSalt());
+            if (userDetails.getUsername().equals(username) && userDetails.getPassword().equals(hashedPassword)) {
+                 return true;
+            } else {
+                 return false;
+            }
         } else {
             return false;
         }
     }
-
     //TODO token validation
 }
