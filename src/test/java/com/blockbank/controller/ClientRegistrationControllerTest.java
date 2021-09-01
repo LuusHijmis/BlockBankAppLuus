@@ -47,53 +47,53 @@ public class ClientRegistrationControllerTest {
     }
 
     //TODO TEST
-    @Test
-    public void registerTest() {
-/*        ClientDetails testClientDetails = new ClientDetails("Dagobert", "", "Duck",
-                dateOfBirth, 1, "dd@duck.nl");
-        Address testAdress = new Address("wasstraat", 1, "", "1111xx", "Den Haag",
-                "Nederland");
-        UserDetails testUser = new UserDetails("username", "hallometmij", "salt", testClientDetails,
-                testAdress);*/
-        UserDTO userDTO = new UserDTO("Dagobert", "", "Duck",
-                LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "HOOFDLETTERs.1",
-                "wasstraat", 1, "", "1111xx", "Den Haag",
-                "Nederland");
-
-        Address address = new Address(userDTO.getAddress(), userDTO.getHouseNumber(), userDTO.getAffix(),
-                userDTO.getPostalCode(), userDTO.getCity(), userDTO.getCountry());
-        ClientDetails clientDetails = new ClientDetails(userDTO.getFirstname(), userDTO.getPrefix(),
-                userDTO.getLastname(), userDTO.getDateOfBirth(), userDTO.getBsn(), userDTO.getEmailAddress());
-        UserDetails userDetails = new UserDetails(userDTO.getUsername(),userDTO.getPassword(), "12345",
-                clientDetails, address);
-
-
-        Mockito.when(clientRegistrationService.register(userDTO)).thenReturn(userDetails);
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/register");
-//        request.equals(userDTO);
-        request.param("firstname" , "Dagobert");
-        request.param("prefix" , "");
-        request.param("lastname" , "Duck");
-        request.param("dateOfBirth" , "1990-10-10");
-        request.param("bsn" , "1");
-        request.param("emailAddress" , "dd@duck.nl");
-        request.param("username" , "username");
-        request.param("password" , "HOOFDLETTERs.1");
-        request.param("address" , "wasstraat");
-        request.param("houseNumber" , "1");
-        request.param("affix" , "");
-        request.param("postalCode" , "1111xx");
-        request.param("city" , "Den Haag");
-        request.param("country" , "Nederland");
-
-        try {
-            ResultActions actions = mockMvc.perform(request);
-            //MockHttpServletResponse response = actions.andDo(print()).andReturn().getResponse();
-            MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();
-            System.out.println(response.getContentAsString());
-            assertThat(response.getContentType()).isEqualTo("application/json");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+   // @Test
+//    public void registerTest() {
+///*        ClientDetails testClientDetails = new ClientDetails("Dagobert", "", "Duck",
+//                dateOfBirth, 1, "dd@duck.nl");
+//        Address testAdress = new Address("wasstraat", 1, "", "1111xx", "Den Haag",
+//                "Nederland");
+//        UserDetails testUser = new UserDetails("username", "hallometmij", "salt", testClientDetails,
+//                testAdress);*/
+//        UserDTO userDTO = new UserDTO("Dagobert", "", "Duck",
+//                LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "HOOFDLETTERs.1",
+//                "wasstraat", 1, "", "1111xx", "Den Haag",
+//                "Nederland");
+//
+//        Address address = new Address(userDTO.getAddress(), userDTO.getHouseNumber(), userDTO.getAffix(),
+//                userDTO.getPostalCode(), userDTO.getCity(), userDTO.getCountry());
+//        ClientDetails clientDetails = new ClientDetails(userDTO.getFirstname(), userDTO.getPrefix(),
+//                userDTO.getLastname(), userDTO.getDateOfBirth(), userDTO.getBsn(), userDTO.getEmailAddress());
+//        UserDetails userDetails = new UserDetails(userDTO.getUsername(),userDTO.getPassword(), "12345",
+//                clientDetails, address);
+//
+//
+//        Mockito.when(clientRegistrationService.register(userDTO)).thenReturn(userDetails);
+//        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put("/register");
+////        request.equals(userDTO);
+//        request.param("firstname" , "Dagobert");
+//        request.param("prefix" , "");
+//        request.param("lastname" , "Duck");
+//        request.param("dateOfBirth" , "1990-10-10");
+//        request.param("bsn" , "1");
+//        request.param("emailAddress" , "dd@duck.nl");
+//        request.param("username" , "username");
+//        request.param("password" , "HOOFDLETTERs.1");
+//        request.param("address" , "wasstraat");
+//        request.param("houseNumber" , "1");
+//        request.param("affix" , "");
+//        request.param("postalCode" , "1111xx");
+//        request.param("city" , "Den Haag");
+//        request.param("country" , "Nederland");
+//
+//        try {
+//            ResultActions actions = mockMvc.perform(request);
+//            //MockHttpServletResponse response = actions.andDo(print()).andReturn().getResponse();
+//            MockHttpServletResponse response = actions.andExpect(status().isOk()).andDo(print()).andReturn().getResponse();
+//            System.out.println(response.getContentAsString());
+//            assertThat(response.getContentType()).isEqualTo("application/json");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
