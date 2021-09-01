@@ -48,13 +48,13 @@ CREATE TABLE `Asset`
     `assetId`      INT          NOT NULL,
     `symbol`       VARCHAR(10)  NOT NULL,
     `name`         VARCHAR(45)  NOT NULL,
-    `discription`  VARCHAR(200) NOT NULL,
-    `exchangeRate` DOUBLE       NOT NULL,
+    `discription`  VARCHAR(3000) NOT NULL,
+    `exchangeRate` DOUBLE       NULL,
     PRIMARY KEY (`assetId`)
     --ENGINE = InnoDB;
 );
 
-CREATE TABLE `blockBank`.`Transaction`
+CREATE TABLE `Transaction`
 (
     `transactionID`           INT        NOT NULL AUTO_INCREMENT,
     `UserID`                  INT        NOT NULL,

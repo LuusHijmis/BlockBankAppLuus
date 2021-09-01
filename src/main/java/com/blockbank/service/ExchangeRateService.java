@@ -18,20 +18,20 @@ import org.apache.http.util.EntityUtils;
 
 
 
-public class exchangeRateService {
+public class ExchangeRateService {
 
 
 
     private static String apiKey = "37df24be-be71-4ebf-addb-b5a5c0e908ce";
 
 
-    public static void main(String[] args) {
+    public static void getExchangeRate(String assetID) {
         String URI = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
         List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
         //paratmers.add(new BasicNameValuePair("start","1"));
         //paratmers.add(new BasicNameValuePair("limit","100"));
         //paratmers.add(new BasicNameValuePair("convert","EUR"));
-        paratmers.add(new BasicNameValuePair("id","1"));
+        paratmers.add(new BasicNameValuePair("id",assetID));
         paratmers.add(new BasicNameValuePair("aux", "platform"));
 
         try {
