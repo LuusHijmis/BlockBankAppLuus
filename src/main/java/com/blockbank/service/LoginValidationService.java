@@ -33,13 +33,12 @@ public class LoginValidationService {
         if (userDetails != null) {
             String hashedPassword = hashService.ultimateHash(password, userDetails.getSalt());
             if (userDetails.getUsername().equals(username) && userDetails.getPassword().equals(hashedPassword)) {
-                 return true;
+                return true;
             } else {
-                 return false;
+                return false;
             }
         } else {
             return false;
         }
     }
-    //TODO token validation
 }
