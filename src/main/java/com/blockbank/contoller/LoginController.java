@@ -37,8 +37,8 @@ public class LoginController {
     //private LoginService loginService;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+//    @Value("${jwt.secret}")
+//    private String jwtSecret;
 
     @Autowired
     public LoginController(  ) {
