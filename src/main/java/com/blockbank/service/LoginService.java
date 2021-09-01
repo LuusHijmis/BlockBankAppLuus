@@ -15,22 +15,23 @@ public class LoginService {
     private final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
     private LoginValidationService loginValidationService;
+    private TokenService tokenService;
 
     @Autowired
-    public LoginService(LoginValidationService loginValidationService) {
+    public LoginService(LoginValidationService loginValidationService, TokenService tokenService) {
         super();
         this.loginValidationService = loginValidationService;
+        this.tokenService = tokenService;
         logger.info("New LoginService");
     }
 
     //TODO IMPLEMENT a loginDTO
 
-    // Does this return the authentication token?
     public String login(String username, String password) {
         String token = null;
         if(loginValidationService.validate(username, password)) {
             // Roept TokenService aan een maakt een token.
-
+            token = tokenService.issueToken(username);
             // Redirect naar de juist pagina. -> bewerken van fronte-end.
             return token;
         } else {
