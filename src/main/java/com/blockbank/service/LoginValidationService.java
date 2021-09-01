@@ -6,11 +6,15 @@ package com.blockbank.service;
 
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.database.repository.RootRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginValidationService {
+
+    private final Logger logger = LoggerFactory.getLogger(LoginValidationService.class);
 
     private RootRepository rootRepository;
     private HashService hashService;
@@ -20,6 +24,7 @@ public class LoginValidationService {
         super();
         this.rootRepository = rootRepository;
         this.hashService = hashService;
+        logger.info("New LoginValidationService");
     }
 
     public boolean validate(String username, String password) {
@@ -37,4 +42,6 @@ public class LoginValidationService {
             return false;
         }
     }
+
+    //TODO token validation
 }
