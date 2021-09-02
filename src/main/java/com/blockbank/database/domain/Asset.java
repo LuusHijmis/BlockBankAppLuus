@@ -55,4 +55,15 @@ public class Asset {
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "assetID='" + assetID + '\'' +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", description='" + description + '\'' +
+                ", exchangeRate=" + exchangeRate + '\n'+
+                '}';
+    }
 }

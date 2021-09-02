@@ -1,5 +1,6 @@
 package com.blockbank.database.repository;
 
+import com.blockbank.database.domain.Asset;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,4 +30,10 @@ class JdbcAssetDaoTest {
     public void assetDaoNotNull() {
         assertThat(assetDaoUnderTest).isNotNull();
     }
+
+    @Test
+    public void showAllAssets(){
+        System.out.println(assetDaoUnderTest.showAllAssets());
+    }
+
 }

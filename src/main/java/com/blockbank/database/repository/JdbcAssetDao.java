@@ -43,7 +43,8 @@ import java.util.List;
     }
 
     @Override
-    public Asset updateAssets(Asset asset) {
+    public Asset updateAssets(String assetID, double exchangeRate) {
+        Asset asset = new Asset()
         logger.debug("AssetDao called for updateAssets");
         jdbcTemplate.update(connection -> updateAssetStatement(asset, connection));
         return asset;
@@ -58,7 +59,7 @@ import java.util.List;
     public List<Asset> showAllAssets() {
         logger.debug("assetDao called for showAllAssets");
         List<Asset> assets = jdbcTemplate.query(
-                "select * from user;", new JdbcAssetDao.AssetRowMapper());
+                "select * from asset;", new JdbcAssetDao.AssetRowMapper());
         return assets;
     }
 
