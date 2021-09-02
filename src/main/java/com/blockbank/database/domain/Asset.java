@@ -2,13 +2,13 @@ package com.blockbank.database.domain;
 
 public class Asset {
 
-    private int assetID;
+    private String assetID;
     private String name;
     private String symbol;
     private String description;
     private double exchangeRate;
 
-    public Asset(int assetID, String name, String symbol, String description, double exchangeRate) {
+    public Asset(String assetID, String name, String symbol, String description, double exchangeRate) {
         this.assetID = assetID;
         this.name = name;
         this.symbol = symbol;
@@ -16,11 +16,11 @@ public class Asset {
         this.exchangeRate = exchangeRate;
     }
 
-    public int getAssetID() {
+    public String getAssetID() {
         return assetID;
     }
 
-    public void setAssetID(int assetID) {
+    public void setAssetID(String assetID) {
         this.assetID = assetID;
     }
 

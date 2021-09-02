@@ -47,7 +47,7 @@ public class JdbcTransactionDao implements TransactionDao {
         ps.setDouble(5, transaction.getExchangeRate());
         ps.setDouble(6, transaction.getTransactionRate());
         ps.setInt(7, transaction.getUserDetails().getUserID());
-        ps.setInt(8, transaction.getAsset().getAssetID());
+        ps.setString(8, transaction.getAsset().getAssetID());
         return ps;
     }
 
