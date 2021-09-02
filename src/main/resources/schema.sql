@@ -65,7 +65,7 @@ CREATE TABLE `Transaction`
     `transactionFee`          DOUBLE     NOT NULL,
     `opposingUserID`          INT        NOT NULL,
     `assetId`                 INT        NOT NULL,
-    PRIMARY KEY (`transactionID`),
+    PRIMARY KEY (`transactionID`)
     --INDEX `fk_User_has_Asset_User1_idx` (`UserID` ASC) VISIBLE,
     --INDEX `fk_Transaction_User1_idx` (`opposingUserID` ASC) VISIBLE,
     --INDEX `fk_Transaction_Asset1_idx` (`assetId` ASC) VISIBLE,
