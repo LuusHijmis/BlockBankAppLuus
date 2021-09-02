@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RootRepository {
 
@@ -57,9 +59,9 @@ public class RootRepository {
         return transactionDao.save(transaction);}
 
     //TODO aanroep findByUserID fixen!
-//    public Transaction findByUserID(Transaction transaction) {
-//        return transactionDao.findByUserId();
-//    }
+    public List<Transaction> findTransactionByUserID(int userID) {
+        return transactionDao.findTransactionByUserId(userID);
+    }
     //
     //TODO aanroep deleteTransaction fixen!
 //    public Transaction deleteTransaction(Transaction transaction) {
