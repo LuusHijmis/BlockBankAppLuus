@@ -43,6 +43,49 @@ CREATE TABLE `Portfolio` (
     --REFERENCES `blockBank`.`User` (`UserID`)
     );
 
+CREATE TABLE `Asset`
+(
+    `assetId`      INT          NOT NULL,
+    `symbol`       VARCHAR(10)  NOT NULL,
+    `name`         VARCHAR(45)  NOT NULL,
+    `discription`  VARCHAR(3000) NOT NULL,
+    `exchangeRate` DOUBLE       NULL,
+    PRIMARY KEY (`assetId`)
+    --ENGINE = InnoDB;
+);
+
+CREATE TABLE `Transaction`
+(
+    `transactionID`           INT        NOT NULL AUTO_INCREMENT,
+    `UserID`                  INT        NOT NULL,
+    `transactionDateTime`     DATETIME   NOT NULL,
+    `transactionSort`         VARCHAR(4) NOT NULL,
+    `amountAssets`            DOUBLE     NOT NULL,
+    `exchangeRateTransaction` DOUBLE     NOT NULL,
+    `transactionFee`          DOUBLE     NOT NULL,
+    `opposingUserID`          INT        NOT NULL,
+    `assetId`                 INT        NOT NULL,
+    PRIMARY KEY (`transactionID`),
+    --INDEX `fk_User_has_Asset_User1_idx` (`UserID` ASC) VISIBLE,
+    --INDEX `fk_Transaction_User1_idx` (`opposingUserID` ASC) VISIBLE,
+    --INDEX `fk_Transaction_Asset1_idx` (`assetId` ASC) VISIBLE,
+    --CONSTRAINT `fk_User_has_Asset_User1`
+    --FOREIGN KEY (`UserID`)
+    --REFERENCES `blockBank`.`User` (`UserID`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION,
+    --CONSTRAINT `fk_Transaction_User1`
+    --FOREIGN KEY (`opposingUserID`)
+    --REFERENCES `blockBank`.`User` (`UserID`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION,
+    --CONSTRAINT `fk_Transaction_Asset1`
+    --FOREIGN KEY (`assetId`)
+    --REFERENCES `blockBank`.`Asset` (`assetId`)
+    --ON DELETE NO ACTION
+    --ON UPDATE NO ACTION)
+    --ENGINE = InnoDB;
+);
 
 
 

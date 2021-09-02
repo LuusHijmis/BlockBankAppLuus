@@ -6,6 +6,7 @@ package com.blockbank.database.repository;
  */
 
 import com.blockbank.database.domain.Account;
+import com.blockbank.database.domain.Transaction;
 import com.blockbank.database.domain.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,14 @@ public class RootRepository {
 
     private AccountDao accountDao;
     private UserDao userDao;
+    private TransactionDao transactionDao;
 
     @Autowired
-    public RootRepository(AccountDao accountDao, UserDao userDao) {
+    public RootRepository(AccountDao accountDao, UserDao userDao, TransactionDao transactionDao) {
         super();
         this.userDao = userDao;
         this.accountDao = accountDao;
+        this.transactionDao= transactionDao;
         logger.info("New RootRepository");
     }
 
@@ -49,4 +52,17 @@ public class RootRepository {
     public UserDetails findUserByUserId(int userId) { return  userDao.findUserById(userId);}
 
     public UserDetails  findUserByUsername(String username) { return  userDao.findByUsername(username);}
+
+    public Transaction saveTransaction(Transaction transaction) {
+        return transactionDao.save(transaction);}
+
+    //TODO aanroep findByUserID fixen!
+//    public Transaction findByUserID(Transaction transaction) {
+//        return transactionDao.findByUserId();
+//    }
+    //
+    //TODO aanroep deleteTransaction fixen!
+//    public Transaction deleteTransaction(Transaction transaction) {
+//        return transactionDao.delete(Transaction transaction);
+////    }
 }
