@@ -7,15 +7,10 @@ package com.blockbank.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.blockbank.database.domain.Address;
-import com.blockbank.database.domain.ClientDetails;
-import com.blockbank.database.domain.UserDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.time.LocalDate;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -34,6 +29,8 @@ class TokenServiceTest {
 
         Map<String, Claim> actualClaims = decodedJWT.getClaims();
         String expected = "{iss=\"Blockbank\", role=\"client\", username=\"Harold\"}";
+       /* String expected = String.format("{role=\"client\", iss=\"Blockbank\", exp=%d, iat=%d, username=\"Harold\"}",
+                tokenService.getExp().getTime(), tokenService.getIat().getTime());*/
 
         assertThat(actualClaims.toString()).isEqualTo(expected);
     }
@@ -41,7 +38,6 @@ class TokenServiceTest {
     @Test
     void verifyTokenTest() {
         String token = tokenService.issueToken("Harold");
-
         assertThat(tokenService.verifyToken(token)).isEqualTo(true);
     }
 }

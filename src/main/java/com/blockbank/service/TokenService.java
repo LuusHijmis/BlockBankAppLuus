@@ -5,7 +5,6 @@ package com.blockbank.service;
  */
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -45,16 +44,19 @@ public class TokenService {
     public String issueToken(String username) {
         String token = null;
         iat = new Date(System.currentTimeMillis());
-        exp = new Date(iat.getTime() + expiremilis);
+        exp = new Date(iat.getTime()+expiremilis);
         UserDetails user = rootRepository.findUserByUsername(username);
 
         Map<String, Object> payload = new HashMap();
         payload.put("username", user.getUsername());
         payload.put("role", user.getRole());
-
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
-            token = JWT.create().withIssuer(BANK_NAME).withIssuedAt(iat).withExpiresAt(exp).withPayload(payload).sign(algorithm);
+            token = JWT.create().withIssuer(BANK_NAME)
+                    .withPayload(payload)
+                    //.withIssuedAt(iat)
+                    //.withExpiresAt(exp)
+                    .sign(algorithm);
             logger.info("Token Issued");
         } catch (JWTCreationException exception){
             System.out.println(exception.getMessage());
@@ -73,5 +75,13 @@ public class TokenService {
             return false;
         }
         return true;
+    }
+
+    public Date getIat() {
+        return iat;
+    }
+
+    public Date getExp() {
+        return exp;
     }
 }
