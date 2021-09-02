@@ -19,13 +19,13 @@ import java.net.URI;
 
 //notities:
 
-//Na een eerste authenticatie met gebruikersnaam of wachtwoord geeft de server een token terug
-//die vervolgens gebruikt wordt als credential.
-//...kun je token veilig(er) automatisch aan een request toevoegen zonder dat een gebruiker
-//zich voor elke request handmatig dient te authenticeren.
-//Je moet zowel gebruikersnaam-wachtwoord-combinatie alswel een gegenereerd token kunnen authenticeren.
-//Je hebt dan een aparte login methode nodig, die een token teruggeeft. En de authenticate() methode
-//moet nu een token gaan verwerken in plaats van een gebruikersnaam een wachtwoord.
+    //Na een eerste authenticatie met gebruikersnaam of wachtwoord geeft de server een token terug
+      //die vervolgens gebruikt wordt als credential.
+    //...kun je token veilig(er) automatisch aan een request toevoegen zonder dat een gebruiker
+      //zich voor elke request handmatig dient te authenticeren.
+    //Je moet zowel gebruikersnaam-wachtwoord-combinatie alswel een gegenereerd token kunnen authenticeren.
+      //Je hebt dan een aparte login methode nodig, die een token teruggeeft. En de authenticate() methode
+      //moet nu een token gaan verwerken in plaats van een gebruikersnaam een wachtwoord.
     /*
     To keep them secure, you should always store JWTs inside an httpOnly cookie. This is a special kind
       of cookie that’s only sent in HTTP requests to the server. It’s never accessible (both for reading
@@ -66,7 +66,6 @@ public class LoginController {
         //else {
            //user login rejected
            //clear password box and inform about unaccepted user-password combination
-
 
 
         //URI location = URI.create(String.format("http://"));
