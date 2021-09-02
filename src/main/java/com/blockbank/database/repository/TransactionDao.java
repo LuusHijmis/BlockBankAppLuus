@@ -8,5 +8,5 @@ public interface TransactionDao {
 
     Transaction save (Transaction transaction);
     Transaction delete(Transaction transaction);
-    List<Transaction> findByUserId(int transactionID);
+    List<Transaction> findTransactionByUserId(int userID);
 }

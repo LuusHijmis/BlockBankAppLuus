@@ -34,8 +34,8 @@ public class Transaction {
     public String toString() {
 
         return "Transaction{" +
-                "opposingUserID=" + opposingUserDetails +
-                ", asset=" + asset +
+                "opposingUserID=" + userDetails.getUsername() +
+                ", asset=" + asset.getName() + asset.getExchangeRate() +
                 ", transactionDescription='" + transactionDescription + '\'' +
                 ", assetAmount=" + assetAmount +
                 '}';
