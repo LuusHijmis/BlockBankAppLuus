@@ -42,7 +42,7 @@ public class LoginController {
 //    private String jwtSecret;
 
     @Autowired
-    public LoginController(  ) {
+    public LoginController(LoginService loginService) {
         this.loginService = loginService;
         logger.info("New LoginController");
     }
