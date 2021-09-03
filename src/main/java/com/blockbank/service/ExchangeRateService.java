@@ -61,86 +61,14 @@ public class ExchangeRateService {
             System.out.println(response.getStatusLine());
             HttpEntity entity = response.getEntity();
             response_content = EntityUtils.toString(entity);
-
-
-            EntityUtils.consume(entity);
+          EntityUtils.consume(entity);
         } finally {
             response.close();
         }
-
-
-
         List<String> myList = Arrays.asList(response_content.split(","));
         List<String> pricelist = Arrays.asList(myList.get(12).split(":"));
         double price = Double.parseDouble(pricelist.get(3));
-
-
-
         return price;
-
-
-
-
     }
-    /*public static void getExchangeRate(String assetID, String currency) {
-        currency = CURRENCY;
-        List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
-        paratmers.add(new BasicNameValuePair("convert", currency));
-        paratmers.add(new BasicNameValuePair("id", assetID));
-        paratmers.add(new BasicNameValuePair("aux", "platform"));
-
-        try {
-            double result = makeAPICall(URI, paratmers);
-            System.out.println(result);
-        } catch (IOException e) {
-            System.out.println("Error: cannont access content - " + e.toString());
-        } catch (URISyntaxException e) {
-            System.out.println("Error: Invalid URL " + e.toString());
-        }
-    }
-
-    public static double makeAPICall(String uri, List<NameValuePair> parameters)
-            throws URISyntaxException, IOException{
-        String response_content = "";
-
-        URIBuilder query = new URIBuilder(uri);
-        query.addParameters(parameters);
-
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet(query.build());
-
-        request.setHeader(HttpHeaders.ACCEPT, "application/json");
-        request.addHeader("X-CMC_PRO_API_KEY", apiKey);
-
-        CloseableHttpResponse response = client.execute(request);
-
-        try {
-            System.out.println(response.getStatusLine());
-            HttpEntity entity = response.getEntity();
-            response_content = EntityUtils.toString(entity);
-
-
-            EntityUtils.consume(entity);
-        } finally {
-            response.close();
-        }
-
-
-
-        List<String> myList = Arrays.asList(response_content.split(","));
-        List<String> pricelist = Arrays.asList(myList.get(12).split(":"));
-        double price = Double.parseDouble(pricelist.get(3));
-
-
-
-        return price;
-
-
-
-
-    }
-*/
-
-
 }
 

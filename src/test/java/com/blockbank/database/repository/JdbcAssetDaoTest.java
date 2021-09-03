@@ -36,4 +36,5 @@ class JdbcAssetDaoTest {
         System.out.println(assetDaoUnderTest.showAllAssets());
     }
 
+
 }

@@ -2,21 +2,24 @@ package com.blockbank.service;
 
 import com.blockbank.database.domain.Asset;
 import com.blockbank.database.repository.JdbcAssetDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public class ExchangeRateUpdateService {
 
-private JdbcAssetDao jdbcAssetDao;
-private ExchangeRateService exchangeRateService;
+JdbcAssetDao jdbcAssetDao;
+ExchangeRateService exchangeRateService;
 
 
     public void updatedAssetList(List<Asset> assets){
-    assets = jdbcAssetDao.showAllAssets();
+    //assets = jdbcAssetDao.showAllAssets();
+
         for (Asset asset : assets) {
-                String assetid = asset.getAssetID();
-                double koers = exchangeRateService.getExchangeRate(assetid,"USD");
-                jdbcAssetDao.updateAssets(assetid,koers);
+                asset.setExchangeRate(exchangeRateService.getExchangeRate(asset.getAssetID(),"USD"));
+            System.out.println(assets);
+            jdbcAssetDao.updateAssets(asset); //deze gaat nog fout
             }
     }
 

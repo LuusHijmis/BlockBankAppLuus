@@ -2,6 +2,7 @@ package com.blockbank.database.repository;
 
 import com.blockbank.database.domain.Asset;
 
+import com.blockbank.database.domain.User;
 import com.blockbank.service.ExchangeRateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +43,11 @@ import java.util.List;
         return ps;
     }
 
+
+
     @Override
-    public Asset updateAssets(String assetID, double exchangeRate) {
-        Asset asset = new Asset()
+    public Asset updateAssets(Asset asset) {
+
         logger.debug("AssetDao called for updateAssets");
         jdbcTemplate.update(connection -> updateAssetStatement(asset, connection));
         return asset;

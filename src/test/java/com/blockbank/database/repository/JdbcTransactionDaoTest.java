@@ -36,7 +36,7 @@ class JdbcTransactionDaoTest {
 
     @Test
     void save() {
-        Asset bitcoin =  new Asset(1,"Bitcoin", "BIT","BITCOIN",1.00);
+        Asset bitcoin =  new Asset("1","Bitcoin", "BTC","BITCOIN",1.00);
         double exchangeRateBit = 48000.00;
 
         ClientDetails clientDetails = new ClientDetails("Harold", "","Stevens",

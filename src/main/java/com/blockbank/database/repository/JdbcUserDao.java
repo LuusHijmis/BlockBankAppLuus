@@ -123,7 +123,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public UserDetails udatePassword(UserDetails userDetails) {
+    public UserDetails updatePassword(UserDetails userDetails) {
         logger.debug("UserDao called for updatePassword");
         jdbcTemplate.update(connection -> updateUserStatement(userDetails, connection));
         return userDetails;
