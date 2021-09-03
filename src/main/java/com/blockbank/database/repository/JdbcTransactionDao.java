@@ -49,7 +49,7 @@ public class JdbcTransactionDao implements TransactionDao {
         ps.setDouble(5, transaction.getExchangeRate());
         ps.setDouble(6, transaction.getTransactionRate());
         ps.setInt(7, transaction.getUserDetails().getUserID());
-        ps.setInt(8, transaction.getAsset().getAssetID());
+        ps.setString(8, transaction.getAsset().getAssetID());
         return ps;
     }
 
@@ -97,7 +97,7 @@ public class JdbcTransactionDao implements TransactionDao {
             UserDetails oposingUserDetails = rootRepository.findUserByUserId(opposingUserID);
 
 //            TODO findAssetByID moet nog gemaakt worden!
-            Asset asset = new Asset(1,"Bitcoin","BIT","BLABLA",1.00);
+            Asset asset = new Asset("1","Bitcoin","BTC","BLABLA",1.00);
             tempResult = new Transaction(userDetails, oposingUserDetails, asset, LocalDateTime.parse(dateTime), transactionDescription,
                     amountAsset, exchangeRate, transactionFee);
             tempResult.setTransactionID(transactionID);
