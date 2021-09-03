@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 
-public class UserDTO {
+public class RegistrationDTO {
 
     private String firstname;
     private String prefix;
@@ -27,9 +27,9 @@ public class UserDTO {
     private String city;
     private String country;
 
-    public UserDTO(String firstname, String prefix, String lastname, LocalDate dateOfBirth,
-                   int bsn, String emailAddress, String username, String password, String address,
-                   int houseNumber, String affix, String postalCode, String city, String country) {
+    public RegistrationDTO(String firstname, String prefix, String lastname, LocalDate dateOfBirth,
+                           int bsn, String emailAddress, String username, String password, String address,
+                           int houseNumber, String affix, String postalCode, String city, String country) {
         this.firstname = firstname;
         this.prefix = prefix;
         this.lastname = lastname;
