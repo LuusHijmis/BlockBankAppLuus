@@ -53,10 +53,12 @@ public class LoginController {
 
         //authentication
         if (jwtUser != null) {
-            //bla
+            //bla //return response.OK
+        } else {
+            //return response.niet OK    (403 = login failed)
         }
+
         //return ResponseEntity.status(HttpStatus.CREATED).body(JwtTokenGenerator.generateToken(jwtUserDto, jwtSecret));
-        //
 
         //authorisation
           //switch case per role

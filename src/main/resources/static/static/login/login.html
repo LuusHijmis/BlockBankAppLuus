@@ -1,8 +1,10 @@
+<!-- @author hannahvd -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <!-- wat doe ik hier ook alweer (en vooral waarom) -->
   <link rel="stylesheet" href="login.css">
+  <script src="login.js"></script>
   <title>Sign in - BlockBank</title>
 </head>
 
@@ -12,8 +14,10 @@
 
   <form action="http://localhost:3306/blockbank/login" method="post">
     <h1>Sign in</h1>
-    <input id="username" type="text" name="username" placeholder="Username"><br>
-    <input id="password" type="text" name="password" placeholder="Password"><br>
+    <Label>Username</Label>
+    <input id="username" type="text" name="username" placeholder="Username" required> <br>
+    <Label>Password</Label>
+    <input id="password" type="text" name="password" placeholder="Password" required> <br>
     <input id="submit" type="submit" value="Sign in">
 
     <section class="forget">
