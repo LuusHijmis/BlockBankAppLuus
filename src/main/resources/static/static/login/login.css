@@ -1,5 +1,9 @@
 /*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');*/
 
+/*
+TODO: override checkbox to align left/compact :( why no workie
+ */
+
 body {
     font-family: Arial;
     font-size: 16px;
@@ -21,30 +25,31 @@ p {
 h1 {
     font-size: 24px;
     font-weight: 700;
+    text-align: left;
 }
 
 .login-form {
-    /*   background-color: #FFFFFF;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         padding: 0 50px;
         height: 100%;
-        text-align: center; */
-
+        text-align: center;
 }
 
 input {
     background-color: #eee;
+    display: inline-block;
+    /*float: left;*/
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 220px;
 }
 
-#password, #username {
-
+.checkbox {
+    display: inline-block;
 }
 
 #submit {
@@ -60,9 +65,15 @@ input {
     transition: transform 80ms ease-in;
 }
 
-.forget, .register {
+#submit:hover {
+    background-color: white;
+    color: #3d9970;
+}
+
+.other {
     font-size: 16px;
     font-weight: 400;
+    text-align: left;
 }
 
 a {

@@ -1,4 +1,15 @@
 //@author hannahvd
+
+function hidePassword() {
+    let password = document.getElementById("password");
+    if (password.type === "password") {
+        password.type = "text";
+    } else {
+        password.type = "password";
+    }
+}
+
+//is dit node.js...? //tokenbizniz
 document.addEventListener('DOMContentLoaded', () => { //The DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
     document.getElementById('submit').addEventListener('click', sendReq);
     sessionStorage.setItem('userJwt', JSON.stringify('bla')); //?????? klopt nie
@@ -7,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => { //The DOMContentLoaded eve
 let sendReq = (ev) => { //wat is ev
     let url = 'https://localhost:8080/static/login/login.html'; //is dit de juiste url?
     //let userJwt = JSON.parse(<serverding>.getItem('userJwt'));
-    let token = JSON.parse(sessionStorage.getItem('userJwt')); //dit is voor al-bestaande token (niet voor login?/nieuw gegenereerd)
+    let token = JSON.parse(sessionStorage.getItem('userJwt')); //?is dit voor al-bestaande token (niet voor login/nieuw gegenereerd)?
 
     let h = new Headers();
     h.append('Authorization', `Bearer${token}`); //wat moet 'name' zijn? wat moet 'value' zijn?
