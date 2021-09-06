@@ -34,6 +34,13 @@ function main() {
                     console.log(data);
                     console.log(status);
                     console.log(xhr);
+                    alert('request successful');
+                },
+                fail: function(xhr, status, errorThrown){
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(errorThrown);
+                    alert('request failed');
                 }
             });
         }
@@ -45,7 +52,8 @@ function fullFormValidation() {
     if(checkFormNotEmpty().valueOf(true)) {
         // check de velden.
         validForm = checkEmailFormat(document.getElementById(`email_f`));
-        validForm = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`));
+        validForm = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`))
+        validForm = checkIfFieldIsAlphabetic();
     }
 
     return validForm;
@@ -67,6 +75,23 @@ function checkFormNotEmpty() {
     return true;
 }
 
+function checkIfFieldIsAlphabetic() {
+    var fields = ["First name", "Prefix", "Last name", "Street Name", "City", "Country"]
+    var fieldname;
+    var regex = /^[a-zA-z]*$/;
+
+    var i, l = fields.length;
+    for ( i = 0; i < l; i++) {
+        fieldname = fields[i];
+        if (!document.forms["register"][fieldname].value.match(regex)) {
+            alert(fieldname + " must only contain alphabetic characters.");
+            document.forms["register"][fieldname].focus();
+            return false;
+        }
+    }
+    return true;
+}
+
 function checkIfFieldIsAlphanumeric(field) {
     var regex = /^[0-9a-zA-Z]+$/;
     if(field.value.match(regex)) {
@@ -77,6 +102,10 @@ function checkIfFieldIsAlphanumeric(field) {
         return false;
     }
 
+}
+
+function checkIfBsnIsValid() {
+    return;
 }
 
 function checkEmailFormat(email) {
