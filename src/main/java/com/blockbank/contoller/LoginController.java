@@ -1,6 +1,8 @@
 package com.blockbank.contoller;
 
 import com.blockbank.database.domain.LoginDTO;
+import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.repository.RootRepository;
 import com.blockbank.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,27 +24,34 @@ import java.net.URI;
 @RestController
 public class LoginController {
 
-    private LoginService loginService;
+    private final LoginService loginService;
+    private final RootRepository rootRepository;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @Value("${jwt.secret}")
-    private String jwtSecret; //? //kan weg?
+//    @Value("${jwt.secret}")
+//    private String jwtSecret; //? //kan weg?
 
     @Autowired
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginService loginService, RootRepository rootRepository) {
         this.loginService = loginService;
+        this.rootRepository = rootRepository;
         logger.info("New LoginController");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) { //should type be <?> or <String> because of token?
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) { //why type = <?>
         String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
+        UserDetails allDetails = rootRepository.findUserByUsername(loginDTO.getUsername());
+        String role = allDetails.getRole();
         if (jwtUser != null) {
-            //return new ResponseEntity<String>(jwtUser, HttpStatus.OK);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtUser); //(jwtUser, jwtSecret)); //CREATED (201) or ACCEPTED (202) ?
+            HttpHeaders h = new HttpHeaders();
+            h.add("token", jwtUser); //h.set? //set overwrites (if already added)
+            h.add("role", role);
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .headers(h)
+                    .body("Welcome " + loginDTO.getUsername() + "!"); //? not sure
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            //return ResponseEntity.badRequest().build(); //?
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect credentials");
             //401 Unauthorized response should be used for missing or bad authentication,
             //and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn't authorized to perform the requested operation on the given resource
         }
