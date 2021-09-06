@@ -12,7 +12,7 @@ function hidePassword() {
 //is dit node.js...? //tokenbizniz
 document.addEventListener('DOMContentLoaded', () => { //The DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
     document.getElementById('submit').addEventListener('click', sendReq);
-    sessionStorage.setItem('userJwt', JSON.stringify('bla')); //?????? klopt nie
+    //sessionStorage.setItem('userJwt', JSON.stringify('bla')); //?????? klopt nie
 });
 
 let sendReq = (ev) => { //wat is ev
@@ -32,14 +32,29 @@ let sendReq = (ev) => { //wat is ev
         headers: h
     });
 
-    fetch(request) // *init. fetch(resource [, init]) //used for [sending?] credentials for http authentication entries
-        .then(resp => resp.json())
-        .then(data => {
-            console.log(data[0]); //hoezo [0]? //is dit het uitvoeren van de token..?
-        })
-        .catch(err => {
-            console.error(err.message);
-        })
+    // fetch(request) // *init. fetch(resource [, init]) //used for [sending?] credentials for http authentication entries
+    //     .then(resp => resp.json()) //string, niet json
+    //     .then(data => {
+    //         console.log(data[0]); //hoezo [0]? //is dit het uitvoeren van de token..?
+    //         sessionStorage.setItem(data[0]);
+    //     })
+    //     .catch(err => {
+    //         console.error(err.message);
+    //     })
+
+
+    function handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }
+
+    fetch(request)
+        .then(handleErrors)
+        .then(resp)
+
+
 }
 
 
