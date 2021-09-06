@@ -1,38 +1,41 @@
-/*const form = document.getElementById("register");
-const submit = document.getElementById("submit");
 document.addEventListener('DOMContentLoaded', main)
-
 function main() {
-    submit.addEventListener('click', ()=>{
+    document.getElementById('submit').addEventListener('click', ()=>{
         //check formulier voor fouten
 
         //als er geen fouten zijn, maak een data bestand aan.
-        let data = {
-            "username": "testJava",
-            "password": "HOOFDLETTERS.a1",
-            "firstname": "bobbie",
-            "prefix": ".",
-            "lastname": "Kotik",
-            "dateOfBirth": "1990-09-25",
-            "bsn": 123,
-            "emailAddress": "testJava",
-            "address": "koningstraat",
-            "houseNumber": 12,
-            "affix": "assdwdsw",
-            "postalCode": "1221JB",
-            "city": "amsterdam",
-            "country": "nederland"}; // javascript object
+        const dataRaw = {
+            username: document.getElementById(`username_f`).value,
+            password: document.getElementById(`password_f`).value,
+            firstname: document.getElementById(`firstname_f`).value,
+            prefix: document.getElementById(`prefix_f`).value,
+            lastname: document.getElementById(`lastname_f`).value,
+            dateOfBirth: document.getElementById(`dateofbirth_f`).value,
+            bsn: document.getElementById(`bsn_f`).value,
+            emailAddress: document.getElementById(`email_f`).value,
+            address: document.getElementById(`adress_f`).value,
+            houseNumber: document.getElementById(`housenumber_f`).value,
+            affix: document.getElementById(`affix_f`).value,
+            postalCode: document.getElementById(`postalcode_f`).value,
+            city: document.getElementById(`city_f`).value,
+            country: document.getElementById(`country_f`).value};
+
+        console.log(JSON.stringify(dataRaw));
+
 
         // dan stuur dit request.
-        fetch('http://localhost:8080/blockbank/registerDTO?' + data, {
-            method: 'POST',
-            body: JSON.stringify(data)  // moet worden omgezet naar een string
-        })
-            .then(response => {
-                console.log(response)
-                return response.json() }
-            ).catch((error) => {console.error('Foutje', error);});
-        //
+        $.ajax({
+            type : "POST",
+            url : 'http://localhost:8080/registerDTO',
+            data : JSON.stringify(dataRaw),
+            contentType: "application/json",
+            accepts: { json: "application/json"},
+            success: function (data, status, xhr) {
+                console.log(data);
+                console.log(status);
+                console.log(xhr);
+            }
+        });
     })
-}*/
+}
 
