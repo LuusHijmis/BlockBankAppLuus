@@ -5,14 +5,13 @@ package com.blockbank.database.repository;
  * <description>
  */
 
-import com.blockbank.database.domain.Account;
-import com.blockbank.database.domain.Transaction;
-import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -55,8 +54,18 @@ public class RootRepository {
 
     public UserDetails  findUserByUsername(String username) { return  userDao.findByUsername(username);}
 
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionDao.save(transaction);}
+    public Transaction saveTransaction(TransactionDTO transactionDTO) {
+//        //TODO implement after AssetDAO has findAssetByAssetID
+//        UserDetails userDetails = findUserByUsername(transactionDTO.getUsername());
+//        UserDetails opposingUserDetails = findUserByUsername(transactionDTO.getUsername());
+//        Asset asset = findAssetByAssetID(transactionDTO.getAssetID());
+//        LocalDateTime localDateTime = transactionDTO.getLocalDateTime();
+//        Transaction transaction = new Transaction(userDetails,opposingUserDetails,asset,transactionDTO.getLocalDateTime(),
+//                transactionDTO.getGetTransactionDescription(),transactionDTO.getAssetAmount(),transactionDTO.getExchangeRate(),
+//                transactionDTO.getTransactionRate());
+//        return transactionDao.save(transaction);}
+        return null;
+    }
 
     //TODO aanroep findByUserID fixen!
     public List<Transaction> findTransactionByUserID(int userID) {
