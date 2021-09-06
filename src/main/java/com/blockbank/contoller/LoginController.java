@@ -53,11 +53,11 @@ public class LoginController {
 
         //authorisation
           //switch case per role
-          //redirect to target-page
+          //redirect to target-page (javascript?)
 
         //else {
            //user login rejected
-           //clear password box and inform about unaccepted user-password combination
+           //clear password box and inform about unaccepted user-password combination (javascript?)
 }
 
     /*

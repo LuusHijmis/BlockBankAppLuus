@@ -1,8 +1,6 @@
+/**@author hannahvd*/
 /*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');*/
-
-/*
-TODO: override checkbox to align left/compact :( why no workie
- */
+/*TODO: override checkbox to align left/be compact :( why no workie*/
 
 body {
     font-family: Arial;
@@ -22,12 +20,6 @@ p {
     margin: 0px;
 }
 
-h1 {
-    font-size: 24px;
-    font-weight: 700;
-    text-align: left;
-}
-
 .login-form {
         display: flex;
         align-items: center;
@@ -36,6 +28,12 @@ h1 {
         padding: 0 50px;
         height: 100%;
         text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
 }
 
 input {
@@ -48,8 +46,19 @@ input {
     width: 220px;
 }
 
-.checkbox {
-    display: inline-block;
+#checkbox {
+    /*float: left;   -- nope*/
+    /*text-align: left;   -- nope*/
+    /*display: block;    -- nope*/
+    /*display: inline-block;   -- nope*/
+    /*display: compact;    -- nope*/
+    /*box-sizing: content-box;    --nope*/
+    /*appearance: auto;   --nope*/
+    /*margin: 100px 10px       --nope*/
+}
+
+input label {
+    /*float: left;    -- nope*/
 }
 
 #submit {
@@ -77,6 +86,13 @@ input {
 }
 
 a {
+    color: #3d9970;
+    text-decoration: none;
+    border-bottom: 2px solid #3d9970;
+    /*padding-bottom: 1px;*/
+}
 
+a:hover {
+    border-bottom: 2px solid #0000ff;
 }
 

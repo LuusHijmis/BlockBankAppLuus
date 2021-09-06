@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => { //The DOMContentLoaded eve
 });
 
 let sendReq = (ev) => { //wat is ev
-    let url = 'https://localhost:8080/static/login/login.html'; //is dit de juiste url?
+    let url = 'https://localhost:8080/blockbank/login'; //is dit de juiste url?
     //let userJwt = JSON.parse(<serverding>.getItem('userJwt'));
     let token = JSON.parse(sessionStorage.getItem('userJwt')); //?is dit voor al-bestaande token (niet voor login/nieuw gegenereerd)?
 
