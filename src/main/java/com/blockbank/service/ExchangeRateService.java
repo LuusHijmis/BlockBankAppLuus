@@ -14,8 +14,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ExchangeRateService {
 
     private static String apiKey = "37df24be-be71-4ebf-addb-b5a5c0e908ce";

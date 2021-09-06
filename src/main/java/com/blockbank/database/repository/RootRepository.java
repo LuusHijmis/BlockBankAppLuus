@@ -5,6 +5,7 @@ package com.blockbank.database.repository;
  * <description>
  */
 
+
 import com.blockbank.database.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,15 @@ public class RootRepository {
     private AccountDao accountDao;
     private UserDao userDao;
     private TransactionDao transactionDao;
+    private AssetDao assetDao;
 
     @Autowired
-    public RootRepository(AccountDao accountDao, UserDao userDao, TransactionDao transactionDao) {
+    public RootRepository(AccountDao accountDao, UserDao userDao, TransactionDao transactionDao, AssetDao assetDao) {
         super();
         this.userDao = userDao;
         this.accountDao = accountDao;
         this.transactionDao= transactionDao;
+        this.assetDao = assetDao;
         logger.info("New RootRepository");
     }
 
@@ -54,6 +57,16 @@ public class RootRepository {
 
     public UserDetails  findUserByUsername(String username) { return  userDao.findByUsername(username);}
 
+    public Asset findAssetById(String assetId){ return assetDao.findAssetById(assetId);}
+
+    public List<Asset> showAllAssets(){ return assetDao.showAllAssets();}
+
+    public Asset updateAssets(Asset asset){ return assetDao.updateAssets(asset);}
+
+    public Transaction saveTransaction(Transaction transaction) {
+        return transactionDao.save(transaction);}
+
+
     public Transaction saveTransaction(TransactionDTO transactionDTO) {
 //        //TODO implement after AssetDAO has findAssetByAssetID
 //        UserDetails userDetails = findUserByUsername(transactionDTO.getUsername());
@@ -66,6 +79,11 @@ public class RootRepository {
 //        return transactionDao.save(transaction);}
         return null;
     }
+
+
+
+
+
 
     //TODO aanroep findByUserID fixen!
     public List<Transaction> findTransactionByUserID(int userID) {
