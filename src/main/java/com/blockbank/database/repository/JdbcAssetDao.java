@@ -3,6 +3,7 @@ package com.blockbank.database.repository;
 import com.blockbank.database.domain.Asset;
 
 import com.blockbank.database.domain.User;
+import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ExchangeRateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,9 +55,20 @@ import java.util.List;
     }
 
     @Override
-    public Asset findAssetById(Asset asset) {
+    public Asset findAssetById(String assetId) {
+        logger.debug("assetDao called for findAssetById");
+        List<Asset> assets = jdbcTemplate.query(
+                "select * from asset where assetId = ?",  new JdbcAssetDao.AssetRowMapper(), assetId);
+        if(assets.size() == 1) {
+            return assets.get(0);
+        }
         return null;
     }
+
+
+
+
+
 
     @Override
     public List<Asset> showAllAssets() {
@@ -71,13 +83,13 @@ import java.util.List;
 
         public Asset mapRow(ResultSet resultSet, int i) throws SQLException {
             Asset result = null;
-            String AssetID = resultSet.getString(1);
+            String assetID = resultSet.getString(1);
             String name = resultSet.getString(2);
             String symbol = resultSet.getString(3);
             String description = resultSet.getString(4);
             Double exchangeRate = resultSet.getDouble(5);
 
-            result = new Asset(AssetID, name, symbol, description, exchangeRate);
+            result = new Asset(assetID, name, symbol, description, exchangeRate);
             return result;
         }
     }

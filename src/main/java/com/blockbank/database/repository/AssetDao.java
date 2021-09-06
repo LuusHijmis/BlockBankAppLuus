@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AssetDao {
     Asset updateAssets(Asset asset);
-    Asset findAssetById(Asset asset);
+    Asset findAssetById(String assetId);
     List<Asset> showAllAssets();
 
 }
