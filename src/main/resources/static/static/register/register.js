@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', main)
+
 function main() {
     document.getElementById('submit').addEventListener('click', ()=>{
         //check formulier voor fouten
@@ -37,5 +38,20 @@ function main() {
             }
         });
     })
+}
+
+function validateFormNotEmpty() {
+    var fields = ["Username", "Password", "Email adress", "First name", "Last name", "Date of birth", "Street Name",
+        "House Number" , "Postal code", "City", "Country"]
+    var fieldname;
+    var i, l = fields.length;
+    for ( i = 0; i < l; i++) {
+        fieldname = fields[i];
+        if (document.forms["register"][fieldname].value === "") {
+            alert(fieldname + "must be filled in.");
+            return false;
+        }
+    }
+    return true;
 }
 
