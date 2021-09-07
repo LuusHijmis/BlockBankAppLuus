@@ -1,6 +1,6 @@
 package com.blockbank.contoller;
 
-import com.blockbank.database.domain.UserDTO;
+
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.AssetService;
 import com.fasterxml.jackson.core.JsonProcessingException;
