@@ -66,29 +66,40 @@ public class RootRepository {
     public Transaction saveTransaction(Transaction transaction) {
         return transactionDao.save(transaction);}
 
+    public List<Transaction> findTransactionsByUSerID(int userID) {
+        List<TransactionDTO> tempList = transactionDao.findTransactionByUserId(userID);
+        List<Transaction> transactionList = null;
+        if(tempList.isEmpty()) {
+            for (TransactionDTO transactionDTO : tempList) {
+                UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
+                UserDetails oppossingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
+                Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
+
+                Transaction transaction = new Transaction(userDetails, oppossingUserDetails, asset, transactionDTO.getTransactionDateTime(),
+                        transactionDTO.getTransactionSort(), transactionDTO.getAmountAssets(), transactionDTO.getExchangeRate(),
+                        transactionDTO.getTransactionFee());
+                transactionList.add(transaction);
+            }
+            return transactionList;
+        } else {
+            return null;
+        }
+    }
+
 
     public Transaction saveTransaction(TransactionDTO transactionDTO) {
 //        //TODO implement after AssetDAO has findAssetByAssetID
-//        UserDetails userDetails = findUserByUsername(transactionDTO.getUsername());
-//        UserDetails opposingUserDetails = findUserByUsername(transactionDTO.getUsername());
-//        Asset asset = findAssetByAssetID(transactionDTO.getAssetID());
-//        LocalDateTime localDateTime = transactionDTO.getLocalDateTime();
-//        Transaction transaction = new Transaction(userDetails,opposingUserDetails,asset,transactionDTO.getLocalDateTime(),
-//                transactionDTO.getGetTransactionDescription(),transactionDTO.getAssetAmount(),transactionDTO.getExchangeRate(),
-//                transactionDTO.getTransactionRate());
-//        return transactionDao.save(transaction);}
-        return null;
+        UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
+        UserDetails opposingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
+        Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
+        LocalDateTime localDateTime = transactionDTO.getTransactionDateTime();
+        Transaction transaction = new Transaction(userDetails,opposingUserDetails,asset,localDateTime,
+                transactionDTO.getTransactionSort(),transactionDTO.getAmountAssets(),transactionDTO.getExchangeRate(),
+                transactionDTO.getTransactionFee());
+        return transactionDao.save(transaction);
     }
 
 
-
-
-
-
-    //TODO aanroep findByUserID fixen!
-    public List<Transaction> findTransactionByUserID(int userID) {
-        return transactionDao.findTransactionByUserId(userID);
-    }
     //
     //TODO aanroep deleteTransaction fixen!
 //    public Transaction deleteTransaction(Transaction transaction) {

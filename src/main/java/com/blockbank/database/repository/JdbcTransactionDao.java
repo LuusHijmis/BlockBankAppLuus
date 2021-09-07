@@ -1,8 +1,7 @@
 package com.blockbank.database.repository;
 
-import com.blockbank.database.domain.Asset;
 import com.blockbank.database.domain.Transaction;
-import com.blockbank.database.domain.UserDetails;
+import com.blockbank.database.domain.TransactionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
@@ -59,9 +58,9 @@ public class JdbcTransactionDao implements TransactionDao {
     }
 
     @Override
-    public List<Transaction> findTransactionByUserId(int userID) {
+    public List<TransactionDTO>findTransactionByUserId(int userID) {
         logger.debug("TransactionDao called for findTransactionByClientId");
-        List<Transaction> transactions = jdbcTemplate.query(
+        List<TransactionDTO> transactions = jdbcTemplate.query(
                 "select * from `transaction` where UserID = ?", new JdbcTransactionDao.TransactionRowMapper(), userID);
         if(transactions.size() >= 1) {
             return transactions;
@@ -79,28 +78,23 @@ public class JdbcTransactionDao implements TransactionDao {
         return userForeignKey;
     }
 
-    private static class TransactionRowMapper implements RowMapper<Transaction> {
-       RootRepository rootRepository;
+    private static class TransactionRowMapper implements RowMapper<TransactionDTO> {
         @Override
-        public Transaction mapRow(ResultSet resultSet, int i) throws SQLException {
-            Transaction tempResult= null;
+        public TransactionDTO mapRow(ResultSet resultSet, int i) throws SQLException {
+            TransactionDTO tempResult= null;
             int transactionID = resultSet.getInt(1);
             int userID = resultSet.getInt(2);
-            String dateTime = resultSet.getString(3);
-            String transactionDescription = resultSet.getString(4);
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            LocalDateTime localDateTime = (LocalDateTime.from(formatter.parse(resultSet.getString(3))));
+            String transactionSort = resultSet.getString(4);
             double amountAsset = resultSet.getDouble(5);
             double exchangeRate = resultSet.getDouble(6);
             double transactionFee = resultSet.getDouble(7);
             int opposingUserID = resultSet.getInt(8);
             int assetID = resultSet.getInt(9);
-            UserDetails userDetails = rootRepository.findUserByUserId(userID);
-            UserDetails oposingUserDetails = rootRepository.findUserByUserId(opposingUserID);
-
-//            TODO findAssetByID moet nog gemaakt worden!
-//            Asset asset = rootRepository.assetByID(assetID);//
-//            tempResult = new Transaction(userDetails, oposingUserDetails, asset, LocalDateTime.parse(dateTime), transactionDescription,
-//                    amountAsset, exchangeRate, transactionFee);
-//            tempResult.setTransactionID(transactionID);
+            tempResult = new TransactionDTO(userID,localDateTime,transactionSort,amountAsset,exchangeRate,transactionFee,opposingUserID,assetID);
+            tempResult.setTransactionID(transactionID);
             return tempResult;
         }
 
