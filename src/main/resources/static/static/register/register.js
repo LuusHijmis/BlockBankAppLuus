@@ -35,7 +35,7 @@ function main() {
                     console.log(status);
                     console.log(xhr);
                     alert('request successful');
-                    window.location.replace("http://localhost:8080/static/welcome/welcome.html");
+                    window.location.replace("http://localhost:8080/static/login/login.html");
                 },
                 fail: function(xhr, status, errorThrown){
                     console.log(xhr);
