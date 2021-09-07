@@ -14,7 +14,7 @@ ExchangeRateService exchangeRateService;
 
 
     public void updatedAssetList(List<Asset> assets){
-    //assets = jdbcAssetDao.showAllAssets();
+    assets = jdbcAssetDao.showAllAssets();
 
         for (Asset asset : assets) {
                 asset.setExchangeRate(exchangeRateService.getExchangeRate(asset.getAssetID(),"USD"));
