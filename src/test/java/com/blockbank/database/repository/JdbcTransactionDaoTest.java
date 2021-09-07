@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,7 +52,7 @@ class JdbcTransactionDaoTest {
                 "Buy",1.00,exchangeRateBit,10.00);
 
         var actual = transactionDaoTest.save(transaction);
-//        var found = transactionDaoTest.findByUserId(7);
+//        var found = transactionDaoTest.findTransactionByUserId(7);
 //        Assertions.assertThat(found);
         System.out.println(actual);
 
@@ -65,9 +66,10 @@ class JdbcTransactionDaoTest {
 
     @Test
     void findByUserId() {
-//        var found = transactionDaoTest.findTransactionByUserId(2);
-//        for(Transaction transaction2:found) {
-//            System.out.println(transaction2);
-//        }
+
+        var found = transactionDaoTest.findTransactionByUserId(1);
+        for(TransactionDTO transactionDTO:found) {
+            System.out.println(transactionDTO);
+        }
     }
 }

@@ -6,6 +6,7 @@ public class TransactionDTO {
 
 //    private final int DEFAULT_OPPOSINGUSERID = 0;
 //    private String username;
+    private int transactionID;
     private int userID;
     private LocalDateTime transactionDateTime;
     private String transactionSort;
@@ -17,6 +18,7 @@ public class TransactionDTO {
 
     public TransactionDTO(int userID, LocalDateTime transactionDateTime, String transactionSort, double amountAssets,
                           double exchangeRate, double transactionFee, int opposingUserID, int assetID) {
+        this.transactionID = 0;
         this.userID = userID;
         this.transactionDateTime = transactionDateTime;
         this.transactionSort = transactionSort;
@@ -89,5 +91,28 @@ public class TransactionDTO {
 
     public void setAssetID(int assetID) {
         this.assetID = assetID;
+    }
+
+    public int getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionDTO{" +
+                "transactionID=" + transactionID +
+                ", userID=" + userID +
+                ", transactionDateTime=" + transactionDateTime +
+                ", transactionSort='" + transactionSort + '\'' +
+                ", amountAssets=" + amountAssets +
+                ", exchangeRate=" + exchangeRate +
+                ", transactionFee=" + transactionFee +
+                ", opposingUserID=" + opposingUserID +
+                ", assetID=" + assetID +
+                '}';
     }
 }
