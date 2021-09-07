@@ -62,9 +62,9 @@ public class RootRepository {
     public List<Asset> showAllAssets(){ return assetDao.showAllAssets();}
 
     public Asset updateAssets(Asset asset){ return assetDao.updateAssets(asset);}
-
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionDao.save(transaction);}
+//
+//    public Transaction saveTransaction(Transaction transaction) {
+//        return transactionDao.save(transaction);}
 
     public List<Transaction> findTransactionsByUSerID(int userID) {
         List<TransactionDTO> tempList = transactionDao.findTransactionByUserId(userID);
