@@ -4,6 +4,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
@@ -21,6 +25,7 @@ public class ExchangeRateService {
 
     private static String apiKey = "37df24be-be71-4ebf-addb-b5a5c0e908ce";
     private final static String URI ="https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
+    private final static String ASSETIDS = "1,2,52,74,825,1027,1831,1839,1975,2010,3077,3408,3717,3890,4172,4687,5426,6636,7083,8916";
     private final static String CURRENCY = "USD";
 
     //TODO currency wordt via pulldownmenu meegegeven vanaf frontend
@@ -33,7 +38,7 @@ public class ExchangeRateService {
         paratmers.add(new BasicNameValuePair("aux", "platform"));
 
         try {
-            result = makeAPICall(URI, paratmers);
+            result = makeAPICall(URI, paratmers, assetID);
             System.out.println(result);
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
@@ -43,7 +48,7 @@ public class ExchangeRateService {
         return result;
     }
 
-    public static double makeAPICall(String uri, List<NameValuePair> parameters)
+    public static double makeAPICall(String uri, List<NameValuePair> parameters, String assetId)
             throws URISyntaxException, IOException{
         String response_content = "";
 
@@ -66,10 +71,32 @@ public class ExchangeRateService {
         } finally {
             response.close();
         }
-        List<String> myList = Arrays.asList(response_content.split(","));
-        List<String> pricelist = Arrays.asList(myList.get(12).split(":"));
-        double price = Double.parseDouble(pricelist.get(3));
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(response_content);
+        JsonNode dataNode = jsonNode.path("data");
+        System.out.println(dataNode);
+
+        JsonNode jsonNode1 = mapper.readTree(String.valueOf(dataNode));
+        JsonNode oneNode = jsonNode1.path(assetId);
+
+
+        JsonNode jsonNode2 = mapper.readTree(String.valueOf(oneNode));
+        JsonNode quoteNode = jsonNode2.path("quote");
+
+        JsonNode jsonNode3 = mapper.readTree(String.valueOf(quoteNode));
+        JsonNode usdNode = jsonNode3.path("USD");
+
+        JsonNode jsonNode4 = mapper.readTree(String.valueOf(usdNode));
+        String priceNode = jsonNode4.get("price").asText();
+
+        Double price = Double.parseDouble(priceNode);
         return price;
+
+
+
+
+
+
     }
 }
 

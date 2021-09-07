@@ -35,11 +35,11 @@ class ExchangeRateUpdateServiceTest {
 
 
 
-    @Test
+   /* @Test
     void updatedAssetList() {
         List<Asset> assetList = assetDaoUnderTest.showAllAssets();
         System.out.println(assetDaoUnderTest.showAllAssets());
-        exchangeRateUpdateService.updatedAssetList(assetList);
-        System.out.println(assetList);
-    }
+        //exchangeRateUpdateService.updatedAssetList(assetList);
+        //System.out.println(assetList);
+    }*/
 }
