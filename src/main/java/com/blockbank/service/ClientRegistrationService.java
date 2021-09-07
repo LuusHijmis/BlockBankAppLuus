@@ -38,17 +38,17 @@ public class ClientRegistrationService {
     }
 
     //TODO METHODE AFMAKEN met return
-    public UserDetails register(UserDTO userDTO) {
-        if (passwordValidationService.isValid(userDTO.getPassword())
-                && usernameValidationService.isValid(userDTO.getUsername())) {
+    public UserDetails register(RegistrationDTO registrationDTO) {
+        if (passwordValidationService.isValid(registrationDTO.getPassword())
+                && usernameValidationService.isValid(registrationDTO.getUsername())) {
             String salt = saltGenerator.generateSalt();
-            String hashedPassword = hashservice.ultimateHash(userDTO.getPassword(), salt);
+            String hashedPassword = hashservice.ultimateHash(registrationDTO.getPassword(), salt);
             //Maak objecten voor User
-            ClientDetails clientDetails = new ClientDetails(userDTO.getFirstname(),userDTO.getPrefix(),
-                    userDTO.getLastname(),userDTO.getDateOfBirth(), userDTO.getBsn(), userDTO.getEmailAddress());
-            Address address = new Address(userDTO.getAddress(), userDTO.getHouseNumber(), userDTO.getAffix(),
-                    userDTO.getPostalCode(), userDTO.getCity(), userDTO.getCountry());
-            UserDetails userDetails = new UserDetails(userDTO.getUsername(), hashedPassword, salt, clientDetails, address);
+            ClientDetails clientDetails = new ClientDetails(registrationDTO.getFirstname(),registrationDTO.getPrefix(),
+                    registrationDTO.getLastname(),registrationDTO.getDateOfBirth(), registrationDTO.getBsn(), registrationDTO.getEmailAddress());
+            Address address = new Address(registrationDTO.getAddress(), registrationDTO.getHouseNumber(), registrationDTO.getAffix(),
+                    registrationDTO.getPostalCode(), registrationDTO.getCity(), registrationDTO.getCountry());
+            UserDetails userDetails = new UserDetails(registrationDTO.getUsername(), hashedPassword, salt, clientDetails, address);
             // userdetails opslaan
             rootrepository.saveUserDetails(userDetails);
             // account aanmaken

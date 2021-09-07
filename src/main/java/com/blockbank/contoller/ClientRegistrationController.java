@@ -10,7 +10,7 @@ package com.blockbank.contoller;
 
 
 
-import com.blockbank.database.domain.UserDTO;
+import com.blockbank.database.domain.RegistrationDTO;
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ClientRegistrationService;
 import org.slf4j.Logger;
@@ -42,10 +42,11 @@ public class ClientRegistrationController {
 
     //TODO URI AANPASSEN
     @PostMapping("/registerDTO")
-    public ResponseEntity<?> registerDTO(@RequestBody UserDTO userDTO) {
-        UserDetails userDetails = clientregistrationservice.register(userDTO);
+    public ResponseEntity<?> registerDTO(@RequestBody RegistrationDTO registrationDTO) {
+        System.out.println("BKAAAA"+ registrationDTO);
+        UserDetails userDetails = clientregistrationservice.register(registrationDTO);
         if (userDetails != null) {
-            URI uri = URI.create(String.format("http://localhost:8080/users", userDTO.getUsername()));
+            URI uri = URI.create(String.format(registrationDTO.getUsername()));
             // front-end related
             return ResponseEntity.created(uri).build();
         } else {
