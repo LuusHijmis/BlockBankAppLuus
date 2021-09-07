@@ -2,9 +2,8 @@ package com.blockbank.database.repository;
 
 import com.blockbank.database.domain.Asset;
 
-import com.blockbank.database.domain.User;
-import com.blockbank.database.domain.UserDetails;
 import com.blockbank.service.ExchangeRateService;
+import com.blockbank.service.ExchangeRateUpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +15,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Repository
     public class JdbcAssetDao implements AssetDao {
 
-    private final Logger logger = LoggerFactory.getLogger(com.blockbank.database.repository.JdbcAssetDao.class);
+    private final Logger logger = LoggerFactory.getLogger(com.blockbank.database.repository.AssetDao.class);
     private ExchangeRateService exchangeRateService;
+    private ExchangeRateUpdateService exchangeRateUpdateService;
 
     private JdbcTemplate jdbcTemplate;
+
 
     @Autowired
     public JdbcAssetDao(JdbcTemplate jdbcTemplate) {
         super();
+        //this.exchangeRateService = exchangeRateService;
+        //this.exchangeRateUpdateService = exchangeRateUpdateService;
         this.jdbcTemplate = jdbcTemplate;
         logger.info("New JdcbAssetDao");
     }
@@ -38,19 +40,17 @@ import java.util.List;
 
     private PreparedStatement updateAssetStatement(Asset asset, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(
-                "update asset set exchangeRate = ?;"
+                "update asset set exchangeRate = ? where assetId = ? ;"
         );
-        ps.setDouble(1, exchangeRateService.getExchangeRate(asset.getAssetID(), "USD"));
+        ps.setDouble(1, asset.getExchangeRate());
+        ps.setString(2, asset.getAssetID());
         return ps;
     }
 
 
-
-    @Override
-    public Asset updateAssets(Asset asset) {
-
-        logger.debug("AssetDao called for updateAssets");
-        jdbcTemplate.update(connection -> updateAssetStatement(asset, connection));
+    public Asset updateAsset(Asset asset) {
+            logger.debug("AssetDao called for updateAssets");
+            jdbcTemplate.update(connection -> updateAssetStatement(asset, connection));
         return asset;
     }
 

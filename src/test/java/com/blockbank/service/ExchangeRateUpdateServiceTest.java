@@ -1,6 +1,5 @@
 package com.blockbank.service;
 
-import com.blockbank.database.domain.Asset;
 import com.blockbank.database.repository.AssetDao;
 
 import org.junit.jupiter.api.Test;
@@ -10,24 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class ExchangeRateUpdateServiceTest {
 
-    ExchangeRateUpdateService exchangeRateUpdateService;
+
 
     private final Logger logger = LoggerFactory.getLogger(ExchangeRateUpdateServiceTest.class);
-    private ExchangeRateService exchangeRateService;
+    ExchangeRateService exchangeRateService;
+    ExchangeRateUpdateService exchangeRateUpdateService;
     AssetDao assetDaoUnderTest;
 
     @Autowired
-    public ExchangeRateUpdateServiceTest(AssetDao dao) {
-        super();
-        this.assetDaoUnderTest = dao;
-        logger.info("New JdbcAssetDaoTest");
+    public ExchangeRateUpdateServiceTest(ExchangeRateService exchangeRateService, ExchangeRateUpdateService exchangeRateUpdateService, AssetDao assetDaoUnderTest) {
+        this.exchangeRateService = exchangeRateService;
+        this.exchangeRateUpdateService = exchangeRateUpdateService;
+        this.assetDaoUnderTest = assetDaoUnderTest;
     }
 
 
@@ -35,11 +32,10 @@ class ExchangeRateUpdateServiceTest {
 
 
 
-   /* @Test
+    @Test
     void updatedAssetList() {
-        List<Asset> assetList = assetDaoUnderTest.showAllAssets();
+       exchangeRateUpdateService.updatedAssets();
         System.out.println(assetDaoUnderTest.showAllAssets());
-        //exchangeRateUpdateService.updatedAssetList(assetList);
-        //System.out.println(assetList);
-    }*/
+
+    }
 }

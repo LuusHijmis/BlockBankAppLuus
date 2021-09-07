@@ -39,7 +39,7 @@ public class ExchangeRateService {
 
         try {
             result = makeAPICall(URI, paratmers, assetID);
-            System.out.println(result);
+            //System.out.println(result);
         } catch (IOException e) {
             System.out.println("Error: cannont access content - " + e.toString());
         } catch (URISyntaxException e) {

@@ -35,22 +35,22 @@ class ExchangeRateServiceTest {
         exchangeRateService.getExchangeRate("1","USD");
     }
 
-    @Test
+    /*@Test
     void testPreparedList() {
 
         List<Asset> arrayOfAssets = new ArrayList<>();
         arrayOfAssets.add(new Asset("1", "BTC", "Bitcoin", "BLABLA", 0));
         arrayOfAssets.add(new Asset("2", "Litecoin", "LTC", "BLABLA", 0));
         arrayOfAssets.add(new Asset("52", "XRP", "XRP", "BLABLA", 0));
-        exchangeRateUpdateService.updatedAssetList(arrayOfAssets);
+        exchangeRateUpdateService.updatedAssetList();
 
-    }
+    }*/
 
     @Test
     void testDataBaseList() {
 
 
-        exchangeRateUpdateService.updatedAssetList( assetDaoUnderTest.showAllAssets());
+        exchangeRateUpdateService.updatedAssetList();
 
     }
 

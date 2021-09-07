@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -61,7 +60,7 @@ public class RootRepository {
 
     public List<Asset> showAllAssets(){ return assetDao.showAllAssets();}
 
-    public Asset updateAssets(Asset asset){ return assetDao.updateAssets(asset);}
+    public Asset updateAsset(Asset asset){ return assetDao.updateAsset(asset);}
 
     public Transaction saveTransaction(Transaction transaction) {
         return transactionDao.save(transaction);}
