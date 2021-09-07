@@ -36,7 +36,8 @@ public class WelcomeController {
     }
 
     @GetMapping("/welcome/get/json")
-    public ResponseEntity<?> loadWelcomePage(@RequestHeader (value ="Authentication") String token) throws JsonProcessingException {
+    public ResponseEntity<?> loadWelcomePage(@RequestHeader(name="Authorization", required = false) String token) throws JsonProcessingException {
+        System.out.println("BLAAAAT"+ token);
         if(tokenService.verifyToken(token)) {
             DecodedJWT decodedJWT = JWT.decode(token);
             Map<String, Claim> actualClaims = new HashMap<>();
