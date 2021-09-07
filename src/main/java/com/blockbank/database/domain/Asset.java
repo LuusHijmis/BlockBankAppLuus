@@ -1,5 +1,7 @@
 package com.blockbank.database.domain;
 
+import java.util.Objects;
+
 public class Asset {
 
     private String assetID;
@@ -14,6 +16,10 @@ public class Asset {
         this.symbol = symbol;
         this.description = description;
         this.exchangeRate = exchangeRate;
+    }
+
+    public Asset(String assetID) {
+        this.assetID = assetID;
     }
 
     public String getAssetID() {
@@ -54,6 +60,19 @@ public class Asset {
 
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Asset asset = (Asset) o;
+        return Double.compare(asset.exchangeRate, exchangeRate) == 0 && Objects.equals(assetID, asset.assetID) && Objects.equals(name, asset.name) && Objects.equals(symbol, asset.symbol) && Objects.equals(description, asset.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(assetID, name, symbol, description, exchangeRate);
     }
 
     @Override
