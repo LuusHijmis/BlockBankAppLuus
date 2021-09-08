@@ -28,11 +28,13 @@ class TokenServiceTest {
         DecodedJWT decodedJWT = JWT.decode(token);
 
         Map<String, Claim> actualClaims = decodedJWT.getClaims();
+        Claim role = decodedJWT.getClaim("role");
         String expected = "{iss=\"Blockbank\", role=\"client\", username=\"Harold\"}";
        /* String expected = String.format("{role=\"client\", iss=\"Blockbank\", exp=%d, iat=%d, username=\"Harold\"}",
                 tokenService.getExp().getTime(), tokenService.getIat().getTime());*/
-
         assertThat(actualClaims.toString()).isEqualTo(expected);
+        System.out.println(role);
+        System.out.println(actualClaims);
     }
 
     @Test

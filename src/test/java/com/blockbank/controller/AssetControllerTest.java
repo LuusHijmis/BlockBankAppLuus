@@ -1,4 +1,4 @@
-package com.blockbank.contoller;
+package com.blockbank.controller;
 /**
  * @author Alex Shijan
  */
