@@ -9,6 +9,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.database.repository.RootRepository;
@@ -65,10 +66,15 @@ public class TokenService {
     }
 
     public boolean verifyToken(String token) {
+        DecodedJWT decodedJWT = JWT.decode(token);
+        Claim username = decodedJWT.getClaim("username");
+        UserDetails tokenUser = rootRepository.findUserByUsername(username.asString());
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer(BANK_NAME)
+                    .withClaim("username", tokenUser.getUsername())
+                    .withClaim("role", tokenUser.getRole())
                     .build(); //Reusable verifier instance
             DecodedJWT jwt = verifier.verify(token);
         } catch (JWTVerificationException exception){
