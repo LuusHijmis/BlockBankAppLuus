@@ -30,37 +30,12 @@ public class PortfolioService {
         this.rootRepository = rootRepository;
     }
 
-    public List<Transaction> portfolioOverzicht(int userID) {
-//        List<Transaction> transactions = rootRepository.findTransactionsByUSerID(userID);
-//
-//        List <Transaction> sellTransactions = transactions.stream()
-//                .filter(transaction -> transaction.getTransactionDescription().equals("Sell"))
-//                .collect(Collectors.toList());
-//
-//        List<Transaction> buyTransactions= transactions.stream()
-//                .filter(transaction -> transaction.getTransactionDescription().equals("Buy"))
-//                .collect(Collectors.toList());
-//
-//        List<Transaction> transactionSum =  null;
-//        for(Transaction transaction:buyTransactions) {
-//            String assetID = transaction.getAsset().getAssetID();
-//
-//        }
-//        System.out.println(sellTransactions);
-        return null;
-//        String json = mapper.writeValueAsString(assetList);
-
-//        return json;
-    }
-
     public Map<Asset, Double> getAssetsTotal (int userID) {
         List<Transaction> transactions = rootRepository.findTransactionsByUSerID(userID);
         Map<Asset, Double> portfolio = new HashMap<>();
         for (Transaction transaction: transactions) {
             if (portfolio.get(transaction.getAsset()) == null) {
-                Asset asset = transaction.getAsset();
-                double amount = transaction.getAssetAmount();
-                portfolio.put(asset, amount);
+                portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
             } else {
                 double currentAmount = portfolio.get(transaction.getAsset());
                 if (transaction.getTransactionDescription().equals("Sell")) {
