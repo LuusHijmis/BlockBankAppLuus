@@ -10,7 +10,7 @@ function main() {
             success: function (role, username) {
                 console.log(role);
                 console.log(username);
-                alert('request successful')
+                alert("Hello " + username)
                 window.location.replace('http://localhost:8080/static/welcome/welcome.html');
                 checkRole(role);
             },

@@ -84,13 +84,6 @@ nav a:hover:before {
     width: 100%;
 }
 
-.navbarbank {
-    display: none;
-}
-
-.navbaradmin {
-    display: none;
-}
 
 .Welcomemessage{
     font-weight: bold;
@@ -102,7 +95,8 @@ nav a:hover:before {
 }
 
 /*hide role-specific div html*/
-div.client, div.bank, div.administrator {
+div.client, div.bank, div.administrator, div.navbarclient,
+div.navbarbank, div.navbaradmin {
     display: none;
 }
 
