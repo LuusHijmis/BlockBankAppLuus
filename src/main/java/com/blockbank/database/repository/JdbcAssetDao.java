@@ -84,8 +84,8 @@ import java.util.List;
         public Asset mapRow(ResultSet resultSet, int i) throws SQLException {
             Asset result = null;
             String assetID = resultSet.getString(1);
-            String name = resultSet.getString(2);
-            String symbol = resultSet.getString(3);
+            String symbol = resultSet.getString(2);
+            String name = resultSet.getString(3);
             String description = resultSet.getString(4);
             Double exchangeRate = resultSet.getDouble(5);
 

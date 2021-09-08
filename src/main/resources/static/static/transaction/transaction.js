@@ -32,7 +32,7 @@ function main(){
     })
 }
 function CreateTableFromJSON(data) {
-    var myAssets = data;
+    var myAssets = JSON.parse(data);
     // EXTRACT VALUE FOR HTML HEADER.
     // ('Asset ID', 'Symbol''Name', 'Disription' and 'exchangerate')
     var col = [];
