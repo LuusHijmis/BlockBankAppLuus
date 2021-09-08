@@ -38,17 +38,14 @@ public class WelcomeController {
 
     @GetMapping("/welcome/get/json")
     public ResponseEntity<?> loadWelcomePage(@RequestHeader(name="Authorization") String token) throws JsonProcessingException {
-        System.out.println("BLAAAAT"+ token);
+        System.out.println(token);
         if(tokenService.verifyToken(token)) {
             DecodedJWT decodedJWT = JWT.decode(token);
             Map<String, Claim> actualClaims = new HashMap<>();
-            Claim role = decodedJWT.getClaim("role");
-            Claim username = decodedJWT.getClaim("username");
-            actualClaims.put("role", role);
-            actualClaims.put("username", username);
-            String json = mapper.writeValueAsString(actualClaims);
-            System.out.println(json);
-            return ResponseEntity.ok(json);
+            actualClaims.put("role", decodedJWT.getClaim("role"));
+            actualClaims.put("username", decodedJWT.getClaim("username"));
+            String claims = actualClaims.toString();
+            return ResponseEntity.ok(claims);
         } else {
             return ResponseEntity.status(403).build();
         }
