@@ -35,7 +35,7 @@ public class Transaction {
 
         return "Transaction{" +
                 "opposingUserID=" + userDetails.getUsername() +
-                ", asset=" + asset.getName() + asset.getExchangeRate() +
+                ", asset=" + asset.getName() + " " + asset.getExchangeRate() +
                 ", transactionDescription='" + transactionDescription + '\'' +
                 ", assetAmount=" + assetAmount +
                 '}';
