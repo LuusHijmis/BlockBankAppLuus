@@ -37,11 +37,13 @@ function main() {
                     alert('request successful');
                     window.location.replace("http://localhost:8080/static/login/login.html");
                 },
-                fail: function(xhr, status, errorThrown){
+                fail: function(xhr, status, error){
                     console.log(xhr);
                     console.log(status);
-                    console.log(errorThrown);
-                    alert('request failed');
+                    console.log(error);
+                },
+                error: function (request) {
+                    alert(request.responseText);
                 }
             });
         }
@@ -53,11 +55,10 @@ function fullFormValidation() {
     if(checkFormNotEmpty()) {
         // check de velden.
         var emailFormat = checkEmailFormat(document.getElementById(`email_f`));
-        var fieldIsAlphanumeric = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`))
+        var fieldIsAlphanumeric = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`));
         var fieldIsAlphabetic = checkIfFieldIsAlphabetic();
-        var checkIfBsnIsValid = checkIfBsnIsValid(document.getElementById("bsn_f"))
-
-        if (emailFormat && fieldIsAlphabetic && fieldIsAlphanumeric && checkIfBsnIsValid) {
+        var bsnFormat = checkIfBsnIsValid(document.getElementById(`bsn_f`));
+        if (emailFormat && fieldIsAlphabetic && fieldIsAlphanumeric && bsnFormat) {
             validForm = true;
         }
     }
@@ -111,10 +112,11 @@ function checkIfFieldIsAlphanumeric(field) {
 }
 
 function checkIfBsnIsValid(bsn) {
-    if(bsn.value.length === 9) {
+    var num = bsn.value.toString();
+    if(num.length === 9) {
         return true;
     } else {
-        alert(bsn.getAttribute('name') + " ." );
+        alert("Invalid BSN.");
         bsn.focus();
         return false;
     }
