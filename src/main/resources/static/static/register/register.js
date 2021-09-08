@@ -55,8 +55,9 @@ function fullFormValidation() {
         var emailFormat = checkEmailFormat(document.getElementById(`email_f`));
         var fieldIsAlphanumeric = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`))
         var fieldIsAlphabetic = checkIfFieldIsAlphabetic();
+        var checkIfBsnIsValid = checkIfBsnIsValid(document.getElementById("bsn_f"))
 
-        if (emailFormat && fieldIsAlphabetic && fieldIsAlphanumeric) {
+        if (emailFormat && fieldIsAlphabetic && fieldIsAlphanumeric && checkIfBsnIsValid) {
             validForm = true;
         }
     }
@@ -65,7 +66,7 @@ function fullFormValidation() {
 }
 
 function checkFormNotEmpty() {
-    var fields = ["Username", "Password", "Email adress", "First name", "Last name", "Date of birth", "Street Name",
+    var fields = ["Username", "Password", "Email adress", "First name", "Last name", "BSN", "Date of birth", "Street Name",
         "House Number" , "Postal code", "City", "Country"]
     var fieldname;
     var i, l = fields.length;
@@ -102,19 +103,25 @@ function checkIfFieldIsAlphanumeric(field) {
     if(field.value.match(regex)) {
         return true;
     } else {
-        alert(field.getAttribute('name') + " must be Alphanumeric." );
+        alert(field.getAttribute('name') + " is invalid." );
         field.focus();
         return false;
     }
 
 }
 
-function checkIfBsnIsValid() {
-    return;
+function checkIfBsnIsValid(bsn) {
+    if(bsn.value.length === 9) {
+        return true;
+    } else {
+        alert(bsn.getAttribute('name') + " ." );
+        bsn.focus();
+        return false;
+    }
 }
 
 function checkEmailFormat(email) {
-    var regex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|ru|biz|info|mobi|name|aero|jobs|museum)\b$/;
+    var regex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|biz|info|mobi|name|nl|ru|ch)\b$/;
     if(email.value.match(regex)) {
         return true;
     } else {
