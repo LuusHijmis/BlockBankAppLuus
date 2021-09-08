@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="welcome.css">
     <title>Blockbank > Welcomepage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="welcome.js"><</script>
 </head>
 
 <body>
 
 <header>
-    <div class="container">
+    <div class="container"></div>
+    <div class="navbarclient">
 
 <!--<img src="src/main/resources/Blockbank(1).jpg" alt="logo" class="logo">-->
 
@@ -22,13 +25,45 @@
     </ul>
 </nav>
     </div>
+
+    <div class="navbarbank">
+
+        <nav>
+            <ul class="centered">
+                <li><a href="/portfolio" target="_blank">Portfolio</a></li>
+                <li><a href="/transactions" target="_blank">Transactions</a></li>
+                <li><a href="/logout" target="_blank">Log out</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="navbaradmin">
+
+
+        <nav>
+            <ul class="centered">
+                <li><a href="/portfolio" target="_blank">Portfolio</a></li>
+                <li><a href="/transactions" target="_blank">Transactions</a></li>
+                <li><a href="/users" target="_blank">Clients</a></li>
+                <li><a href="/logout" target="_blank">Log out</a></li>
+            </ul>
+        </nav>
+    </div>
+
 </header>
 
 <div class="Welcomemessage">
-<h1>Welcome to Blockbank </h1>
+<div class="client">
+    <h1>Welcome to BlockBank!</h1>
 </div>
 
+<div class="bank">
+    <h1>Welcome Bank!</h1>
+</div>
 
-
+<div class="administrator">
+   <h1>Welcome administrator!</h1>
+</div>
+</div>
 </body>
 </html>

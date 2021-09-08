@@ -27,13 +27,10 @@
 //import java.time.LocalDate;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
-//import static org.springframework.http.MediaType.APPLICATION_JSON;
-//import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 //import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 //
 //@WebMvcTest(ClientRegistrationController.class)
-//@ActiveProfiles("test")
 //public class ClientRegistrationControllerTest {
 //
 //
@@ -54,7 +51,7 @@
 //    @Test
 //    public void registerTest() {
 //        RegistrationDTO registrationDTO = new RegistrationDTO("Donald", "", "Duck",
-//                LocalDate.parse("1990-10-10"), 1, "d7@duck.nl", "hoihallo", "HOOFDLETTERs.1",
+//                LocalDate.parse("1990-10-10"), 1, "d10@duck.nl", "gebruiker", "HOOFDLETTERs.1",
 //                "wasstraat", 1, "", "1111xx", "Den Haag",
 //                "Nederland");
 //
@@ -68,15 +65,15 @@
 //
 //        Mockito.when(clientRegistrationService.register(registrationDTO)).thenReturn(userDetails);
 //        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/registerDTO");
-//        request.contentType(APPLICATION_JSON);
-//        request.content("{\"username\":\"hoihallo\", " +
+//        request.contentType(MediaType.APPLICATION_JSON);
+//        request.content("{\"username\":\"gebruiker\", " +
 //                "\"password\":\"HOOFDLETTERs.1\", " +
 //                "\"firstname\":\"Donald\", " +
 //                "\"prefix\":\"\", " +
 //                "\"lastname\":\"Duck\", " +
 //                "\"dateOfBirth\":\"1990-10-10\", " +
 //                "\"bsn\":\"1\", " +
-//                "\"emailAddress\":\"d7@duck.nl\", " +
+//                "\"emailAddress\":\"d10@duck.nl\", " +
 //                "\"address\":\"wasstraat\", " +
 //                "\"houseNumber\":\"1\", " +
 //                "\"affix\":\"\", " +

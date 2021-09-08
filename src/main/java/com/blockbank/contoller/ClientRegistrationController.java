@@ -46,7 +46,7 @@ public class ClientRegistrationController {
         System.out.println("BKAAAA"+ registrationDTO);
         UserDetails userDetails = clientregistrationservice.register(registrationDTO);
         if (userDetails != null) {
-            URI uri = URI.create(String.format(registrationDTO.getUsername()));
+            URI uri = URI.create(String.valueOf(registrationDTO.getUsername()));
             // front-end related
             return ResponseEntity.created(uri).build();
         } else {

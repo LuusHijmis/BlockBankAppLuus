@@ -1,5 +1,6 @@
 /*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');*/
 
+
 body {
     font-family: Arial;
     font-size: 16px;
@@ -60,6 +61,7 @@ nav a{
     font-size: 14px;
 }
 
+
 nav a:hover {
     color: aliceblue;
 }
@@ -82,6 +84,7 @@ nav a:hover:before {
     width: 100%;
 }
 
+
 .Welcomemessage{
     font-weight: bold;
     font-size: large;
@@ -89,15 +92,13 @@ nav a:hover:before {
     color: black;
     padding-top: 200px;
     text-align: center;
-
-
-
 }
 
-
-
-
-
+/*hide role-specific div html*/
+div.client, div.bank, div.administrator, div.navbarclient,
+div.navbarbank, div.navbaradmin {
+    display: none;
+}
 
 
 

@@ -8,13 +8,18 @@ package com.blockbank.service;
  * */
 
 
+
 import com.blockbank.database.domain.*;
 import com.blockbank.database.repository.RootRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClientRegistrationService {
+
+    private final Logger logger = LoggerFactory.getLogger(ClientRegistrationService.class);
 
 
     private HashService hashservice;
@@ -35,6 +40,7 @@ public class ClientRegistrationService {
         this.saltGenerator = saltGenerator;
         this.ibanGenerator = ibanGenerator;
         this.usernameValidationService = usernameValidationService;
+        logger.info("New ClientRegistrationService");
     }
 
     //TODO METHODE AFMAKEN met return
