@@ -34,10 +34,10 @@
 //    private UsernameValidationService mockUsername = new UsernameValidationService(rootRepository);
 //    private ClientRegistrationService clientRegistrationService;
 //
-//    @Autowired
-//    public ClientRegistrationServiceTest (RootRepository rootRepository) {
-//        this.rootRepository = rootRepository;
-//    }
+////    @Autowired
+////    public ClientRegistrationServiceTest (RootRepository rootRepository) {
+////        this.rootRepository = rootRepository;
+////    }
 //
 //    @BeforeAll
 //    public void setUP() {
@@ -50,9 +50,9 @@
 //        assertThat(clientRegistrationService).isNotNull();
 //    }
 //
-//    RegistrationDTO registrationDTO = new RegistrationDTO("Dagobert", "", "Duck",
-//            LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "HOOFDLETTERs.1",
-//            "wasstraat", 1, "", "1111xx", "Den Haag",
+//    RegistrationDTO registrationDTO = new RegistrationDTO("Hannah", "van", "Dam",
+//            LocalDate.parse("1999-01-07"), 123477759, "hannah@hva.nl", "hannah", "345",
+//            "Prinsessenstraat", 29, "", "1300PT", "Rotterdam",
 //            "Nederland");
 //
 //    @Test

@@ -4,7 +4,7 @@ function main() {
 
     $.ajax({
             type: "GET",
-            url: 'http://localhost:8080/registerDTO',
+            url: 'http://localhost:8080//welcome/get/json',
             contentType: "application/json",
             accepts: {json: "application/json"},
             success: function (role, username) {
