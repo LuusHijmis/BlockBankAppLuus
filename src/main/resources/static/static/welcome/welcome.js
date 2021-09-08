@@ -9,8 +9,7 @@ function main() {
             contentType: "application/json",
             accepts: { json: "application/json"},
             success: function (data) {
-                console.log(data)
-                alert("Hello");
+                alert("Hello" + data);
                 checkRole("client");
             },
             fail: function (role, username, errorThrown) {
