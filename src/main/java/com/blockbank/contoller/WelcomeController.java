@@ -45,8 +45,9 @@ public class WelcomeController {
             Claim role = decodedJWT.getClaim("role");
             Claim username = decodedJWT.getClaim("username");
             actualClaims.put("role", role);
-            actualClaims.put("role", username);
+            actualClaims.put("username", username);
             String json = mapper.writeValueAsString(actualClaims);
+            System.out.println(json);
             return ResponseEntity.ok(json);
         } else {
             return ResponseEntity.status(403).build();

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', main)
 function main() {
     document.getElementById('submit').addEventListener('click', ()=>{
         //check formulier voor fouten
-        if(fullFormValidation().valueOf(true)) {
+        if(fullFormValidation()) {
             //als er geen fouten zijn, maak een data bestand aan.
             const dataRaw = {
                 username: document.getElementById(`username_f`).value,
@@ -50,18 +50,23 @@ function main() {
 
 function fullFormValidation() {
     var validForm = false;
-    if(checkFormNotEmpty().valueOf(true)) {
+    if(checkFormNotEmpty()) {
         // check de velden.
-        validForm = checkEmailFormat(document.getElementById(`email_f`));
-        validForm = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`))
-        validForm = checkIfFieldIsAlphabetic();
+        var emailFormat = checkEmailFormat(document.getElementById(`email_f`));
+        var fieldIsAlphanumeric = checkIfFieldIsAlphanumeric(document.getElementById(`postalcode_f`))
+        var fieldIsAlphabetic = checkIfFieldIsAlphabetic();
+        var checkIfBsnIsValid = checkIfBsnIsValid(document.getElementById("bsn_f"))
+
+        if (emailFormat && fieldIsAlphabetic && fieldIsAlphanumeric && checkIfBsnIsValid) {
+            validForm = true;
+        }
     }
 
     return validForm;
 }
 
 function checkFormNotEmpty() {
-    var fields = ["Username", "Password", "Email adress", "First name", "Last name", "Date of birth", "Street Name",
+    var fields = ["Username", "Password", "Email adress", "First name", "Last name", "BSN", "Date of birth", "Street Name",
         "House Number" , "Postal code", "City", "Country"]
     var fieldname;
     var i, l = fields.length;
@@ -98,19 +103,25 @@ function checkIfFieldIsAlphanumeric(field) {
     if(field.value.match(regex)) {
         return true;
     } else {
-        alert(field.getAttribute('name') + " must be Alphanumeric." );
+        alert(field.getAttribute('name') + " is invalid." );
         field.focus();
         return false;
     }
 
 }
 
-function checkIfBsnIsValid() {
-    return;
+function checkIfBsnIsValid(bsn) {
+    if(bsn.value.length === 9) {
+        return true;
+    } else {
+        alert(bsn.getAttribute('name') + " ." );
+        bsn.focus();
+        return false;
+    }
 }
 
 function checkEmailFormat(email) {
-    var regex = /^[\w-.+]+\@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
+    var regex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|biz|info|mobi|name|nl|ru|ch)\b$/;
     if(email.value.match(regex)) {
         return true;
     } else {
