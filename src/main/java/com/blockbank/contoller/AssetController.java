@@ -33,7 +33,7 @@ public class AssetController {
         logger.info("New AssetController");
     }
 
-    @GetMapping("/registerDTO")
+    @GetMapping("/transaction/get/json")
     public ResponseEntity<?> assetList() throws JsonProcessingException {
         String json = assetService.allAssetListToJson();
         if (json != null) {
