@@ -5,16 +5,13 @@ function main() {
     $.ajax({
             type: "GET",
             url: 'http://localhost:8080/welcome/get/json',
-            header: {"Authorization": JSON.stringify(localStorage.getItem('Authentication'))},
-            // contentType: "application/json",
-            dataType: json,
-            accepts: {json: "application/json"},
+            headers: {"Authorization": localStorage.getItem('Authentication')},
+            contentType: "application/json",
+            accepts: { json: "application/json"},
             success: function (data) {
                 console.log(data)
-                // console.log(role);
-                // console.log(username);
-                alert("Hello " + data)
-                checkRole(role);
+                alert("Hello");
+                checkRole("client");
             },
             fail: function (role, username, errorThrown) {
                 console.log(role);
@@ -26,7 +23,7 @@ function main() {
 
 
     function checkRole() {
-        switch (role) {
+        switch ("client") {
             case "client":
                 $("div.client").show();
                 $("div.navbarclient").show();
