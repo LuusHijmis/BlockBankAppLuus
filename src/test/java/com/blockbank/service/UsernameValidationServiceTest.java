@@ -42,7 +42,7 @@ class UsernameValidationServiceTest {
     @BeforeAll
     void setup() {
         accountDao = Mockito.mock(AccountDao.class);
-        rootRepository = new RootRepository(accountDao, userDao,transactionDao, assetDao);
+        rootRepository = new RootRepository(accountDao, userDao, transactionDao, assetDao);
         usernameService = new UsernameValidationService(rootRepository);
     }
 

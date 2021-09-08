@@ -35,7 +35,6 @@ function login() {
                 localStorage.setItem('Authentication', data); //sessionStorage?
                 window.location.pathname = '/static/welcome/welcome.html'; //http://localhost:8080/static/welcome/welcome.html
             })
-            //.catch(err => console.error(err.message));
 
     })
 
@@ -45,7 +44,7 @@ function login() {
             if (response.status === 401) {
                 window.alert("Incorrect credentials");
             } else {
-                window.alert("Your account is blocked. Contact admin@blockbank.com")
+                window.alert("Your account is blocked. Contact admin@blockbank.com"); //oid
             }
             throw Error(response.statusText);
         }
