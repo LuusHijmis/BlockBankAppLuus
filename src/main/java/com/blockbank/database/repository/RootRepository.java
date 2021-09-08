@@ -61,7 +61,7 @@ public class RootRepository {
 
     public List<Asset> showAllAssets(){ return assetDao.showAllAssets();}
 
-    public Asset updateAssets(Asset asset){ return assetDao.updateAssets(asset);}
+    public Asset updateAssets(Asset asset){ return assetDao.updateAsset(asset);}
 //
 //    public Transaction saveTransaction(Transaction transaction) {
 //        return transactionDao.save(transaction);}
