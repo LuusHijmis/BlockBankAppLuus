@@ -37,9 +37,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) { //why type = <?>
-        System.out.println("test" + loginDTO);
         String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
-        System.out.println("loginservice succes");
         if (jwtUser != null) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtUser);
         } else {
