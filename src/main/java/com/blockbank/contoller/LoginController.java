@@ -28,9 +28,6 @@ public class LoginController {
     private final RootRepository rootRepository;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-//    @Value("${jwt.secret}")
-//    private String jwtSecret; //? //kan weg?
-
     @Autowired
     public LoginController(LoginService loginService, RootRepository rootRepository) {
         this.loginService = loginService;
@@ -41,19 +38,20 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) { //why type = <?>
         String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
-        UserDetails allDetails = rootRepository.findUserByUsername(loginDTO.getUsername());
-        String role = allDetails.getRole();
+//        UserDetails allDetails = rootRepository.findUserByUsername(loginDTO.getUsername());
+//        loginDTO.getUsername();
+//        String role = allDetails.getRole();
         if (jwtUser != null) {
             HttpHeaders h = new HttpHeaders();
-            h.add("token", jwtUser); //h.set? //set overwrites (if already added)
-            h.add("role", role);
+            h.set("Authentication", jwtUser); //headername???
+            //h.add("Authorization", role);
             return ResponseEntity.status(HttpStatus.ACCEPTED)
                     .headers(h)
-                    .body("Welcome " + loginDTO.getUsername() + "!"); //? not sure
+                    .body("Welcome " + loginDTO.getUsername() + "!"); //? idk
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect credentials");
-            //401 Unauthorized response should be used for missing or bad authentication,
-            //and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn't authorized to perform the requested operation on the given resource
+              //401 Unauthorized response should be used for missing or bad authentication,
+              //and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn't authorized to perform the requested operation on the given resource
         }
     }
         //URI location = URI.create(String.format("http://"));
