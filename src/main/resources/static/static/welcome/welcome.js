@@ -1,17 +1,19 @@
-document.addEventListener('DOMContentLoaded', main)
+window.addEventListener('load',main)
 
 function main() {
 
     $.ajax({
             type: "GET",
-            url: 'http://localhost:8080//welcome/get/json',
-            contentType: "application/json",
+            url: 'http://localhost:8080/welcome/get/json',
+            header: {"Authorization": JSON.stringify(localStorage.getItem('Authentication'))},
+            // contentType: "application/json",
+            dataType: json,
             accepts: {json: "application/json"},
-            success: function (role, username) {
-                console.log(role);
-                console.log(username);
-                alert("Hello " + username)
-                window.location.replace('http://localhost:8080/static/welcome/welcome.html');
+            success: function (data) {
+                console.log(data)
+                // console.log(role);
+                // console.log(username);
+                alert("Hello " + data)
                 checkRole(role);
             },
             fail: function (role, username, errorThrown) {
