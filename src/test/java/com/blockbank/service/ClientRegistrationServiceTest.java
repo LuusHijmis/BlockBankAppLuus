@@ -1,6 +1,8 @@
 //package com.blockbank.service;
 //
-//import com.blockbank.database.domain.UserDTO;
+//import com.blockbank.database.domain.Address;
+//import com.blockbank.database.domain.ClientDetails;
+//import com.blockbank.database.domain.RegistrationDTO;
 //import com.blockbank.database.domain.UserDetails;
 //import com.blockbank.database.repository.RootRepository;
 //import org.junit.jupiter.api.BeforeAll;
@@ -10,6 +12,8 @@
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.ActiveProfiles;
 //
 //import java.time.LocalDate;
 //
@@ -17,6 +21,8 @@
 //import static org.junit.jupiter.api.Assertions.*;
 //
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@SpringBootTest
+//@ActiveProfiles("test")
 //class ClientRegistrationServiceTest {
 //
 //    private RootRepository mockRepo;
@@ -24,12 +30,19 @@
 //    private PasswordValidationService mockPass = new PasswordValidationService();
 //    private SaltGenerator mockSalt = new SaltGenerator();
 //    private IbanGenerator mockIban = new IbanGenerator();
+//    private RootRepository rootRepository;
+//    private UsernameValidationService mockUsername = new UsernameValidationService(rootRepository);
 //    private ClientRegistrationService clientRegistrationService;
+//
+//    @Autowired
+//    public ClientRegistrationServiceTest (RootRepository rootRepository) {
+//        this.rootRepository = rootRepository;
+//    }
 //
 //    @BeforeAll
 //    public void setUP() {
 //        mockRepo = Mockito.mock(RootRepository.class);
-//        clientRegistrationService = new ClientRegistrationService(mockHash, mockRepo, mockPass, mockSalt, mockIban);
+//        clientRegistrationService = new ClientRegistrationService(mockHash, rootRepository, mockPass, mockSalt, mockIban, mockUsername);
 //    }
 //
 //    @Test
@@ -37,18 +50,25 @@
 //        assertThat(clientRegistrationService).isNotNull();
 //    }
 //
-//    UserDTO userDTO = new UserDTO("Dagobert", "", "Duck",
+//    RegistrationDTO registrationDTO = new RegistrationDTO("Dagobert", "", "Duck",
 //            LocalDate.parse("1990-10-10"), 1, "dd@duck.nl", "username", "HOOFDLETTERs.1",
 //            "wasstraat", 1, "", "1111xx", "Den Haag",
 //            "Nederland");
 //
 //    @Test
 //    public void registerTest() {
-//        UserDetails result = clientRegistrationService.register(userDTO);
+//        UserDetails result = clientRegistrationService.register(registrationDTO);
 //        System.out.println(result.getUsername());
 //        System.out.println(result.getPassword());
 //        System.out.println(result.getSalt());
 //        System.out.println(result);
+//        Address address = new Address(registrationDTO.getAddress(), registrationDTO.getHouseNumber(), registrationDTO.getAffix(),
+//                registrationDTO.getPostalCode(), registrationDTO.getCity(), registrationDTO.getCountry());
+//        ClientDetails clientDetails = new ClientDetails(registrationDTO.getFirstname(), registrationDTO.getPrefix(),
+//                registrationDTO.getLastname(), registrationDTO.getDateOfBirth(), registrationDTO.getBsn(), registrationDTO.getEmailAddress());
+//        UserDetails userDetails = new UserDetails(registrationDTO.getUsername(), registrationDTO.getPassword(), "12345",
+//                clientDetails, address);
+//        assertThat(clientRegistrationService.register(registrationDTO).equals(userDetails));
 //    }
 //
 //}
