@@ -9,8 +9,12 @@ function main() {
             contentType: "application/json",
             accepts: { json: "application/json"},
             success: function (data) {
-                alert("Hello" + data);
-                checkRole("client");
+                console.log(data);
+                var myInfo = JSON.parse(data);
+                var role = myInfo.role;
+                var username = myInfo.username;
+                checkRole(role);
+                alert("Hello" + username);
             },
             fail: function (role, username, errorThrown) {
                 console.log(role);
@@ -21,8 +25,8 @@ function main() {
         })
 
 
-    function checkRole() {
-        switch ("client") {
+    function checkRole(role) {
+        switch (role) {
             case "client":
                 $("div.client").show();
                 $("div.navbarclient").show();
