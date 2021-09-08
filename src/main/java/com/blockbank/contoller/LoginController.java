@@ -37,21 +37,13 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) { //why type = <?>
+        System.out.println("test" + loginDTO);
         String jwtUser = loginService.login(loginDTO.getUsername(), loginDTO.getPassword());
-//        UserDetails allDetails = rootRepository.findUserByUsername(loginDTO.getUsername());
-//        loginDTO.getUsername();
-//        String role = allDetails.getRole();
+        System.out.println("loginservice succes");
         if (jwtUser != null) {
-            HttpHeaders h = new HttpHeaders();
-            h.set("Authentication", jwtUser); //headername???
-            //h.add("Authorization", role);
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
-                    .headers(h)
-                    .body("Welcome " + loginDTO.getUsername() + "!"); //? idk
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtUser);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect credentials");
-              //401 Unauthorized response should be used for missing or bad authentication,
-              //and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn't authorized to perform the requested operation on the given resource
         }
     }
         //URI location = URI.create(String.format("http://"));

@@ -9,10 +9,9 @@ function hidePassword() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', login) //The DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading.
+document.addEventListener('DOMContentLoaded', login)
 
 function login() {
-
     document.getElementById('submit').addEventListener('click', () => {
 
         //login.preventDefault();
@@ -24,32 +23,35 @@ function login() {
             password: document.getElementById(`password`).value
         }
 
-        fetch('https://localhost:8080/login',
+        fetch('http://localhost:8080/login',
             {
             method: 'POST',
-            headers: { "Content-Type": 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginData)
         })
             .then(handleErrors)
             .then(response => response.text())
             .then(data => {
-                console.log(data);
-                localStorage.setItem('Authentication', data);
-                window.location.pathname = 'welcome/welcome.html'; //http://localhost:8080/static/welcome/welcome.html
+                localStorage.setItem('Authentication', data); //sessionStorage?
+                window.location.pathname = '/static/welcome/welcome.html'; //http://localhost:8080/static/welcome/welcome.html
             })
-            .catch(err => console.error(err.message));
+            //.catch(err => console.error(err.message));
 
     })
-}
 
-function handleErrors(response) {
-    if (!response.ok) {
-        throw Error(response.statusText);
+    function handleErrors(response) {
+        if (!response.ok) {
+            document.getElementById('form').reset();
+            if (response.status === 401) {
+                window.alert("Incorrect credentials");
+            } else {
+                window.alert("Your account is blocked. Contact admin@blockbank.com")
+            }
+            throw Error(response.statusText);
+        }
+        return response;
     }
-    return response;
-}
-function showWelcomeScreen() {
-    window.location.pathname = 'welcome/welcome.html'; //http://localhost:8080/static/welcome/welcome.html
+
 }
 
 
