@@ -10,4 +10,5 @@ public interface TransactionDao {
     Transaction save (Transaction transaction);
     Transaction delete(Transaction transaction);
     List<TransactionDTO> findTransactionByUserId(int userID);
+    TransactionDTO findTransactionByID(int id);
 }

@@ -64,7 +64,7 @@ CREATE TABLE `Transaction`
     `exchangeRateTransaction` DOUBLE     NOT NULL,
     `transactionFee`          DOUBLE     NOT NULL,
     `opposingUserID`          INT        NOT NULL,
-    `assetId`                 INT        NOT NULL,
+    `assetId`                 VARCHAR(10)        NOT NULL, --TODO Check VARCHAR Amount
     PRIMARY KEY (`transactionID`)
     --INDEX `fk_User_has_Asset_User1_idx` (`UserID` ASC) VISIBLE,
     --INDEX `fk_Transaction_User1_idx` (`opposingUserID` ASC) VISIBLE,

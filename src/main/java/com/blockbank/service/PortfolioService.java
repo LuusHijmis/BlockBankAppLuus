@@ -62,4 +62,15 @@ public class PortfolioService {
 //        }
         return portfolio;
     }
+
+    public double currentValueportfolio(int userID){
+        double portfolioValue = 0.0;
+       Map<Asset, Double> tempMap = getAssetsTotal(userID);
+       for(Map.Entry<Asset,Double> entry:tempMap.entrySet()) {
+           double assetAmount = entry.getValue();
+           double currentExchangeRate = rootRepository.findAssetById(entry.getKey().getAssetID()).getExchangeRate();
+           portfolioValue += assetAmount * currentExchangeRate;
+       }
+        return portfolioValue;
+    }
 }

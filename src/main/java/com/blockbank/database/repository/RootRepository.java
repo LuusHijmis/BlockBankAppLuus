@@ -98,7 +98,9 @@ public class RootRepository {
                 transactionDTO.getTransactionFee());
         return transactionDao.save(transaction);
     }
-
+    public TransactionDTO findTransactionByID(int id) {
+        return transactionDao.findTransactionByID(id);
+    }
 
     //
     //TODO aanroep deleteTransaction fixen!
