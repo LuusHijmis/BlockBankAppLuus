@@ -3,6 +3,7 @@ package com.blockbank.service;
 import com.blockbank.contoller.AssetController;
 import com.blockbank.database.domain.Asset;
 import com.blockbank.database.domain.Transaction;
+import com.blockbank.database.domain.UserDetails;
 import com.blockbank.database.repository.RootRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -22,7 +23,6 @@ import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 public class PortfolioService {
 
     private RootRepository rootRepository;
-//    public ObjectMapper mapper;
     private final Logger logger = LoggerFactory.getLogger(PortfolioService.class);
 
     @Autowired
@@ -30,9 +30,15 @@ public class PortfolioService {
         this.rootRepository = rootRepository;
     }
 
+    public int getUserIDbyName(String username) {
+        UserDetails user = rootRepository.findUserByUsername(username);
+        return user.getUserID();
+    }
+
     public Map<Asset, Double> getAssetsTotal (int userID) {
         List<Transaction> transactions = rootRepository.findTransactionsByUSerID(userID);
         Map<Asset, Double> portfolio = new HashMap<>();
+        System.out.println(transactions);
         for (Transaction transaction: transactions) {
             if (portfolio.get(transaction.getAsset()) == null) {
                 portfolio.put(transaction.getAsset(), transaction.getAssetAmount());

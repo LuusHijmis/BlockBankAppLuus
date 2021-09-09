@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -68,8 +69,8 @@ public class RootRepository {
 
     public List<Transaction> findTransactionsByUSerID(int userID) {
         List<TransactionDTO> tempList = transactionDao.findTransactionByUserId(userID);
-        List<Transaction> transactionList = null;
-        if(tempList.isEmpty()) {
+        List<Transaction> transactionList = new ArrayList<>();
+        if(tempList != null) {
             for (TransactionDTO transactionDTO : tempList) {
                 UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
                 UserDetails oppossingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
