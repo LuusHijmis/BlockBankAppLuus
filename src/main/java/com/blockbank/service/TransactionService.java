@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private RootRepository rootRepository;
-    private ObjectMapper mapper;
+    public RootRepository rootRepository;
+    public ObjectMapper mapper;
 
 
     @Autowired

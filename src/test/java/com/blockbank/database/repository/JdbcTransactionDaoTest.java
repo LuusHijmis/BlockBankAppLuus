@@ -13,8 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -46,26 +46,21 @@ class JdbcTransactionDaoTest {
                 "Voorhout","");
 
         UserDetails userDetails = new UserDetails("Harold","dlorah","123",clientDetails,address);
+        userDetails.setUserID(1);
         //
 
         Transaction transaction = new Transaction(userDetails,userDetails,bitcoin, LocalDateTime.now(),
                 "Buy",1.00,exchangeRateBit,10.00);
+        System.out.println(transaction);
 
         var actual = transactionDaoTest.save(transaction);
-//        var found = transactionDaoTest.findTransactionByUserId(7);
-//        Assertions.assertThat(found);
-        System.out.println(actual);
-
+        var found = transactionDaoTest.findTransactionByID(4);
+//        Assertions.assertThat(found.toString()).contains(actual.toString()); // welofnietkomofga1234523
 
     }
 
     @Test
-    void delete() {
-        fail();
-    }
-
-    @Test
-    void findByUserId() {
+    void findTransactionByUserId() {
 
         var found = transactionDaoTest.findTransactionByUserId(1);
         for(TransactionDTO transactionDTO:found) {

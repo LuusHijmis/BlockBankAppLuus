@@ -58,6 +58,18 @@ public class JdbcTransactionDao implements TransactionDao {
     }
 
     @Override
+    public TransactionDTO findTransactionByID(int id) {
+        logger.debug("TransactionDao called for findTransactionById");
+        List<TransactionDTO> transactions = jdbcTemplate.query(
+                "select * from `transaction` where transactionID = ?", new JdbcTransactionDao.TransactionRowMapper(), id);
+        if(transactions.size() > 0) {
+            return transactions.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public List<TransactionDTO>findTransactionByUserId(int userID) {
         logger.debug("TransactionDao called for findTransactionByClientId");
         List<TransactionDTO> transactions = jdbcTemplate.query(
@@ -67,15 +79,6 @@ public class JdbcTransactionDao implements TransactionDao {
         } else {
             return null;
         }
-    }
-
-    public int findUserForTransaction(int userID){
-        int userForeignKey =
-                jdbcTemplate.queryForObject(
-                        "select userID from user where id = ?",
-                        Integer.class,
-                        userID);
-        return userForeignKey;
     }
 
     private static class TransactionRowMapper implements RowMapper<TransactionDTO> {
@@ -92,7 +95,7 @@ public class JdbcTransactionDao implements TransactionDao {
             double exchangeRate = resultSet.getDouble(6);
             double transactionFee = resultSet.getDouble(7);
             int opposingUserID = resultSet.getInt(8);
-            int assetID = resultSet.getInt(9);
+            String assetID = resultSet.getString(9);
             tempResult = new TransactionDTO(userID,localDateTime,transactionSort,amountAsset,exchangeRate,transactionFee,opposingUserID,assetID);
             tempResult.setTransactionID(transactionID);
             return tempResult;

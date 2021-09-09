@@ -14,10 +14,10 @@ public class TransactionDTO {
     private double exchangeRate;
     private double transactionFee;
     private int opposingUserID;
-    private int assetID;
+    private String assetID;
 
     public TransactionDTO(int userID, LocalDateTime transactionDateTime, String transactionSort, double amountAssets,
-                          double exchangeRate, double transactionFee, int opposingUserID, int assetID) {
+                          double exchangeRate, double transactionFee, int opposingUserID, String assetID) {
         this.transactionID = 0;
         this.userID = userID;
         this.transactionDateTime = transactionDateTime;
@@ -85,11 +85,11 @@ public class TransactionDTO {
         this.opposingUserID = opposingUserID;
     }
 
-    public int getAssetID() {
+    public String getAssetID() {
         return assetID;
     }
 
-    public void setAssetID(int assetID) {
+    public void setAssetID(String assetID) {
         this.assetID = assetID;
     }
 
