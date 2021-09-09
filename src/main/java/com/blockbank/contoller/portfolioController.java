@@ -40,14 +40,14 @@ public class portfolioController {
         if(tokenService.verifyToken(token)) {
             DecodedJWT decodedJWT = JWT.decode(token);
             String username = decodedJWT.getClaim("username").asString();
-            System.out.println(username);
             int userID = portfolioService.getUserIDbyName(username);
-            System.out.println(userID);
             Map<Asset, Double> portfolio =  portfolioService.getAssetsTotal(userID);
-            System.out.println(portfolio);
             String json = mapper.writeValueAsString(portfolio);
             System.out.println(json);
-            return ResponseEntity.ok(json);
+            String alteredJson = json.replaceAll("=", ":");
+            alteredJson = "["+alteredJson+"]";
+            System.out.println(alteredJson);
+            return ResponseEntity.ok(alteredJson);
         } else {
             return ResponseEntity.status(403).build();
         }
