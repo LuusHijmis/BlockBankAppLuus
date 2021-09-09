@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BlackBank - Home</title>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../outerNavbar/outerNavbar.css">
 </head>
+<header>
+    <div id="navplacement"></div>
+</header>
 <body>
-
+<script>
+    $(function() {
+        $("#navplacement").load("../outerNavbar/outerNavbar.html");
+    });
+</script>
 </body>
 </html>

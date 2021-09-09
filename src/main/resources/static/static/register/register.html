@@ -5,8 +5,13 @@
     <link rel="stylesheet" href="register.css">
     <title>Register - BlockBank</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="register.js"><</script>
+
 </head>
+<header>
+    <div id="navplacement"></div>
+</header>
 <body>
 <section class="register-form">
     <form id="register">
@@ -31,5 +36,10 @@
     </form>
     <button id="submit">Submit</button>
 </section>
+<script>
+    $(function() {
+        $("#navplacement").load("../outerNavbar/outerNavbar.html");
+    });
+</script>
 </body>
 </html>
