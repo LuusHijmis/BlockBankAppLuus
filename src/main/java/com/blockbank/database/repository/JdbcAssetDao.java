@@ -2,6 +2,7 @@ package com.blockbank.database.repository;
 
 import com.blockbank.database.domain.Asset;
 
+import com.blockbank.database.domain.AssetDTO;
 import com.blockbank.service.ExchangeRateService;
 import com.blockbank.service.ExchangeRateUpdateService;
 import org.slf4j.Logger;
@@ -78,6 +79,13 @@ import java.util.List;
         return assets;
     }
 
+    public List<AssetDTO> transactionDataAssets(){
+        logger.debug("assetDao called for transactionDataAssets");
+        List<AssetDTO> assets = jdbcTemplate.query(
+                "select  symbol, name, exchangerate from asset;", new JdbcAssetDao.AssetRowMapperTransaction());
+        return assets;
+    }
+
     private static class AssetRowMapper implements RowMapper<Asset> {
         @Override
 
@@ -90,6 +98,19 @@ import java.util.List;
             Double exchangeRate = resultSet.getDouble(5);
 
             result = new Asset(assetID, name, symbol, description, exchangeRate);
+            return result;
+        }
+    }
+    private static class AssetRowMapperTransaction implements RowMapper<AssetDTO> {
+        @Override
+
+        public AssetDTO mapRow(ResultSet resultSet, int i) throws SQLException {
+            AssetDTO result = null;
+            String symbol = resultSet.getString(2);
+            String name = resultSet.getString(1);
+            Double exchangeRate = resultSet.getDouble(3);
+
+            result = new AssetDTO(name, symbol, exchangeRate);
             return result;
         }
     }

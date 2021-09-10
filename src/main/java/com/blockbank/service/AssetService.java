@@ -7,6 +7,7 @@ package com.blockbank.service;
 import com.blockbank.contoller.AssetController;
 import com.blockbank.contoller.ClientRegistrationController;
 import com.blockbank.database.domain.Asset;
+import com.blockbank.database.domain.AssetDTO;
 import com.blockbank.database.repository.RootRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +33,7 @@ public class AssetService {
     }
 
     public String allAssetListToJson() throws JsonProcessingException {
-        List<Asset> assetList = rootRepository.showAllAssets();
+        List<AssetDTO> assetList = rootRepository.transactionDataAssets();
         String json = mapper.writeValueAsString(assetList);
         return json;
     }

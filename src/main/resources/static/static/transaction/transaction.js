@@ -43,6 +43,9 @@ function CreateTableFromJSON(data) {
             }
         }
     }
+//create two extra columns
+    col.push("Koop");
+    col.push("Verkoop");
 
     // CREATE DYNAMIC TABLE.
     var table = document.createElement("table");
@@ -66,6 +69,10 @@ function CreateTableFromJSON(data) {
             var tabCell = tr.insertCell(-1);
             tabCell.innerHTML = myAssets[i][col[j]];
         }
+    }
+    //add button sell and buy
+    for (var i = 0; i <table.length; i++){
+
     }
 
     // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.

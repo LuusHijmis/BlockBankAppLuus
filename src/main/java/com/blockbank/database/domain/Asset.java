@@ -10,12 +10,16 @@ public class Asset {
     private String description;
     private double exchangeRate;
 
-    public Asset(String assetID, String name, String symbol, String description, double exchangeRate) {
+   public Asset(String assetID, String name, String symbol, String description, double exchangeRate) {
         this.assetID = assetID;
         this.name = name;
         this.symbol = symbol;
         this.description = description;
         this.exchangeRate = exchangeRate;
+    }
+
+    public Asset() {
+
     }
 
     public Asset(String assetID) {

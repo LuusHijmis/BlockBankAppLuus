@@ -45,7 +45,7 @@ CREATE TABLE `Portfolio` (
 
 CREATE TABLE `Asset`
 (
-    `assetId`      INT          NOT NULL,
+    `assetId`      VARCHAR(10)          NOT NULL,
     `symbol`       VARCHAR(10)  NOT NULL,
     `name`         VARCHAR(45)  NOT NULL,
     `discription`  VARCHAR(3000) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `Transaction`
     `exchangeRateTransaction` DOUBLE     NOT NULL,
     `transactionFee`          DOUBLE     NOT NULL,
     `opposingUserID`          INT        NOT NULL,
-    `assetId`                 INT        NOT NULL,
+    `assetId`                 VARCHAR(10)        NOT NULL,
     PRIMARY KEY (`transactionID`)
     --INDEX `fk_User_has_Asset_User1_idx` (`UserID` ASC) VISIBLE,
     --INDEX `fk_Transaction_User1_idx` (`opposingUserID` ASC) VISIBLE,

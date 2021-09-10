@@ -59,6 +59,8 @@ public class RootRepository {
 
     public Asset findAssetById(String assetId){ return assetDao.findAssetById(assetId);}
 
+    public List<AssetDTO> transactionDataAssets(){return assetDao.transactionDataAssets();}
+
     public List<Asset> showAllAssets(){ return assetDao.showAllAssets();}
 
     public Asset updateAssets(Asset asset){ return assetDao.updateAsset(asset);}
