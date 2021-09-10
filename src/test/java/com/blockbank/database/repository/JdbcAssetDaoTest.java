@@ -35,6 +35,11 @@ class JdbcAssetDaoTest {
     }
 
     @Test
+    void transactionDataAssets(){
+        System.out.println(assetDaoUnderTest.transactionDataAssets());
+    }
+
+    @Test
     void findAssetById(){
         System.out.println(assetDaoUnderTest.findAssetById("1"));
     }
