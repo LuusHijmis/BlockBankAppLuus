@@ -3,6 +3,7 @@ package com.blockbank.contoller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blockbank.database.domain.Asset;
+import com.blockbank.database.domain.PortfolioDTO;
 import com.blockbank.service.PortfolioService;
 import com.blockbank.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,13 +43,14 @@ public class portfolioController {
             DecodedJWT decodedJWT = JWT.decode(token);
             String username = decodedJWT.getClaim("username").asString();
             int userID = portfolioService.getUserIDbyName(username);
-            Map<Asset, Double> portfolio =  portfolioService.getAssetsTotal(userID);
+            System.out.println(userID);
+            List<PortfolioDTO> portfolio = portfolioService.generatePortfolioList(userID);
             String json = mapper.writeValueAsString(portfolio);
             System.out.println(json);
-            String alteredJson = json.replaceAll("=", ":");
-            alteredJson = "["+alteredJson+"]";
-            System.out.println(alteredJson);
-            return ResponseEntity.ok(alteredJson);
+//            String alteredJson = json.replaceAll("=", ":");
+//            alteredJson = "["+alteredJson+"]";
+//            System.out.println(alteredJson);
+            return ResponseEntity.ok(json);
         } else {
             return ResponseEntity.status(403).build();
         }
