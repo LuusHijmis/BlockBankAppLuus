@@ -1,5 +1,9 @@
 package com.blockbank.database.domain;
 
+/**
+ * @author hannahvd
+ */
+
 public class Mail {
     private String recipient;
     private String subject;
