@@ -11,8 +11,6 @@ public interface UserDao {
     UserDetails updatePassword(UserDetails userDetails);
     UserDetails findByUsername(String username);
     UserDetails findUserById (int userId);
-
-
-
+    UserDetails findUserByEmail (String emailAddress);
 
 }

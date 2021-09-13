@@ -46,19 +46,14 @@ input {
     width: 220px;
 }
 
+/* TODO: fix checkbox */
+
 #checkbox {
-    /*float: left;   -- nope*/
-    /*text-align: left;   -- nope*/
-    /*display: block;    -- nope*/
-    /*display: inline-block;   -- nope*/
-    /*display: compact;    -- nope*/
-    /*box-sizing: content-box;    --nope*/
-    /*appearance: auto;   --nope*/
-    /*margin: 100px 10px       --nope*/
+    display: inline-block;
 }
 
-input label {
-    /*float: left;    -- nope*/
+label {
+    display: inline-block;
 }
 
 #submit {
@@ -88,11 +83,10 @@ input label {
 a {
     color: #3d9970;
     text-decoration: none;
-    border-bottom: 2px solid #3d9970;
-    /*padding-bottom: 1px;*/
 }
 
 a:hover {
-    border-bottom: 2px solid #0000ff;
+    border-bottom: 2px solid #3d9970;
+    padding-bottom: 1px;
 }
 

@@ -41,7 +41,7 @@ public class UsernameValidationService {
         logger.info("New UsernameValidationService");
     }
 
-    protected boolean isValid(String username) {
+    public boolean isValid(String username) {
         if (checkNotUnique(username)) {
             return false;
         }
