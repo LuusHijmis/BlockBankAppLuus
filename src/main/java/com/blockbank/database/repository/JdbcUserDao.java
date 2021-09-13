@@ -151,6 +151,16 @@ public class JdbcUserDao implements UserDao {
         return null;
     }
 
+    @Override
+    public UserDetails findUserByEmail(String emailAddress) {
+        logger.debug("userDao called for findByEmailaddress");
+        List<UserDetails> userDetails = jdbcTemplate.query(
+                "select * from user where emailaddress = ?", new JdbcUserDao.UserRowMapper(), emailAddress);
+        if (userDetails.size() == 1) {
+            return userDetails.get(0);
+        }
+        return null;
+    }
 
     private static class UserRowMapper implements RowMapper<UserDetails> {
         @Override
