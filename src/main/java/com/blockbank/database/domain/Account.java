@@ -19,7 +19,7 @@ public class Account {
     private String iban;
     private double balance;
     private  int clientId;
-    private final double STARTING_BALANCE = 0;
+    private final double STARTING_BALANCE = 100;
     private final String EMPTY_IBAN = "";
 
     public Account(int clientId) throws IllegalArgumentException {
