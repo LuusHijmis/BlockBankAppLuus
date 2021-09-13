@@ -34,13 +34,20 @@ public class ResetPasswordService {
 
     //link gegenereerd bestaande uit een endpoint + jwt
 
-    private String sendResetMail(String userEmailadress) {
-        //parameter email
-        //user found?
-          //y: create token
-          //n: redirect back to login.html + msg "e-mail-address not found"
-        //send email
-        //redirect success page
-     return null;
+    //parameter email
+    //user found?
+    //y: create token
+    //n: redirect back to login.html + msg "e-mail-address not found"
+    //send email
+    //redirect success page
+
+    //uh...
+    private boolean findUserInDatabase(String userEmailadress) {
+        return rootRepository.findUserByEmail(userEmailadress) != null;
     }
+
+    //create token //create endpoint
+
+
+
 }
