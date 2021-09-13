@@ -32,7 +32,7 @@ class ExchangeRateServiceTest {
 
     @Test
     void getExchangeRate() {
-        exchangeRateService.getExchangeRate("1","USD");
+        exchangeRateService.getExchangeRate("1");
     }
 
     /*@Test
