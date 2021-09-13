@@ -95,8 +95,7 @@ nav a:hover:before {
 }
 
 /*hide role-specific div html*/
-div.client, div.bank, div.administrator, div.navbarclient,
-div.navbarbank, div.navbaradmin {
+div.client, div.administrator, div.navbarclient, div.navbaradmin {
     display: none;
 }
 
