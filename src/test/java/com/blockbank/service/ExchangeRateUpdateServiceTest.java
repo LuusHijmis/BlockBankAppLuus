@@ -28,10 +28,6 @@ class ExchangeRateUpdateServiceTest {
     }
 
 
-
-
-
-
     @Test
     void updatedAssetList() {
        exchangeRateUpdateService.updatedAssets();

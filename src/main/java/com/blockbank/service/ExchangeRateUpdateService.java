@@ -30,7 +30,7 @@ private final Logger logger = LoggerFactory.getLogger(ExchangeRateService.class)
     List<Asset> updatedAssetsList = new ArrayList<>();
 
         for (Asset asset : assets) {
-                asset.setExchangeRate(exchangeRateService.getExchangeRate(asset.getAssetID(),"USD"));
+                asset.setExchangeRate(exchangeRateService.getExchangeRate(asset.getAssetID()));
             //System.out.println(assets);
             //jdbcAssetDao.updateAssets(asset); //deze gaat nog fout
             updatedAssetsList.add(asset);

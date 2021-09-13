@@ -2,12 +2,9 @@ package com.blockbank.service;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
@@ -25,15 +22,14 @@ public class ExchangeRateService {
 
     private static String apiKey = "37df24be-be71-4ebf-addb-b5a5c0e908ce";
     private final static String URI ="https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
-    private final static String ASSETIDS = "1,2,52,74,825,1027,1831,1839,1975,2010,3077,3408,3717,3890,4172,4687,5426,6636,7083,8916";
-    private final static String CURRENCY = "USD";
 
-    //TODO currency wordt via pulldownmenu meegegeven vanaf frontend
-    public static double getExchangeRate(String assetID, String currency) {
-        //currency = CURRENCY;
+
+
+
+    public static double getExchangeRate(String assetID) {
         double result = 0;
         List<NameValuePair> paratmers = new ArrayList<NameValuePair>();
-        paratmers.add(new BasicNameValuePair("convert", currency));
+        paratmers.add(new BasicNameValuePair("convert", "EUR"));
         paratmers.add(new BasicNameValuePair("id", assetID));
         paratmers.add(new BasicNameValuePair("aux", "platform"));
 
@@ -84,13 +80,15 @@ public class ExchangeRateService {
         JsonNode quoteNode = jsonNode2.path("quote");
 
         JsonNode jsonNode3 = mapper.readTree(String.valueOf(quoteNode));
-        JsonNode usdNode = jsonNode3.path("USD");
+        JsonNode usdNode = jsonNode3.path("EUR");
 
         JsonNode jsonNode4 = mapper.readTree(String.valueOf(usdNode));
         String priceNode = jsonNode4.get("price").asText();
 
         Double price = Double.parseDouble(priceNode);
-        return price;
+        return (double) Math.round(price * 100000000)/100000000;
+
+
 
 
 
