@@ -1,7 +1,13 @@
 package com.blockbank.database.domain;
 
-/*@author Fiona Lampers
- * Super class  */
+/**
+ * @author Fiona Lampers
+ * Super klasse User.
+ * Subklasse UserDetails.
+ * When ClientDetails are filled in including address, the contructor automatically makes roll = client
+ * for futher client priveliges/ restrictions.
+ */
+
 
 import java.util.Objects;
 
@@ -13,12 +19,6 @@ public class UserDetails extends User {
     public UserDetails(String username, String password, String salt, ClientDetails clientDetails, Address address) {
         super(username, password, "client", salt);
         this.clientDetails = clientDetails;
-        this.address = address;
-    }
-
-    // Constructor for the Bank
-    public UserDetails(String username, String password, String salt, Address address) {
-        super(username, password, "bank", salt);
         this.address = address;
     }
 

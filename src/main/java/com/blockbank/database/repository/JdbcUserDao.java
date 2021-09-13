@@ -111,9 +111,9 @@ public class JdbcUserDao implements UserDao {
             case "administrator" :
                 jdbcTemplate.update(connection -> insertAdminStatement(userDetails, connection),keyHolder);
                 break;
-            case "bank" :
-                jdbcTemplate.update(connection -> insertBankStatement(userDetails, connection),keyHolder);
-                break;
+//            case "bank" :
+//                jdbcTemplate.update(connection -> insertBankStatement(userDetails, connection),keyHolder);
+//                break;
             default :
                 System.out.println("Rol bestaat niet");
         }
@@ -192,22 +192,22 @@ public class JdbcUserDao implements UserDao {
                     userDetailsAdmin.setUserID(UserIdAdmin);
                     result = userDetailsAdmin;
                     break;
-                case "bank":
-                    int UserIdBank = resultSet.getInt(1);
-                    String usernameBank = resultSet.getString(2);
-                    String passwordBank = resultSet.getString(3);
-                    String saltBank = resultSet.getString(4);
-                    String addressBank = resultSet.getString(10);
-                    int housenumberBank = resultSet.getInt(11);
-                    String affixBank = resultSet.getString(12);
-                    String postalCodeBank = resultSet.getString(13);
-                    String cityBank = resultSet.getString(14);
-                    String countryBank = resultSet.getString(15);
-                    Address address1Bank = new Address(addressBank, housenumberBank, affixBank, postalCodeBank, cityBank, countryBank);
-                    UserDetails userDetailsBank = new UserDetails(usernameBank, passwordBank, saltBank, address1Bank);
-                    userDetailsBank.setUserID(UserIdBank);
-                    result = userDetailsBank;
-                    break;
+//                case "bank":
+//                    int UserIdBank = resultSet.getInt(1);
+//                    String usernameBank = resultSet.getString(2);
+//                    String passwordBank = resultSet.getString(3);
+//                    String saltBank = resultSet.getString(4);
+//                    String addressBank = resultSet.getString(10);
+//                    int housenumberBank = resultSet.getInt(11);
+//                    String affixBank = resultSet.getString(12);
+//                    String postalCodeBank = resultSet.getString(13);
+//                    String cityBank = resultSet.getString(14);
+//                    String countryBank = resultSet.getString(15);
+//                    Address address1Bank = new Address(addressBank, housenumberBank, affixBank, postalCodeBank, cityBank, countryBank);
+//                    UserDetails userDetailsBank = new UserDetails(usernameBank, passwordBank, saltBank, address1Bank);
+//                    userDetailsBank.setUserID(UserIdBank);
+//                    result = userDetailsBank;
+//                    break;
                 default:
                     System.out.println("rol bestaat niet");
 

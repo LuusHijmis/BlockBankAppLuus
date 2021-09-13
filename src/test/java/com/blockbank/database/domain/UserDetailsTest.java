@@ -24,21 +24,7 @@ class UserDetailsTest {
         assertThat(instance.getRole()).isEqualTo("client");
     }
 
-    @Test
-    public void constructionValidArguementsCreatesBank() {
-        // Arrange - niet nodig in dit geval.
-        Address adress = new Address("koningininenstraat", 777, "D",
-                "1234ab", "amsterdam", "NL");
-        // Act.
-        var instance = new UserDetails("Bank", "123", "salt", adress);
-        System.out.println(instance);
-
-        // Assert.
-        assertNotNull(instance);
-        assertThat(instance.getRole()).isEqualTo("bank");
-    }
-
-    @Test
+     @Test
     public void constructionValidArguementsCreatesAdministrator() {
         // Arrange - niet nodig in dit geval.
 

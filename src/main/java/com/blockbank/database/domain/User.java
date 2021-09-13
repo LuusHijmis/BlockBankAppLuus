@@ -1,8 +1,12 @@
 package com.blockbank.database.domain;
 
-/*@author Fiona Lampers
- * Super class  */
-
+/**
+ * @author Fiona Lampers
+ * Super klasse User.
+ * Subklasse UserDetails.
+ * When ClientDetails are filled in including address, the contructor automatically makes roll = client
+ * for futher client priveliges/ restrictions.
+ */
 public abstract class User {
 
     private int userID = 0;
