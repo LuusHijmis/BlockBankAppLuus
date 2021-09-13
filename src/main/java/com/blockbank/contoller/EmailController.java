@@ -2,6 +2,7 @@ package com.blockbank.contoller;
 
 import com.blockbank.database.domain.Mail;
 import com.blockbank.service.SendMailService;
+import com.blockbank.service.SendMailServiceImpl;
 import org.apache.http.MessageConstraintException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ import javax.mail.MessagingException;
  */
 
 @RestController
-@RequestMapping("/api/vl/mail") //nog ff naar kieken
+@RequestMapping("/api/mail") //nog ff naar kieken
 public class EmailController {
 
-    SendMailService service;
+    SendMailServiceImpl service;
 
     @Autowired
-    public EmailController(SendMailService service) {
+    public EmailController(SendMailServiceImpl service) {
         this.service = service;
     }
 
@@ -32,9 +33,9 @@ public class EmailController {
     public ResponseEntity<String> sendMail (@RequestBody Mail mail) {
         service.sendMail(mail);
         return new ResponseEntity<>("E-mail sent", HttpStatus.OK);
-    } //return (new) ModelAndView
+    } //return (new) ModelAndView?
 
-    @PostMapping("/attachtment")
+    @PostMapping("/attachment")
     public ResponseEntity<String> sendAttachmentEmail(@RequestBody Mail mail) throws MessagingException, MessageConstraintException {
         service.sendMailWithAttachments(mail);
         return new ResponseEntity<>("Attachment e-mail sent", HttpStatus.OK);
