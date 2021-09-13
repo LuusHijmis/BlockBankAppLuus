@@ -17,6 +17,7 @@ function main(){
 
 
 
+
             alert('request successful');
 
 
@@ -30,6 +31,7 @@ function main(){
             alert('request failed');
         }
     })
+    document.getElementsByTagName("th").innerHTML.replace("symbol", "SYMBOL");
 }
 function CreateTableFromJSON(data) {
     var myAssets = JSON.parse(data);
@@ -47,6 +49,7 @@ function CreateTableFromJSON(data) {
     col.push("Koop");
     col.push("Verkoop");
 
+
     // CREATE DYNAMIC TABLE.
     var table = document.createElement("table");
 
@@ -58,6 +61,8 @@ function CreateTableFromJSON(data) {
         var th = document.createElement("th");      // TABLE HEADER.
         th.innerHTML = col[i];
         tr.appendChild(th);
+        /*document.getElementsByTagName("th");
+        headers[0].innerHTML.replace("SYMBOL");*/
     }
 
     // ADD JSON DATA TO THE TABLE AS ROWS.
@@ -75,11 +80,14 @@ function CreateTableFromJSON(data) {
 
     }
 
+
+
     // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
     var divContainer = document.getElementById('showData');
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
 }
+
 
 
 
