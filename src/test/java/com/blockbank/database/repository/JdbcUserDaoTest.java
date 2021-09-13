@@ -51,18 +51,7 @@ class JdbcUserDaoTest {
         assertThat(found).isEqualTo(actual);
 
     }
-    @Test
-    void saveBank() {
-        //arrange
-        Address address = new Address("Oosthoutlaan",132,null,"2215MC",
-                "Voorhout","Nederland");
-        UserDetails userDetails = new UserDetails("klaasje","ejteip","12356",address);
-        //act
-        var actual = userDaoUnderTest.save(userDetails);
-        var found = userDaoUnderTest.findUserById(4);
-        System.out.println(found);
-        assertThat(found).isEqualTo(actual);
-    }
+
 
     @Test
     void saveAdministrator() {
