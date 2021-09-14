@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class RegistrationDTO {
@@ -120,5 +121,22 @@ public class RegistrationDTO {
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RegistrationDTO that = (RegistrationDTO) o;
+        return bsn == that.bsn && houseNumber == that.houseNumber && Objects.equals(firstname, that.firstname)
+                && Objects.equals(prefix, that.prefix) && Objects.equals(lastname, that.lastname)
+                && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(emailAddress, that.emailAddress)
+                && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(address, that.address) && Objects.equals(affix, that.affix) && Objects.equals(postalCode, that.postalCode) && Objects.equals(city, that.city) && Objects.equals(country, that.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, prefix, lastname, dateOfBirth, bsn, emailAddress, username,
+                password, address, houseNumber, affix, postalCode, city, country);
     }
 }

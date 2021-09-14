@@ -12,7 +12,7 @@ function main() {
         })
         .then(data => {
             localStorage.removeItem('Authentication', data);
-            window.location.pathname = '/static/index/index.html';
+            window.location.pathname = '/static/login/login.html';
         })
 }
 

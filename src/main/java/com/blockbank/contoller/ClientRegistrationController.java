@@ -43,8 +43,9 @@ public class ClientRegistrationController {
         System.out.println(registrationDTO);
         UserDetails userDetails = clientregistrationservice.register(registrationDTO);
         if (userDetails != null) {
-            URI uri = URI.create(String.valueOf(registrationDTO.getUsername()));
-            return ResponseEntity.created(uri).build();
+//            URI uri = URI.create(String.valueOf(userDetails));
+//            return ResponseEntity.created(uri).build();
+            return ResponseEntity.ok().body(userDetails);
         } else {
             return ResponseEntity.badRequest().build();
         }
