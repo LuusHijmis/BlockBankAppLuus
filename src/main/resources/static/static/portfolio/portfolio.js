@@ -1,5 +1,5 @@
 window.addEventListener('load',main)
-
+console.log(document.getElementsByTagName("th").item(1));
 function main() {
     $.ajax({
         type: "GET",
@@ -26,8 +26,8 @@ function main() {
         }
     })
 
+   // document.getElementsByTagName("th").item(0).replace="Asset ID";
     console.log(document.getElementsByTagName("th").item(0));
-    console.log(document.getElementsByClassName("th").item(0));
 }
 function CreateTableFromJSON(data) {
 
