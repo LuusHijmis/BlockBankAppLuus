@@ -1,5 +1,5 @@
-window.addEventListener('load',main)
-console.log(document.getElementsByTagName("th").item(1));
+window.onload= changeTabel;
+document.addEventListener('DOMContentLoaded', main);
 function main() {
     $.ajax({
         type: "GET",
