@@ -26,9 +26,16 @@ function main() {
         }
     })
 
-   // document.getElementsByTagName("th").item(0).replace="Asset ID";
-    console.log(document.getElementsByTagName("th").item(0));
 }
+function changeTabel(){
+
+    document.getElementsByTagName('th').item(0).innerHTML="Asset ID";
+    document.getElementsByTagName('th').item(1).innerHTML="Name";
+    document.getElementsByTagName('th').item(2).innerHTML="Symbol";
+    document.getElementsByTagName('th').item(3).innerHTML="Exchange rate (EUR)";
+
+}
+
 function CreateTableFromJSON(data) {
 
         var myAssets = JSON.parse(data);
