@@ -47,7 +47,7 @@ class JdbcUserDaoTest {
         UserDetails userDetails = new UserDetails("pietje","ejteip","1235",clientDetails,address);
         //act
         var actual = userDaoUnderTest.save(userDetails);
-        var found = userDaoUnderTest.findUserById(5);
+        var found = userDaoUnderTest.findUserById(4);
         assertThat(found).isEqualTo(actual);
 
     }
@@ -59,7 +59,7 @@ class JdbcUserDaoTest {
         UserDetails userDetails = new UserDetails("marietje","ejteip","123567");
         //act
         var actual = userDaoUnderTest.save(userDetails);
-        var found = userDaoUnderTest.findUserById(6);
+        var found = userDaoUnderTest.findUserById(5);
         assertThat(found).isEqualTo(actual);
     }
 
