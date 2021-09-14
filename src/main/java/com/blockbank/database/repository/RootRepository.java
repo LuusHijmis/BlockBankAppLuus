@@ -58,6 +58,8 @@ public class RootRepository {
 
     public UserDetails  findUserByUsername(String username) { return  userDao.findByUsername(username);}
 
+    public UserDetails updatePassword(UserDetails userDetails) { return userDao.updatePassword(userDetails); }
+
     public UserDetails findUserByEmail(String emailAddress) { return userDao.findUserByEmail(emailAddress); }
 
     public Asset findAssetById(String assetId){ return assetDao.findAssetById(assetId);}

@@ -1,5 +1,8 @@
 package com.blockbank.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.blockbank.database.domain.Mail;
 import com.blockbank.database.repository.RootRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,36 +21,43 @@ https://www.baeldung.com/spring-security-registration-i-forgot-my-password
 public class ResetPasswordService {
 
     private final RootRepository rootRepository;
+    private final SaltGenerator saltGenerator;
+    private final HashService hashService;
     private final Logger logger = LoggerFactory.getLogger(ResetPasswordService.class);
 
-    private static final String RESET_MESSAGE = """
-            click link to reset yo pw.
+    private static final String SUBJECT = "Reset password";
+    private static final String MESSAGE = """
+            To reset your password, click the link below.
+            This link will expire after 20 minutes.
 
-            ignore msg if u didn't ask.""";
+            """;
 
     @Autowired
-    public ResetPasswordService(RootRepository rootRepository) {
+    public ResetPasswordService(RootRepository rootRepository, SaltGenerator saltGenerator, HashService hashService) {
         super();
         this.rootRepository = rootRepository;
+        this.saltGenerator = saltGenerator;
+        this.hashService = hashService;
         logger.info("New ResetPasswordService");
     }
 
-    //link gegenereerd bestaande uit een endpoint + jwt
-
-    //parameter email
-    //user found?
-    //y: create token
-    //n: redirect back to login.html + msg "e-mail-address not found"
-    //send email
-    //redirect success page
-
-    //uh...
-    private boolean findUserInDatabase(String userEmailadress) {
-        return rootRepository.findUserByEmail(userEmailadress) != null;
+    public Mail createResetMail(String mail, String url, String token) {
+        Mail msg = new Mail();
+        msg.setRecipient(mail);
+        msg.setSubject(SUBJECT);
+        msg.setMessage(MESSAGE + url + "/reset?token=" + token);
+        return msg;
     }
 
-    //create token //create endpoint
+    public String decodeTokenReturnUsername(String token) {
+        DecodedJWT decodedJWT = JWT.decode(token);
+        return decodedJWT.getClaim("username").asString();
+    }
 
+    //user clicks link
+    //verify token >
+    //y: redirect to resetPassword.html
 
-
+    //check if input password = identical
+    //request to update password
 }
