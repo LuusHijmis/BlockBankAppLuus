@@ -56,7 +56,7 @@ class AccountTest {
         System.out.println(output);
 
         //Assert.
-        assertEquals("Account with iban NLkk BBBB 9999 9999 99 belongs to client with id 10. Balance: 0.00."
+        assertEquals("Account with iban NLkk BBBB 9999 9999 99 belongs to client with id 10. Balance: 100,00."
                 , output);
 
     }

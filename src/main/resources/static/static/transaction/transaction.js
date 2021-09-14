@@ -1,4 +1,5 @@
-window.addEventListener('load',main)
+window.onload= changeTabel;
+document.addEventListener('DOMContentLoaded', main);
 function main(){
     //eerst request sturen naar backend om data naar binnen te halen
     $.ajax({
@@ -14,7 +15,7 @@ function main(){
 
             CreateTableFromJSON(data);
 
-
+            changeTabel()
 
 
 
@@ -31,8 +32,17 @@ function main(){
             alert('request failed');
         }
     })
-    document.getElementsByTagName("th").innerHTML.replace("symbol", "SYMBOL");
 }
+function changeTabel(){
+
+    document.getElementsByTagName('th').item(0).innerHTML="Symbol";
+    document.getElementsByTagName('th').item(1).innerHTML="Name";
+    document.getElementsByTagName('th').item(2).innerHTML="Exchange Rate (EUR)";
+
+}
+
+
+
 function CreateTableFromJSON(data) {
     var myAssets = JSON.parse(data);
     // EXTRACT VALUE FOR HTML HEADER.
@@ -86,9 +96,15 @@ function CreateTableFromJSON(data) {
     var divContainer = document.getElementById('showData');
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
+    /*function changeTabel(){
+
+        //document.getElementsByTagName("th").innerHTML.replace("symbol","Symbol");
+        document.getElementById("myTable").rows[0].cells;
+        x[0].innerHTML = "NEW CONTENT"
+
+    }*/
+
 }
-
-
 
 
 

@@ -33,7 +33,7 @@ class HashServiceTest {
     }
     @Test
     public void hashServiceUltimateHash(){
-        String password = "admin";
+        String password = "test 20";
         String salt = "ef0c7192a5b85a5af6a905629a961713";
         String actual = hashService.ultimateHash(password,salt);
         String expected = "e6cb955ef8e3fa94be53e571dcca5f3abfca62fb5c318e1a4ff745c3082b73e1a504ca69d4a7a6fd9b3f4a18c088a76222bd2ceeb29f979a699f3a47bb76efe9";
