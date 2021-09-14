@@ -38,16 +38,12 @@ public class ClientRegistrationController {
     }
 
 
-
-
-    //TODO URI AANPASSEN
     @PostMapping("/registerDTO")
     public ResponseEntity<?> registerDTO(@RequestBody RegistrationDTO registrationDTO) {
-        System.out.println("BKAAAA"+ registrationDTO);
+        System.out.println(registrationDTO);
         UserDetails userDetails = clientregistrationservice.register(registrationDTO);
         if (userDetails != null) {
             URI uri = URI.create(String.valueOf(registrationDTO.getUsername()));
-            // front-end related
             return ResponseEntity.created(uri).build();
         } else {
             return ResponseEntity.badRequest().build();

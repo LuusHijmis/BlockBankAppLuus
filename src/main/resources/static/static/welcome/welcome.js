@@ -31,10 +31,6 @@ function main() {
                 $("div.client").show();
                 $("div.navbarclient").show();
                 break;
-            case "bank":
-                $("div.bank").show();
-                $("div.navbarbank").show();
-                break;
             case "administrator":
                 $("div.administrator").show();
                 $("div.navbaradmin").show()
