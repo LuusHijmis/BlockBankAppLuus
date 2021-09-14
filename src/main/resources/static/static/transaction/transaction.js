@@ -46,8 +46,8 @@ function CreateTableFromJSON(data) {
         }
     }
 //create two extra columns
-    col.push("Koop");
-    col.push("Verkoop");
+    col.push("Buy");
+    col.push("Sell");
 
 
     // CREATE DYNAMIC TABLE.
