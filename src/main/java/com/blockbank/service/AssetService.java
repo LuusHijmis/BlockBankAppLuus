@@ -23,7 +23,7 @@ public class AssetService {
 
     private RootRepository rootRepository;
     private ObjectMapper mapper;
-    private final Logger logger = LoggerFactory.getLogger(AssetController.class);
+    private final Logger logger = LoggerFactory.getLogger(AssetService.class);
 
     @Autowired
     public AssetService(RootRepository rootRepository, ObjectMapper mapper) {
