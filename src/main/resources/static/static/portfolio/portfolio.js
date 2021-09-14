@@ -1,4 +1,5 @@
 window.addEventListener('load',main)
+
 function main() {
     $.ajax({
         type: "GET",
@@ -25,6 +26,8 @@ function main() {
         }
     })
 
+    console.log(document.getElementsByTagName("th").item(0));
+    console.log(document.getElementsByClassName("th").item(0));
 }
 function CreateTableFromJSON(data) {
 
@@ -67,8 +70,6 @@ function CreateTableFromJSON(data) {
             }
 
         }
-
-
 
         // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
         var divContainer = document.getElementById('showData');
