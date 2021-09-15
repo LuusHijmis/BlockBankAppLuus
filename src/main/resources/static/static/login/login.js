@@ -35,7 +35,6 @@ function login() {
                 localStorage.setItem('Authentication', data); //sessionStorage?
                 window.location.pathname = '/static/welcome/welcome.html'; //http://localhost:8080/static/welcome/welcome.html
             })
-
     })
 
     function handleErrors(response) {
