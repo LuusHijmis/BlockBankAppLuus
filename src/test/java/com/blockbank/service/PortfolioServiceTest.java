@@ -124,7 +124,7 @@ class PortfolioServiceTest {
     transactions.add(transaction12);
     transactions.add(transaction13);
 
-    Mockito.when(mockRepo.findTransactionsByUSerID(1)).thenReturn(transactions);
+    Mockito.when(mockRepo.findTransactionsByUserID(1)).thenReturn(transactions);
 
     Mockito.when(mockRepo.findAssetById("1")).thenReturn(bitcoin);
     Mockito.when(mockRepo.findAssetById("52")).thenReturn(ethereum);
@@ -163,16 +163,16 @@ class PortfolioServiceTest {
         assertThat(tempMap.get(bitcoin)).isCloseTo(6.0, Percentage.withPercentage(5));
         assertThat(tempMap.get(ethereum)).isEqualTo(4.0);
         assertThat(tempMap.get(nextLevelCrypto)).isEqualTo(500.0);
-        assertThat(portfolioServiceUnderTest.currentValueportfolio(1)).isEqualTo(286424.50);
+        assertThat(portfolioServiceUnderTest.currentValuePortfolio(1)).isEqualTo(286424.50);
 
-        System.out.println(portfolioServiceUnderTest.currentValueportfolio(1));
+        System.out.println(portfolioServiceUnderTest.currentValuePortfolio(1));
 
     }
     @Test
     public void currentValuePortfolioTEst() {
 
-        System.out.println(portfolioServiceUnderTest.currentValueportfolio(1));
-        assertThat(portfolioServiceUnderTest.currentValueportfolio(1)).isEqualTo(286424.50);
+        System.out.println(portfolioServiceUnderTest.currentValuePortfolio(1));
+        assertThat(portfolioServiceUnderTest.currentValuePortfolio(1)).isEqualTo(286424.50);
     }
 
 

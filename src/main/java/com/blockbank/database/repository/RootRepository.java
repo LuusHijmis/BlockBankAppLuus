@@ -69,26 +69,65 @@ public class RootRepository {
 //    public Transaction saveTransaction(Transaction transaction) {
 //        return transactionDao.save(transaction);}
 
-    public List<Transaction> findTransactionsByUSerID(int userID) {
+    public List<Transaction> findTransactionsByUserID(int userID) {
         List<TransactionDTO> tempList = transactionDao.findTransactionByUserId(userID);
-        List<Transaction> transactionList = new ArrayList<>();
-        if(tempList != null) {
-            for (TransactionDTO transactionDTO : tempList) {
-                UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
-                UserDetails oppossingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
-                Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
-
-                Transaction transaction = new Transaction(userDetails, oppossingUserDetails, asset, transactionDTO.getTransactionDateTime(),
-                        transactionDTO.getTransactionSort(), transactionDTO.getAmountAssets(), transactionDTO.getExchangeRate(),
-                        transactionDTO.getTransactionFee());
-                transactionList.add(transaction);
-            }
-            return transactionList;
-        } else {
-            return null;
-        }
+        return createTempListTransactions(tempList);
+//        List<Transaction> transactionList = new ArrayList<>();
+//        if(tempList != null) {
+//            for (TransactionDTO transactionDTO : tempList) {
+//                UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
+//                UserDetails oppossingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
+//                Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
+//
+//                Transaction transaction = new Transaction(userDetails, oppossingUserDetails, asset, transactionDTO.getTransactionDateTime(),
+//                        transactionDTO.getTransactionSort(), transactionDTO.getAmountAssets(), transactionDTO.getExchangeRate(),
+//                        transactionDTO.getTransactionFee());
+//                transactionList.add(transaction);
+//            }
+//            return transactionList;
+//        } else {
+//            return null;
+//        }
     }
+    //TODO // CODE SMELLS...SAME AS METHODE findTransactionsByUserID
+    public List<Transaction> findTransactionByOpposingUserID(int opposingUserID) {
+        List<TransactionDTO> tempList = transactionDao.findTransactionByOpposingUserId(opposingUserID);
+        return createTempListTransactions(tempList);
+//        List<Transaction> transactionList = new ArrayList<>();
+//        if(tempList != null) {
+//            for (TransactionDTO transactionDTO : tempList) {
+//                UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
+//                UserDetails oppossingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
+//                Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
+//
+//                Transaction transaction = new Transaction(userDetails, oppossingUserDetails, asset, transactionDTO.getTransactionDateTime(),
+//                        transactionDTO.getTransactionSort(), transactionDTO.getAmountAssets(), transactionDTO.getExchangeRate(),
+//                        transactionDTO.getTransactionFee());
+//                transactionList.add(transaction);
+//            }
+//            return transactionList;
+//        } else {
+//            return null;
+//        }
+    }
+      public List<Transaction> createTempListTransactions(List<TransactionDTO> tempList) {
+          List<Transaction> transactionList = new ArrayList<>();
+          if (tempList != null) {
+              for (TransactionDTO transactionDTO : tempList) {
+                  UserDetails userDetails = findUserByUserId(transactionDTO.getUserID());
+                  UserDetails opposingUserDetails = findUserByUserId(transactionDTO.getOpposingUserID());
+                  Asset asset = findAssetById(String.valueOf(transactionDTO.getAssetID()));
 
+                  Transaction transaction = new Transaction(userDetails, opposingUserDetails, asset, transactionDTO.getTransactionDateTime(),
+                          transactionDTO.getTransactionSort(), transactionDTO.getAmountAssets(), transactionDTO.getExchangeRate(),
+                          transactionDTO.getTransactionFee());
+                  transactionList.add(transaction);
+              }
+              return transactionList;
+          } else {
+              return null;
+          }
+      }
 
     public Transaction saveTransaction(TransactionDTO transactionDTO) {
 //        //TODO implement after AssetDAO has findAssetByAssetID

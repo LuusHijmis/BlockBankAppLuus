@@ -28,7 +28,7 @@ public class TransactionService {
     }
 
     public String getTransactionsJson(int userID) throws JsonProcessingException {
-        List<Transaction> transactions = rootRepository.findTransactionsByUSerID(userID);
+        List<Transaction> transactions = rootRepository.findTransactionsByUserID(userID);
         String transactionsToJson = mapper.writeValueAsString(transactions);
         return transactionsToJson;
 
