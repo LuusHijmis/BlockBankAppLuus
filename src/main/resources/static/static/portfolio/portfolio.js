@@ -1,4 +1,5 @@
-window.addEventListener('load',main)
+window.onload= changeTabel;
+document.addEventListener('DOMContentLoaded', main);
 function main() {
     $.ajax({
         type: "GET",
@@ -13,6 +14,9 @@ function main() {
             console.log(xhr);
             CreateTableFromJSON(data);
 
+            changeTabel();
+            addBuyButtons();
+
             alert('request successful');
             //data opslaan in een variabele
             //
@@ -26,7 +30,46 @@ function main() {
     })
 
 }
-function CreateTableFromJSON(data) {
+function changeTabel(){
+
+    document.getElementsByTagName('th').item(0).innerHTML="Asset ID";
+    document.getElementsByTagName('th').item(1).innerHTML="Name";
+    document.getElementsByTagName('th').item(2).innerHTML="Symbol";
+    document.getElementsByTagName('th').item(3).innerHTML="Exchange rate (EUR)";
+
+}
+
+function addBuyButtons() {
+    var data =document.getElementsByTagName('td');
+    var tables = document.getElementsByTagName('table');
+    var headers= document.getElementsByTagName('hd');
+    var row = document.getElementsByTagName('tr').item(1);
+    var table = tables.item(0);
+    console.log(row);
+
+    var rows = document.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        var row = document.getElementsByTagName('tr').item(i);
+        var rowCell = row.cells[5];
+        var rowCellAssetID= row.cells[1];
+        console.log(rowCellAssetID.firstChild.nodeValue);
+        var id = "buyButton" + i;
+        var buttonString = "<button id='buyButton" + i + "'>Buy</button>";
+        console.log(id);
+        console.log(buttonString);
+        rowCell.innerHTML = buttonString;
+        document.getElementById(id).addEventListener("click", () => {
+            var assetID = rowCellAssetID.firstChild.nodeValue;
+            // console.log(assetID);
+            console.log(alert(rowCellAssetID.firstChild.nodeValue));
+        });
+
+    }
+
+}
+
+    function CreateTableFromJSON(data) {
 
         var myAssets = JSON.parse(data);
         // EXTRACT VALUE FOR HTML HEADER.
@@ -39,6 +82,9 @@ function CreateTableFromJSON(data) {
                 }
             }
         }
+
+        col.push("Buy");
+        col.push("Sell");
 
         // CREATE DYNAMIC TABLE.
         var table = document.createElement("table");
@@ -62,6 +108,7 @@ function CreateTableFromJSON(data) {
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = myAssets[i][col[j]];
             }
+
         }
 
         // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
