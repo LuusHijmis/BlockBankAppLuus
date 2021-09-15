@@ -31,7 +31,7 @@ public class BankTransactionGenerator {
     }
 
     public void generateStaringTransactions() {
-        String admin = "Admin";
+        String admin = "admin";
         String transactionSort = "Buy";
         LocalDateTime time = LocalDateTime.now();
         Double transactionFee = 0.00;
