@@ -128,10 +128,13 @@ public class RegistrationDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RegistrationDTO that = (RegistrationDTO) o;
-        return bsn == that.bsn && houseNumber == that.houseNumber && Objects.equals(firstname, that.firstname)
-                && Objects.equals(prefix, that.prefix) && Objects.equals(lastname, that.lastname)
-                && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(emailAddress, that.emailAddress)
-                && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(address, that.address) && Objects.equals(affix, that.affix) && Objects.equals(postalCode, that.postalCode) && Objects.equals(city, that.city) && Objects.equals(country, that.country);
+        return bsn == that.bsn && houseNumber == that.houseNumber && Objects.equals(firstname, that.firstname) &&
+                Objects.equals(prefix, that.prefix) && Objects.equals(lastname, that.lastname) &&
+                Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(emailAddress, that.emailAddress) &&
+                Objects.equals(username, that.username) && Objects.equals(password, that.password) &&
+                Objects.equals(address, that.address) && Objects.equals(affix, that.affix) &&
+                Objects.equals(postalCode, that.postalCode) && Objects.equals(city, that.city) &&
+                Objects.equals(country, that.country);
     }
 
     @Override
