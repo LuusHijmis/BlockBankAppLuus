@@ -54,7 +54,19 @@ input {
 
 label {
     display: inline-block;
-}
+    }
+
+/*#checkbox {*/
+/*    display: inline-block;*/
+/*    box-sizing: border-box;*/
+/*    width: 100%;*/
+/*}
+/*.checkbox:nth-child(1) {*/
+/*    width:calc(50% - 24px);*/
+/*}
+/*.checkbox:nth-child(2) {*/
+/*    width:calc(50% - 24px);*/
+/*}*/
 
 #submit {
     border-radius: 20px;

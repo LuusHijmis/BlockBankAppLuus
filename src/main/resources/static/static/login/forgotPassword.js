@@ -5,35 +5,44 @@ document.addEventListener('DOMContentLoaded', forgot)
 function forgot() {
     document.getElementById('submit').addEventListener('click', () => {
 
-        //TODO: dit kan anders
-        const resetData = {
-            email: document.getElementById(`email`).value
-        }
+        const email = document.getElementById(`email`).value.toString() //DIT IS GOED vind ik
 
         fetch('http://localhost:8080/forgot',
             {
-                method: 'POST', //GET?
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(resetData)
+                body: email
             })
             .then(handleErrors)
             .then(response => response.text())
             .then(data => {
-                localStorage.setItem('Authentication', data); //TODO: data correct afhandelen in .then
+                console.log(data);
+                window.alert("E-mail sent");
             })
     })
 
-    //TODO: handleErrors aanpassen
     function handleErrors(response) {
         if (!response.ok) {
-            document.getElementById('form').reset();
-            if (response.status === 401) {
-                window.alert("Incorrect credentials");
-            } else {
-                window.alert("Your account is blocked. Contact admin@blockbank.com"); //oid
-            }
+            document.getElementById('forgot').reset();
+            window.alert("There was an error :(");
             throw Error(response.statusText);
         }
         return response;
     }
 }
+
+
+//bla???????
+// getToken();
+//
+// function getToken(){
+//     const stringUrl = URL.split(`=`)
+//     const token = stringUrl[1];
+//     console.log(token);
+//     if (token === undefined) {
+//         document.getElementById('submitNewPasswordForm').style.display="none"
+//     } else {
+//         localStorage.setItem('Authorization', token);
+//         document.getElementById('sumbitEmailForm').style.display="none"
+//     }
+// }

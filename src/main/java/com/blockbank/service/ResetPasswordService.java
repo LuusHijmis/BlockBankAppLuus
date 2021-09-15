@@ -7,6 +7,7 @@ import com.blockbank.database.repository.RootRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,12 +42,8 @@ public class ResetPasswordService {
         logger.info("New ResetPasswordService");
     }
 
-    public Mail createResetMail(String mail, String url, String token) {
-        Mail msg = new Mail();
-        msg.setRecipient(mail);
-        msg.setSubject(SUBJECT);
-        msg.setMessage(MESSAGE + url + "/reset?token=" + token);
-        return msg;
+    public Mail createResetMail(String recipient, String url, String token) {
+        return new Mail(recipient, SUBJECT, MESSAGE + url + "/reset?token=" + token);
     }
 
     public String decodeTokenReturnUsername(String token) {

@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ import java.util.Map;
  * @author hannahvd
  */
 
-@Controller
+@RestController
 public class ResetPasswordController {
 
     private final Logger logger = LoggerFactory.getLogger(ResetPasswordController.class);
@@ -42,25 +40,22 @@ public class ResetPasswordController {
         this.mailService = mailService;
     }
 
-    @GetMapping("/forgot")
-    public ResponseEntity<?> sendPasswordResetMail(@RequestParam("email") String userEmail, HttpServletRequest request) { //<String>
-        logger.info("New reset password e-mail");
-        UserDetails user = rootRepository.findUserByEmail(userEmail);
+    @PostMapping("/forgot")
+    public ResponseEntity<?> sendPasswordResetMail(@RequestBody String email, HttpServletRequest request) { //<String>
+        logger.info("New reset password for e-mail address: " + email);
+        UserDetails user = rootRepository.findUserByEmail(email);
         if (user != null) {
             String token = tokenService.issueToken(user.getUsername());
-                System.out.println("token CHECK");
             String url = request.getScheme() + "://" + request.getServerName();
-                System.out.println("url CHECK");
-            Mail msg = resetService.createResetMail(userEmail, url, token);
+            Mail msg = resetService.createResetMail(email, url, token);
             mailService.sendMail(msg);
-                System.out.println("mail sent CHECK");
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Password reset link successfully sent to " + userEmail);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Password reset link successfully sent to " + email);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No account has been found for " + userEmail); //I_AM_A_TEAPOT :''''') ?
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No account has been found for " + email); //I_AM_A_TEAPOT :''''') ?
         }
     }
 
-    @PostMapping("/reset")
+    @GetMapping("/reset") //only String data types
     public ModelAndView loadResetPasswordPage(final ModelMap model, @RequestParam String token) {
         logger.info("New reset password link");
         if (tokenService.verifyToken(token)) {
@@ -69,17 +64,16 @@ public class ResetPasswordController {
             return new ModelAndView("redirect:/resetPassword.html", model);
         }
         logger.info("User was null");
-        //?
         return new ModelAndView("redirect:/index.html", model);
     }
 
-    @PostMapping("/reset") //("/update")? //PutMapping?
+    @PostMapping("/update") //or ("/reset") as well? //PutMapping?
     public ResponseEntity<?> updateNewPassword(@RequestParam String password, @RequestParam String email) { //hoe kom ik aan die email (zonder dat gebruiker invult?) //token?
         logger.info("Update new password");
-        UserDetails userDetails = rootRepository.findUserByEmail(email);
-        if (userDetails != null) {
-            userDetails.setPassword(password);
-            rootRepository.updatePassword(userDetails);
+        UserDetails user = rootRepository.findUserByEmail(email);
+        if (user != null) {
+            user.setPassword(password);
+            rootRepository.updatePassword(user);
             return ResponseEntity.status(HttpStatus.OK).body("Password successfully updated");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request /Bla");
