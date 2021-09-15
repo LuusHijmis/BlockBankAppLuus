@@ -10,5 +10,6 @@ public interface TransactionDao {
     Transaction save (Transaction transaction);
     Transaction delete(Transaction transaction);
     List<TransactionDTO> findTransactionByUserId(int userID);
+    List<TransactionDTO> findTransactionByOpposingUserId(int opposingUserID);
     TransactionDTO findTransactionByID(int id);
 }

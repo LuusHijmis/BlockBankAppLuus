@@ -81,6 +81,18 @@ public class JdbcTransactionDao implements TransactionDao {
         }
     }
 
+    @Override
+    public List<TransactionDTO>findTransactionByOpposingUserId(int opposingUserID) {
+        logger.debug("TransactionDao called for findTransactionByClientId");
+        List<TransactionDTO> transactions = jdbcTemplate.query(
+                "select * from `transaction` where opposingUserID = ?", new JdbcTransactionDao.TransactionRowMapper(), opposingUserID);
+        if(transactions.size() >= 1) {
+            return transactions;
+        } else {
+            return null;
+        }
+    }
+
     private static class TransactionRowMapper implements RowMapper<TransactionDTO> {
         @Override
         public TransactionDTO mapRow(ResultSet resultSet, int i) throws SQLException {

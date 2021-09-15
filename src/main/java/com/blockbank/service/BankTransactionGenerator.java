@@ -38,7 +38,7 @@ public class BankTransactionGenerator {
         int opposingUserId = 2;
         UserDetails adminstrator= rootRepository.findUserByUsername(admin);
         List<Asset> assetList = rootRepository.showAllAssets();
-        List<Transaction> transactions = rootRepository.findTransactionsByUSerID(adminstrator.getUserID());
+        List<Transaction> transactions = rootRepository.findTransactionsByUserID(adminstrator.getUserID());
         if(adminCheck(admin)==true && transactions == null) {
             for(Asset asset : assetList) {
                 rootRepository.saveTransaction(new TransactionDTO(adminstrator.getUserID(), time,
