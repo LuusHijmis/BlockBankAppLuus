@@ -1,5 +1,6 @@
-/*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');*/
-
+/*@author Karish Resodikromo
+*stylesheet voor welcomepage
+*/
 
 body {
     font-family: Arial;
@@ -11,75 +12,6 @@ body {
     margin: 0;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-header {
-    background: cadetblue;
-}
-
-header::after {
-    content: '';
-    display: table;
-    clear: both;
-}
-
-.logo{
-    float: left;
-    padding-top: 10px;
-}
-
-nav {
-    float: right;
-}
-
-nav ul {
-margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-nav li {
-    display: inline-block;
-    margin-left: 70px;
-    padding-top: 23px;
-
-    position: relative;
-}
-
-nav a{
-    color: aliceblue;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-
-nav a:hover {
-    color: aliceblue;
-}
-
-nav a::before {
-    content: '';
-    display: block;
-    height: 5px;
-    width: 100%;
-    background-color: #000;
-
-    position: absolute;
-    top: 0;
-    width: 0%;
-
-    transition: all ease-in-out 250ms;
-}
-
-nav a:hover:before {
-    width: 100%;
-}
-
-
 .Welcomemessage{
     font-weight: bold;
     font-size: large;
@@ -90,7 +22,7 @@ nav a:hover:before {
 }
 
 /*hide role-specific div html*/
-div.client, div.administrator, div.navbarclient, div.navbaradmin {
+div.client, div.administrator {
     display: none;
 }
 

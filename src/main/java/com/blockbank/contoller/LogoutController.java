@@ -1,6 +1,8 @@
 package com.blockbank.contoller;
 
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blockbank.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +24,14 @@ public class LogoutController {
         logger.info("New LogoutController");
     }
 
-    @PostMapping("/logoput")
+    @PostMapping("/logout")
     public ResponseEntity<?> logoutPage (@RequestHeader(name="Authorization") String token) {
         System.out.println("token");
-
-
-        return ResponseEntity.noContent().build();
+        if (tokenService.verifyToken(token)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
+

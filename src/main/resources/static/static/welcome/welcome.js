@@ -14,7 +14,7 @@ function main() {
                 var role = myInfo.role;
                 var username = myInfo.username;
                 checkRole(role);
-                alert("Hello" + username);
+                alert("Hello " + username);
             },
             fail: function (role, username, errorThrown) {
                 console.log(role);
@@ -29,14 +29,15 @@ function main() {
         switch (role) {
             case "client":
                 $("div.client").show();
-                $("div.navbarclient").show();
+                $("div.navplacement").load("../navbarClient/navbarClient.html");
                 break;
             case "administrator":
                 $("div.administrator").show();
-                $("div.navbaradmin").show()
+                $("#navplacement").load("../navbarAdmin/navbarAdmin.html");
                 break;
             default:
                 console.log('This is not a valid user role');
         }
     }
+
 }
