@@ -1,33 +1,36 @@
 package com.blockbank.database.repository;
 
 import com.blockbank.database.domain.*;
-import org.assertj.core.api.Assertions;
+import com.blockbank.service.PortfolioService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class JdbcTransactionDaoTest {
 
     TransactionDao transactionDaoTest;
+    RootRepository rootRepositoryUnderTest;
+    PortfolioService portfolioService;
 
     private final Logger logger = LoggerFactory.getLogger(JdbcTransactionDaoTest.class);
 
     @Autowired
-    public JdbcTransactionDaoTest(TransactionDao transactionDaoTest) {
+    public JdbcTransactionDaoTest(TransactionDao transactionDaoTest, RootRepository rootRepositoryUnderTest, PortfolioService portfolioService) {
         super();
         this.transactionDaoTest = transactionDaoTest;
+        this.rootRepositoryUnderTest = rootRepositoryUnderTest;
+        this.portfolioService = portfolioService;
         logger.info("New JdbcTransactionDaoTest");
     }
     @Test
@@ -61,10 +64,57 @@ class JdbcTransactionDaoTest {
 
     @Test
     void findTransactionByUserId() {
-
-        var found = transactionDaoTest.findTransactionByUserId(1);
+        var found = transactionDaoTest.findTransactionByUserId(5005);
         for(TransactionDTO transactionDTO:found) {
             System.out.println(transactionDTO);
         }
     }
+
+    @Test
+    void findTransactionByOpposingUserId() {
+        var found = transactionDaoTest.findTransactionByOpposingUserId(5005);
+        for(TransactionDTO transactionDTO:found) {
+            System.out.println(transactionDTO);
+        }
+    }
+
+    @Test
+    void findTransactionByUserIDTest(){
+        for(Transaction transaction :  rootRepositoryUnderTest.findTransactionsByUserID(5005)) {
+            System.out.println(transaction);
+        }
+    }
+
+    @Test
+    void findTransactionByOpposingUserIDTest(){
+        for(Transaction transaction :  rootRepositoryUnderTest.findTransactionByOpposingUserID(5005)) {
+            System.out.println(transaction);
+        }
+    }
+//    @Test
+//    void getAssetBalanceAsOpposingUser() {
+//        for(Map.Entry<Asset,Double> entry : portfolioService.getAssetBalanceAsOpposingUser(5005).entrySet()) {
+//            System.out.println(entry.getKey());
+//            System.out.println( entry.getValue());
+//        }
+//    }
+
+    @Test
+    void getAssetsTotal() {
+        for(Map.Entry<Asset,Double> entry : portfolioService.getAssetsTotal(5005).entrySet()) {
+            System.out.println("\nPortfolio");
+            System.out.println(entry.getKey().getName() + " : " + entry.getValue());
+//            System.out.println("Amount" + entry.getValue());
+        }
+    }
+
+//    @Test
+//    void findAssetTotalByUserID() {
+//        for(Map.Entry<Asset,Double> entry : portfolioService.getAssetsTotal(5005).entrySet()) {
+//            System.out.println(entry.getKey());
+//            System.out.println( entry.getValue());
+//        }
+
+
+
 }

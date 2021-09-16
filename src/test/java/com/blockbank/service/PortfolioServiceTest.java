@@ -34,73 +34,73 @@ class PortfolioServiceTest {
         mockRepo = Mockito.mock(RootRepository.class);
         portfolioServiceUnderTest = new PortfolioService(mockRepo);
 
-    List<Transaction> transactions= new ArrayList<>();
-    Asset bitcoin =  new Asset("1","Bitcoin", "BTC","BITCOIN",47000.00);
-    double exchangeRateBit = 48000.00;
-    Asset ethereum = new Asset("52","Ethereum","ETH","ETH",48.00);
-    double exchangeRateETH = 50.00;
-    Asset nextLevelCrypto = new Asset("1000","NextLevelCrypto","NLC","NLC",0.005);
-    double exchangeRateNLC = 0.005;
+        List<Transaction> transactions = new ArrayList<>();
+        Asset bitcoin = new Asset("1", "Bitcoin", "BTC", "BITCOIN", 47000.00);
+        double exchangeRateBit = 48000.00;
+        Asset ethereum = new Asset("52", "Ethereum", "ETH", "ETH", 48.00);
+        double exchangeRateETH = 50.00;
+        Asset nextLevelCrypto = new Asset("1000", "NextLevelCrypto", "NLC", "NLC", 0.005);
+        double exchangeRateNLC = 0.005;
 
-    //static transactionRate
-    double transactionRate = 0.5;
+        //static transactionRate
+        double transactionRate = 0.5;
 
-    // Clients
-    ClientDetails clientDetails = new ClientDetails("Harold", "","Stevens",
-            LocalDate.parse("1973-09-25"),123456007,"info@hjstevens.nl");
+        // Clients
+        ClientDetails clientDetails = new ClientDetails("Harold", "", "Stevens",
+                LocalDate.parse("1973-09-25"), 123456007, "info@hjstevens.nl");
 
-    Address address = new Address("Pieter Woutersstraat",26,null,"2215MC",
-            "Voorhout","");
-    UserDetails client1 = new UserDetails(  "Harold","dlorah","123",clientDetails,address);
+        Address address = new Address("Pieter Woutersstraat", 26, null, "2215MC",
+                "Voorhout", "");
+        UserDetails client1 = new UserDetails("Harold", "dlorah", "123", clientDetails, address);
 
-    ClientDetails clientDetails1 = new ClientDetails("Harold", "","Stevens",
-        LocalDate.parse("1973-09-25"),123456007,"info@hjstevens.nl");
+        ClientDetails clientDetails1 = new ClientDetails("Harold", "", "Stevens",
+                LocalDate.parse("1973-09-25"), 123456007, "info@hjstevens.nl");
 
-    Address address1 = new Address("BlockBank Street",12,null,"2215MC",
-                "Hilly","");
-    UserDetails client2 = new UserDetails(  "Harold","dlorah","123",clientDetails1,address1);
+        Address address1 = new Address("BlockBank Street", 12, null, "2215MC",
+                "Hilly", "");
+        UserDetails client2 = new UserDetails("Harold", "dlorah", "123", clientDetails1, address1);
 
-    // Beheerder Blockbank
-    UserDetails blockbank = new UserDetails(  "admin","admin","123",clientDetails,address);
-    //
+        // Beheerder Blockbank
+        UserDetails blockbank = new UserDetails("admin", "admin", "123", clientDetails, address);
+        //
 
-    // Transacties tussen client en Bank
-    // Ethereum transacties:
-    Transaction transaction2 = new Transaction(client1,blockbank,ethereum,LocalDateTime.now(),
-            "Buy",2.00,50.00, transactionRate);
-    Transaction transaction6 = new Transaction(client1,blockbank,ethereum, LocalDateTime.now(),
-            "Buy",5.00,58.00,transactionRate);
-    Transaction transaction7 = new Transaction(client1,blockbank,ethereum, LocalDateTime.now(),
-            "Sell",3.00,57.00,transactionRate);
-    Transaction transaction14 = new Transaction(client2,blockbank,ethereum, LocalDateTime.now(),
-            "Buy",5.00,57.00,transactionRate);
+        // Transacties tussen client en Bank
+        // Ethereum transacties:
+        Transaction transaction2 = new Transaction(client1, blockbank, ethereum, LocalDateTime.now(),
+                "Buy", 2.00, 50.00, transactionRate);
+        Transaction transaction6 = new Transaction(client1, blockbank, ethereum, LocalDateTime.now(),
+                "Buy", 5.00, 58.00, transactionRate);
+        Transaction transaction7 = new Transaction(client1, blockbank, ethereum, LocalDateTime.now(),
+                "Sell", 3.00, 57.00, transactionRate);
+        Transaction transaction14 = new Transaction(client2, blockbank, ethereum, LocalDateTime.now(),
+                "Buy", 5.00, 57.00, transactionRate);
 
-    // Bitcoin transacties:
-    Transaction transaction9 = new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Buy",0.05,30000.00,transactionRate);
-    Transaction transaction10 = new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Buy",0.04,35000.00,transactionRate);
-    Transaction transaction1 = new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Buy",10.00,40000.00,transactionRate);
-    Transaction transaction3 = new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Sell",1.00,45000.00,transactionRate);
-    Transaction transaction4 =  new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Buy",2.00,40000.00,transactionRate);
-    Transaction transaction5 =  new Transaction(client1,blockbank,bitcoin, LocalDateTime.now(),
-            "Sell",5.00,44000.00,transactionRate);
+        // Bitcoin transacties:
+        Transaction transaction9 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Buy", 0.05, 30000.00, transactionRate);
+        Transaction transaction10 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Buy", 0.04, 35000.00, transactionRate);
+        Transaction transaction1 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Buy", 10.00, 40000.00, transactionRate);
+        Transaction transaction3 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Sell", 1.00, 45000.00, transactionRate);
+        Transaction transaction4 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Buy", 2.00, 40000.00, transactionRate);
+        Transaction transaction5 = new Transaction(client1, blockbank, bitcoin, LocalDateTime.now(),
+                "Sell", 5.00, 44000.00, transactionRate);
 
-    // NextLevelCrypto transacties:
-    Transaction transaction8 =  new Transaction(client1,blockbank,nextLevelCrypto, LocalDateTime.now(),
-            "Buy",1000.00,exchangeRateBit,transactionRate);
-    Transaction transaction11 =  new Transaction(client1,blockbank,nextLevelCrypto, LocalDateTime.now(),
-            "Sell",500.00,exchangeRateBit,transactionRate);
+        // NextLevelCrypto transacties:
+        Transaction transaction8 = new Transaction(client1, blockbank, nextLevelCrypto, LocalDateTime.now(),
+                "Buy", 1000.00, exchangeRateBit, transactionRate);
+        Transaction transaction11 = new Transaction(client1, blockbank, nextLevelCrypto, LocalDateTime.now(),
+                "Sell", 500.00, exchangeRateBit, transactionRate);
 
 //  transacties tussen clienten
-    Transaction transaction12 =  new Transaction(client1,client2,ethereum, LocalDateTime.now(),
-            "Buy",3.00,exchangeRateBit,transactionRate);
-    Transaction transaction13 =  new Transaction(client1,client2,nextLevelCrypto, LocalDateTime.now(),
-            "Sell",200.00,exchangeRateBit,transactionRate);
-    //
+        Transaction transaction12 = new Transaction(client1, client2, ethereum, LocalDateTime.now(),
+                "Buy", 3.00, exchangeRateBit, transactionRate);
+        Transaction transaction13 = new Transaction(client1, client2, nextLevelCrypto, LocalDateTime.now(),
+                "Sell", 200.00, exchangeRateBit, transactionRate);
+        //
 //  transacties verdelen over meerdere lijsten en findTransactionByOpposingUserID mocken
 //        List<Transactions> transactionsUserID1 = new Arraylist();
 //         List<Transactions> transactionsOppossingUserID1 = new Arraylist();
@@ -110,25 +110,25 @@ class PortfolioServiceTest {
 //         List<Transactions> transactionsOppossingUserID2 = new Arraylist();
 
 
-    transactions.add(transaction1);
-    transactions.add(transaction2);
-    transactions.add(transaction3);
-    transactions.add(transaction4);
-    transactions.add(transaction5);
-    transactions.add(transaction6);
-    transactions.add(transaction7);
-    transactions.add(transaction8);
-    transactions.add(transaction9);
-    transactions.add(transaction10);
-    transactions.add(transaction11);
-    transactions.add(transaction12);
-    transactions.add(transaction13);
+        transactions.add(transaction1);
+        transactions.add(transaction2);
+        transactions.add(transaction3);
+        transactions.add(transaction4);
+        transactions.add(transaction5);
+        transactions.add(transaction6);
+        transactions.add(transaction7);
+        transactions.add(transaction8);
+        transactions.add(transaction9);
+        transactions.add(transaction10);
+        transactions.add(transaction11);
+        transactions.add(transaction12);
+        transactions.add(transaction13);
 
-    Mockito.when(mockRepo.findTransactionsByUserID(1)).thenReturn(transactions);
+        Mockito.when(mockRepo.findTransactionsByUserID(1)).thenReturn(transactions);
 
-    Mockito.when(mockRepo.findAssetById("1")).thenReturn(bitcoin);
-    Mockito.when(mockRepo.findAssetById("52")).thenReturn(ethereum);
-    Mockito.when(mockRepo.findAssetById("1000")).thenReturn(nextLevelCrypto);
+        Mockito.when(mockRepo.findAssetById("1")).thenReturn(bitcoin);
+        Mockito.when(mockRepo.findAssetById("52")).thenReturn(ethereum);
+        Mockito.when(mockRepo.findAssetById("1000")).thenReturn(nextLevelCrypto);
 
     }
 
@@ -146,15 +146,15 @@ class PortfolioServiceTest {
     @Test
     void portfolioOverzichtTest() {
 
-        Asset bitcoin =  new Asset("1","Bitcoin", "BTC","BITCOIN",47000.00);
+        Asset bitcoin = new Asset("1", "Bitcoin", "BTC", "BITCOIN", 47000.00);
         double exchangeRateBit = 48000.00;
-        Asset ethereum = new Asset("52","Ethereum","ETH","ETH",48.00);
+        Asset ethereum = new Asset("52", "Ethereum", "ETH", "ETH", 48.00);
         double exchangeRateETH = 50.00;
-        Asset nextLevelCrypto = new Asset("1000","NextLevelCrypto","NLC","NLC",0.005);
+        Asset nextLevelCrypto = new Asset("1000", "NextLevelCrypto", "NLC", "NLC", 0.005);
         double exchangeRateNLC = 0.005;
 
         Map<Asset, Double> tempMap = portfolioServiceUnderTest.getAssetsTotal(1);
-        for(Map.Entry<Asset, Double> entry :tempMap.entrySet()) {
+        for (Map.Entry<Asset, Double> entry : tempMap.entrySet()) {
             Asset asset = entry.getKey();
             double amount = entry.getValue();
             System.out.println(asset.getName() + " " + amount);
@@ -168,6 +168,7 @@ class PortfolioServiceTest {
         System.out.println(portfolioServiceUnderTest.currentValuePortfolio(1));
 
     }
+
     @Test
     public void currentValuePortfolioTEst() {
 
@@ -184,7 +185,7 @@ class PortfolioServiceTest {
         assertThat(portfolioDTOS.get(2).getAssetAmount()).isEqualTo(500.0);
         assertThat(portfolioDTOS.get(0).getAssetAmount()).isEqualTo(4.0);
 
-        for (PortfolioDTO portfolioDTO: portfolioDTOS) {
+        for (PortfolioDTO portfolioDTO : portfolioDTOS) {
             System.out.println(portfolioDTO);
         }
 
@@ -195,6 +196,12 @@ class PortfolioServiceTest {
         assertThat(portfolioServiceUnderTest.generatePortfolioList(1).get(1).toString()).isEqualTo(expected1);
         assertThat(portfolioServiceUnderTest.generatePortfolioList(1).get(2).toString()).isEqualTo(expected2);
 
+    }
+
+    @Test
+    public void generatePortfolioListTest2() {
+        System.out.println(portfolioServiceUnderTest.getAssetsTotal(1));
+        assertThat(portfolioServiceUnderTest.getAssetsTotal(1)).isNotNull();
     }
 
 }

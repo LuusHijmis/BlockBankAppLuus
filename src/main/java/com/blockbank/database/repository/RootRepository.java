@@ -94,8 +94,8 @@ public class RootRepository {
 //        }
     }
     //TODO // CODE SMELLS...SAME AS METHODE findTransactionsByUserID
-    public List<Transaction> findTransactionByOpposingUserID(int opposingUserID) {
-        List<TransactionDTO> tempList = transactionDao.findTransactionByOpposingUserId(opposingUserID);
+    public List<Transaction> findTransactionByOpposingUserID(int userID) {
+        List<TransactionDTO> tempList = transactionDao.findTransactionByOpposingUserId(userID);
         return createTempListTransactions(tempList);
 //        List<Transaction> transactionList = new ArrayList<>();
 //        if(tempList != null) {
