@@ -33,7 +33,7 @@ function main() {
                 break;
             case "administrator":
                 $("div.administrator").show();
-                $("#navplacement").load("../navbarAdmin/navbarAdmin.html");
+                $("div.navplacementAdmin").load("../navbarAdmin/navbarAdmin.html");
                 break;
             default:
                 console.log('This is not a valid user role');
