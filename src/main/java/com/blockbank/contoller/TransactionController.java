@@ -41,7 +41,6 @@ public class TransactionController {
             DecodedJWT decodedJWT = JWT.decode(token);
             String username = decodedJWT.getClaim("username").asString();
             int userID = transactionService.rootRepository.findUserByUsername(username).getUserID();
-            System.out.println(userID);
             double exchangeRate = transactionService.rootRepository.findAssetById(assetID).getExchangeRate();
             double transactionCost= 0.5;
             TransactionDTO transactionDTO = new TransactionDTO(userID, LocalDateTime.now(),transactionSort,amount,

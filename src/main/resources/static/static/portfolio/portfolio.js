@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', main);
 function main() {
     $.ajax({
@@ -13,10 +12,38 @@ function main() {
             console.log(status);
             console.log(xhr);
             CreateTableFromJSON(data);
-            document.getElementById("Sell").addEventListener('click', sellRequest)
-            alert('request successful');
-            //data opslaan in een variabele
-            //
+            document.getElementById("Sell").addEventListener('click', ()=> {
+                    var transactionSort = "Sell";
+                    var transactionAmount = document.getElementById("sellAmount_f").value;
+                    var opposingUserID = 1;
+                    var assetID_T = document.getElementById("assetID_f").firstChild.textContent;
+                    console.log(transactionSort);
+                    console.log(transactionAmount);
+                    console.log(assetID_T);
+                    $.ajax({
+                        type : "POST",
+                        url : 'http://localhost:8080/transaction',
+                        headers: {"Authorization": localStorage.getItem('Authentication'), "transactionSort": transactionSort,
+                            "amount" : transactionAmount, "opposingUserID" : opposingUserID, "assetID": assetID_T},
+                        // data : { transactionSort: transactionSort, amount : transactionAmount, oppossingUserID : opposingUserID, assetID: assetID},
+                        contentType: "application/json",
+                        accepts: { json: "application/json"},
+                        success: function (data, status, xhr) {
+                            console.log(data);
+                            console.log(status);
+                            console.log(xhr);
+                            window.location.reload(true);
+                        },
+                        fail: function(xhr, status, error){
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        },
+                        error: function (request) {
+                            alert(request.responseText);
+                        }
+                    });
+            })
         },
         fail: function(xhr, status, errorThrown){
             console.log(xhr);
@@ -27,6 +54,7 @@ function main() {
     })
 
 }
+
 function CreateTableFromJSON(data) {
 
         var results = JSON.parse(data);
@@ -86,43 +114,12 @@ function CreateTableFromJSON(data) {
 
 // this will contain all the values for that row
             if($(this).attr('data-action') === "Sell") {
-                document.getElementById("assetID").innerHTML = "AssetID: " + selectedRowValues.assetID;
-                document.getElementById("assetName").innerHTML = "Asset Name: " + selectedRowValues.assetName;
-                document.getElementById("exchangeRate").innerHTML = "Price per asset: " + selectedRowValues.exchangeRate;
+                document.getElementById("assetID_f").innerHTML = selectedRowValues.assetID;
+                document.getElementById("assetName").innerHTML = selectedRowValues.assetName;
+                document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate;
                 document.getElementById("transactionCosts").innerHTML = "Transaction costs: ";
             } else {
                 window.location.replace("http://localhost:8080/static/transaction/transaction.html");
             }
         });
-}
-function sellRequest(){
-    var transactionSort = "Sell";
-    var transactionAmount = document.getElementById(sellAmount_f).value;
-    var opposingUserID = 1;
-    var assetID = document.getElementById(assetID).value;
-
-    $.ajax({
-        type : "POST",
-        url : 'http://localhost:8080/transaction',
-        headers: {"Authorization": localStorage.getItem('Authentication'), "transactionSort": transactionSort,
-            "amount" : transactionAmount, "oppossingUserID" : opposingUserID, "assetID": assetID },
-        // data : { transactionSort: transactionSort, amount : transactionAmount, oppossingUserID : opposingUserID, assetID: assetID},
-        contentType: "application/json",
-        accepts: { json: "application/json"},
-        success: function (data, status, xhr) {
-            console.log(data);
-            console.log(status);
-            console.log(xhr);
-            alert('request successful');
-
-        },
-        fail: function(xhr, status, error){
-            console.log(xhr);
-            console.log(status);
-            console.log(error);
-        },
-        error: function (request) {
-            alert(request.responseText);
-        }
-    });
 }
