@@ -9,8 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.expression.Maps;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @Service
 public class PortfolioService {
@@ -40,81 +44,66 @@ public class PortfolioService {
         return portfolioDTOS;
     }
 
-    public Map<Asset, Double> getAssetBalanceAsUSer (int userID) {
-        List<Transaction> transactions = rootRepository.findTransactionsByUserID(userID);
-        return getAssetBalance(transactions);
-//        Map<Asset, Double> portfolio = new HashMap<>();
-//        for (Transaction transaction: transactions) {
-//            if (portfolio.get(transaction.getAsset()) == null) {
-//                portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
-//            } else {
-//                double currentAmount = portfolio.get(transaction.getAsset());
-//                if (transaction.getTransactionDescription().equals("Sell")) {
-//                    portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
-//                } else {
-//                    portfolio.replace(transaction.getAsset(), transaction.getAssetAmount() + currentAmount);
-//                }
-//            }
-//        }
-//        return portfolio;
-    }
+    public Map<Asset, Double> getAssetsTotal (int userID) {
+        List<Transaction> newList = totalTransactionListForUser(userID);
 
-    public Map<Asset, Double> getAssetBalanceAsOpposingUser (int userAsOpposingUserID) {
-        List<Transaction> transactions = rootRepository.findTransactionByOpposingUserID(userAsOpposingUserID);
-        return getAssetBalance(transactions);
-//        Map<Asset, Double> portfolio = new HashMap<>();
-//        for (Transaction transaction: transactions) {
-//            if (portfolio.get(transaction.getAsset()) == null) {
-//                portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
-//            } else {
-//                double currentAmount = portfolio.get(transaction.getAsset());
-//                if (transaction.getTransactionDescription().equals("Sell")) {
-//                    portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
-//                } else {
-//                    portfolio.replace(transaction.getAsset(), transaction.getAssetAmount() + currentAmount);
-//                }
-//            }
-//        }
-//        return portfolio;
-    }
-
-    public Map<Asset, Double> getAssetBalance(List<Transaction> transactions){
         Map<Asset, Double> portfolio = new HashMap<>();
-        for (Transaction transaction : transactions) {
-            if (portfolio.get(transaction.getAsset()) == null) {
-                portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
-            } else {
-                double currentAmount = portfolio.get(transaction.getAsset());
-                if (transaction.getTransactionDescription().equals("Sell")) {
-                    portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
+        for (Transaction transaction : newList) {
+            if (transaction.getUserDetails().getUserID() == userID) {
+                // TODO Asset in Portfolio mag niet NULL zijn bij een Sell transactie
+                if (portfolio.get(transaction.getAsset()) == null) {
+                    portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
+                    System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
                 } else {
-                    portfolio.replace(transaction.getAsset(), transaction.getAssetAmount() + currentAmount);
+                    double currentAmount = portfolio.get(transaction.getAsset());
+                    if (transaction.getTransactionDescription().equals("Sell")) {
+                        portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
+                        System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+                    } else {
+                        portfolio.replace(transaction.getAsset(), currentAmount + transaction.getAssetAmount());
+                    }
+                }
+            } else {
+                // TODO Asset in Portfolio mag niet NULL zijn bij een Buy transactie
+                if (portfolio.get(transaction.getAsset()) == null) {
+                    portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
+                } else {
+                    double currentAmount = portfolio.get(transaction.getAsset());
+                    if (transaction.getTransactionDescription().equals("Sell")) {
+                        portfolio.replace(transaction.getAsset(), currentAmount + transaction.getAssetAmount());
+                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+                    } else {
+                        portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
+                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+                    }
                 }
             }
         }
         return portfolio;
     }
 
-    //TODO CHECK OF UITKOMST CORRECT IS
-    public Map<Asset, Double> getAssetsTotal(int userID) {
-        Map<Asset, Double> balance = new HashMap<>();
-        for (Asset asset: getAssetBalanceAsUSer(userID).keySet()){
-            balance.put(asset, getAssetBalanceAsUSer(userID).get(asset) -
-                    getAssetBalanceAsOpposingUser(userID).get(asset));
+    public List<Transaction> totalTransactionListForUser(int userID) {
+        List<Transaction> transactions1 = rootRepository.findTransactionsByUserID(userID);
+        List<Transaction> transactions2 = rootRepository.findTransactionByOpposingUserID(userID);
+        if (transactions1 == null) {
+            return transactions2;
         }
-        return balance;
+        if (transactions2 == null) {
+            return transactions1;
+        } else {
+            return Stream.concat(transactions1.stream(), transactions2.stream())
+                    .collect(Collectors.toList());
+        }
     }
 
-
-
-    public double currentValuePortfolio(int userID){
+    public double currentValuePortfolio(int userID) {
         double portfolioValue = 0.00;
-       Map<Asset, Double> tempMap = getAssetsTotal(userID);
-       for(Map.Entry<Asset,Double> entry:tempMap.entrySet()) {
+        Map<Asset, Double> tempMap = getAssetsTotal(userID);
+        for(Map.Entry<Asset,Double> entry:tempMap.entrySet()) {
            double assetAmount = entry.getValue();
            double currentExchangeRate = rootRepository.findAssetById(entry.getKey().getAssetID()).getExchangeRate();
            portfolioValue += assetAmount * currentExchangeRate;
-       }
+        }
         return portfolioValue;
     }
 }
