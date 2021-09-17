@@ -16,9 +16,9 @@ public class Transaction {
     private String transactionDescription;
     private double assetAmount;
     private double exchangeRate;
-    private double transactionRate;
+    private static double transactionFee = 0.1;
 
-    public Transaction(UserDetails userDetails, UserDetails opposingUserDetails, Asset asset, LocalDateTime localDateTime, String transactionDescription, double assetAmount, double exchangeRate, double transactionRate) {
+    public Transaction(UserDetails userDetails, UserDetails opposingUserDetails, Asset asset, LocalDateTime localDateTime, String transactionDescription, double assetAmount, double exchangeRate, double transactionFee) {
         this.userDetails = userDetails;
         this.opposingUserDetails = opposingUserDetails;
         this.asset = asset;
@@ -26,7 +26,7 @@ public class Transaction {
         this.transactionDescription = transactionDescription;
         this.assetAmount = assetAmount;
         this.exchangeRate = exchangeRate;
-        this.transactionRate = transactionRate;
+        this.transactionFee = transactionFee;
         transactionID = 0;
     }
 
@@ -109,12 +109,12 @@ public class Transaction {
         this.exchangeRate = exchangeRate;
     }
 
-    public double getTransactionRate() {
-        return transactionRate;
+    public double getTransactionFee() {
+        return transactionFee;
     }
 
-    public void setTransactionRate(double transactionRate) {
-        this.transactionRate = transactionRate;
+    public void setTransactionFee(double transactionFee) {
+        this.transactionFee = transactionFee;
     }
 
     @Override
@@ -122,11 +122,11 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return transactionID == that.transactionID && Double.compare(that.assetAmount, assetAmount) == 0 && Double.compare(that.exchangeRate, exchangeRate) == 0 && Double.compare(that.transactionRate, transactionRate) == 0 && userDetails.equals(that.userDetails) && opposingUserDetails.equals(that.opposingUserDetails) && asset.equals(that.asset) && localDateTime.equals(that.localDateTime) && transactionDescription.equals(that.transactionDescription);
+        return transactionID == that.transactionID && Double.compare(that.assetAmount, assetAmount) == 0 && Double.compare(that.exchangeRate, exchangeRate) == 0 && Double.compare(that.transactionFee, transactionFee) == 0 && userDetails.equals(that.userDetails) && opposingUserDetails.equals(that.opposingUserDetails) && asset.equals(that.asset) && localDateTime.equals(that.localDateTime) && transactionDescription.equals(that.transactionDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionID, userDetails, opposingUserDetails, asset, localDateTime, transactionDescription, assetAmount, exchangeRate, transactionRate);
+        return Objects.hash(transactionID, userDetails, opposingUserDetails, asset, localDateTime, transactionDescription, assetAmount, exchangeRate, transactionFee);
     }
 }

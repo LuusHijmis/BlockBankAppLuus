@@ -91,15 +91,10 @@ class JdbcTransactionDaoTest {
             System.out.println(transaction);
         }
     }
-//    @Test
-//    void getAssetBalanceAsOpposingUser() {
-//        for(Map.Entry<Asset,Double> entry : portfolioService.getAssetBalanceAsOpposingUser(5005).entrySet()) {
-//            System.out.println(entry.getKey());
-//            System.out.println( entry.getValue());
-//        }
-//    }
+
 
     @Test
+    // PortfolioServiceTest
     void getAssetsTotal() {
         for(Map.Entry<Asset,Double> entry : portfolioService.getAssetsTotal(5005).entrySet()) {
             System.out.println("\nPortfolio");
@@ -107,14 +102,4 @@ class JdbcTransactionDaoTest {
 //            System.out.println("Amount" + entry.getValue());
         }
     }
-
-//    @Test
-//    void findAssetTotalByUserID() {
-//        for(Map.Entry<Asset,Double> entry : portfolioService.getAssetsTotal(5005).entrySet()) {
-//            System.out.println(entry.getKey());
-//            System.out.println( entry.getValue());
-//        }
-
-
-
 }
