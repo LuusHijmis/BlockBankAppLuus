@@ -39,7 +39,7 @@ public class PasswordValidationService {
         return !password1.equals(password2);
     }
 
-    protected boolean isValid(String password) {
+    public boolean isValid(String password) {
         if (checkEmpty(password)) {
             throw new IllegalArgumentException(EMPTY_OR_NULL_PASSWORD);
         }

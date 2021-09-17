@@ -3,11 +3,11 @@ package com.blockbank.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blockbank.database.domain.Mail;
+import com.blockbank.database.domain.UserDetails;
 import com.blockbank.database.repository.RootRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,21 +24,19 @@ public class ResetPasswordService {
     private final RootRepository rootRepository;
     private final SaltGenerator saltGenerator;
     private final HashService hashService;
+    private final PasswordValidationService passwordValidationService;
     private final Logger logger = LoggerFactory.getLogger(ResetPasswordService.class);
 
     private static final String SUBJECT = "Reset password";
-    private static final String MESSAGE = """
-            To reset your password, click the link below.
-            This link will expire after 20 minutes.
-
-            """;
+    private static final String MESSAGE = "To reset your password, click the link below.\nThis link will expire after 20 minutes.\n";
 
     @Autowired
-    public ResetPasswordService(RootRepository rootRepository, SaltGenerator saltGenerator, HashService hashService) {
+    public ResetPasswordService(RootRepository rootRepository, SaltGenerator saltGenerator, HashService hashService, PasswordValidationService passwordValidationService) {
         super();
         this.rootRepository = rootRepository;
         this.saltGenerator = saltGenerator;
         this.hashService = hashService;
+        this.passwordValidationService = passwordValidationService;
         logger.info("New ResetPasswordService");
     }
 
@@ -51,10 +49,22 @@ public class ResetPasswordService {
         return decodedJWT.getClaim("username").asString();
     }
 
-    //user clicks link
-    //verify token >
-    //y: redirect to resetPassword.html
+    //TODO: do some
+    public void validationCheckUserAndPassword(UserDetails user, String password) {
+        if (user != null && passwordValidationService.isValid(password)) {
+            user.setPassword(password);
+            //do some more
+        }
+    }
 
-    //check if input password = identical
-    //request to update password
+    //TODO: idk...
+    public void errorCheckUserAndPassword(UserDetails user, String password) {
+        if (user == null) {
+            System.out.println("Invalid link or token has expired"); //TODO: header/body van maken
+            //return some msg / return false + msg?
+        } else if (!passwordValidationService.isValid(password)) {
+            System.out.println("Password does not match requirements"); //TODO: header/body van maken
+            //return some msg / return false + msg?
+        }
+    }
 }

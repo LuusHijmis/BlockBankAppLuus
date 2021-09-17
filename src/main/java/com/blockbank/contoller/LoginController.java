@@ -25,13 +25,11 @@ import java.net.URI;
 public class LoginController {
 
     private final LoginService loginService;
-    private final RootRepository rootRepository;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    public LoginController(LoginService loginService, RootRepository rootRepository) {
+    public LoginController(LoginService loginService) {
         this.loginService = loginService;
-        this.rootRepository = rootRepository;
         logger.info("New LoginController");
     }
 
