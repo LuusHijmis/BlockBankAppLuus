@@ -1,3 +1,6 @@
+/*@author Karish Resodikromo
+* Javascript for welcomepage after login*/
+
 window.addEventListener('load',main)
 
 function main() {
@@ -39,5 +42,4 @@ function main() {
                 console.log('This is not a valid user role');
         }
     }
-
 }
