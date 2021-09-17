@@ -64,10 +64,11 @@ public class ResetPasswordController {
         if (tokenService.verifyToken(token)) {
             model.addAttribute("token", token);
             return new ModelAndView("redirect:/static/login/reset_password.html", model);
+        } else {
+            logger.info("User was null");
+            //model.addAttribute("message", "Invalid token");
+            return new ModelAndView("redirect:/static/index/index.html", model);
         }
-        logger.info("User was null");
-        //model.addAttribute("message", "Invalid token");
-        return new ModelAndView("redirect:/static/index/index.html", model);
     }
 
     @PostMapping("/reset")
