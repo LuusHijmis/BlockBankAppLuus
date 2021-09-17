@@ -16,6 +16,23 @@ function main() {
             //     alert("Waarom doet tie niks!!!!");
             //     // document.getElementById("SellScreen").style.visibility= "visible";
             // });
+            document.getElementById("sellAmount_f").addEventListener("input", ()=>{
+                var assetAmount = document.getElementById("sellAmount_f").value;
+                var exchangeRate = document.getElementById("exchangeRate").firstChild.nodeValue;
+                console.log(assetAmount,exchangeRate);
+                var transValue = transactionValue(exchangeRate,assetAmount)
+                var transFee = transactionFee(exchangeRate, assetAmount);
+                console.log(transFee);
+                var tradeProfit = transValue - transFee;
+                document.getElementById("transactionAmount").innerHTML = "Transaction costs: " + "\u20AC "
+                    + parseFloat(transValue).toFixed(2);
+                document.getElementById("transactionFee").innerHTML = "Transaction fee " + "\u20AC "
+                    + parseFloat(transFee).toFixed(2);
+                document.getElementById("tradeProfit").innerHTML = "Trade profit " + "\u20AC "
+                    + parseFloat(tradeProfit).toFixed(2);
+            })
+
+            // bevestig transactie en stuur naar de back-end
             document.getElementById("Sell").addEventListener('click', ()=> {
             // document.getElementById("SellScreen").style.visibility= "hidden";
 
@@ -123,17 +140,14 @@ function CreateTableFromJSON(data) {
             var selectedRowValues = filteredResults[0];
 
 // this will contain all the values for that row
-            var transactionamount = document.getElementById("sellAmount_f").value;
-            console.log(transactionamount);
-            var transCost = transactionCosts(transactionamount, document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate);
-            console.log(transCost);
             if($(this).attr('data-action') === "Sell") {
                 document.getElementById("SellScreen").style.visibility= "visible";
                 document.getElementById("assetID_f").innerHTML = selectedRowValues.assetID;
                 document.getElementById("assetName").innerHTML = selectedRowValues.assetName;
                 document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate;
-                console.log(document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate);
-                document.getElementById("transactionCosts").innerHTML = "Transaction costs: " + transCost;
+                document.getElementById("transactionAmount").innerHTML = "Transaction amount ";
+                document.getElementById("transactionFee").innerHTML = "Transaction fee: ";
+                document.getElementById("tradeProfit").innerHTML = "Trade profit: ";
                 // console.log(transactionCosts(document.getElementById("sellAmount_f").value,selectedRowValues.exchangeRate));
             } else {
                 window.location.replace("http://localhost:8080/static/transaction/transaction.html");
@@ -144,6 +158,9 @@ function CreateTableFromJSON(data) {
 }
 
 
-function transactionCosts (assetAmount,exchangeRate) {
+function transactionFee (assetAmount, exchangeRate) {
     return (assetAmount * exchangeRate) * 0.5;
+}
+function transactionValue(assetAmout,exchangeRate) {
+    return assetAmout * exchangeRate;
 }
