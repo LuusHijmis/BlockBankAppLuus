@@ -44,13 +44,13 @@ public class UsernameValidationService {
 
     public boolean isValid(String username) {
         if (checkNotUnique(username)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_UNIQUE_USERNAME);
         }
         if (checkEmpty(username)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_EMPTY_USERNAME);
         }
         if (checkSymbolsAccents(username)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_USERNAME);
         }
         return true;
     }

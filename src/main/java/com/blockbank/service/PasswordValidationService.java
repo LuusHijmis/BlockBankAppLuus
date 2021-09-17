@@ -41,19 +41,22 @@ public class PasswordValidationService {
 
     protected boolean isValid(String password) {
         if (checkEmpty(password)) {
-            return false;
+            throw new IllegalArgumentException(EMPTY_OR_NULL_PASSWORD);
         }
         if (checkIncorrectLength(password)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_LENGTH);
         }
         if (checkNoUpperCase(password)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_CASE);
+
         }
         if (checkNoLetterAndDigit(password)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_LETTER_AND_DIGIT);
+
         }
         if (checkNoSymbol(password)) {
-            return false;
+            throw new IllegalArgumentException(ERROR_SPECIAL_SYMBOL);
+
         }
         return true;
     }
