@@ -26,13 +26,7 @@ public class UsernameValidationService {
 
     private static final String ERROR_UNIQUE_USERNAME = "Username already exists in database.";
     private static final String ERROR_EMPTY_USERNAME = "Username can not be empty.";
-    private static final String ERROR_USERNAME = """
-                    - The number of characters must be between 5 and 20.
-                    - Username consists of alphanumeric characters, lowercase, or uppercase.
-                    - Username allowed of the dot (.), underscore (_), and hyphen (-).
-                    - The dot (.), underscore (_), or hyphen (-) can not be the first or last character.
-                    - The dot (.), underscore (_), or hyphen (-) can not appear consecutively.
-                    """;
+    private static final String ERROR_USERNAME = "- The number of characters must be between 5 and 20. \n- Username consists of alphanumeric characters, lowercase, or uppercase. \n- Username allowed of the dot (.), underscore (_), and hyphen (-). \n- The dot (.), underscore (_), or hyphen (-) can not be the first or last character. \n- The dot (.), underscore (_), or hyphen (-) can not appear consecutively.";
     private static final Pattern PATTERN = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
 
     @Autowired
