@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.expression.Maps;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,12 +51,12 @@ public class PortfolioService {
                 // TODO Asset in Portfolio mag niet NULL zijn bij een Sell transactie
                 if (portfolio.get(transaction.getAsset()) == null) {
                     portfolio.put(transaction.getAsset(), transaction.getAssetAmount());
-                    System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+//                    System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
                 } else {
                     double currentAmount = portfolio.get(transaction.getAsset());
                     if (transaction.getTransactionDescription().equals("Sell")) {
                         portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
-                        System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+//                        System.out.println("USER: " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
                     } else {
                         portfolio.replace(transaction.getAsset(), currentAmount + transaction.getAssetAmount());
                     }
@@ -71,10 +69,10 @@ public class PortfolioService {
                     double currentAmount = portfolio.get(transaction.getAsset());
                     if (transaction.getTransactionDescription().equals("Sell")) {
                         portfolio.replace(transaction.getAsset(), currentAmount + transaction.getAssetAmount());
-                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+//                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
                     } else {
                         portfolio.replace(transaction.getAsset(), currentAmount - transaction.getAssetAmount());
-                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
+//                        System.out.println("OPP-USER " + transaction.getTransactionDescription() + " " + transaction.getAssetAmount() + " " + transaction.getAsset().getName());
                     }
                 }
             }
