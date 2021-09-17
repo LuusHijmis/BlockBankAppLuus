@@ -93,6 +93,7 @@ public class JdbcTransactionDao implements TransactionDao {
         }
     }
 
+
     private static class TransactionRowMapper implements RowMapper<TransactionDTO> {
         @Override
         public TransactionDTO mapRow(ResultSet resultSet, int i) throws SQLException {
