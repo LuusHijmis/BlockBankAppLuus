@@ -30,7 +30,6 @@ public class TokenService {
 
     private final String BANK_NAME = "Blockbank";
     //TODO -> generate Issue at en Expire at aan de hand van de huidige tijd.
-    private final Long expiremilis = 1200000l; // 20 minuten in miliseconden
     private Date iat;
     private Date exp;
 
@@ -46,7 +45,7 @@ public class TokenService {
     public String issueToken(String username) {
         String token = null;
         iat = new Date(System.currentTimeMillis());
-        exp = new Date(iat.getTime()+expiremilis);
+        exp = new Date(System.currentTimeMillis() + (20 * 60 * 1000));
         UserDetails user = rootRepository.findUserByUsername(username);
 
         Map<String, Object> payload = new HashMap();
