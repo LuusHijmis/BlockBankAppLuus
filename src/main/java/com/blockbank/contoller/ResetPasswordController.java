@@ -47,7 +47,8 @@ public class ResetPasswordController {
         UserDetails user = rootRepository.findUserByEmail(email);
         if (user != null) {
             String token = tokenService.issueToken(user.getUsername());
-            String url = request.getScheme() + "://" + request.getServerName();
+            String url = request.getScheme() + "://" + request.getServerName() + ":8080"; //TODO: aanpassen naar ext. server
+                System.out.println(url);
             Mail msg = resetService.createResetMail(email, url, token);
             mailService.sendMail(msg);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Password reset link successfully sent to " + email);
@@ -63,7 +64,7 @@ public class ResetPasswordController {
         if (tokenService.verifyToken(token)) {
             model.addAttribute("token", token);
             //System.out.println("hij pakt dees sws");
-            return new ModelAndView("redirect:/reset_password.html", model);
+            return new ModelAndView("redirect:/static/login/reset_password.html", model);
         }
         logger.info("User was null");
         //System.out.println("heya");
