@@ -32,6 +32,10 @@ function main() {
                     + parseFloat(tradeProfit).toFixed(2);
             })
 
+            document.getElementById("Cancel").addEventListener("click", ()=>{
+                document.getElementById("SellScreen").style.visibility= "hidden";
+            })
+
             // bevestig transactie en stuur naar de back-end
             document.getElementById("Sell").addEventListener('click', ()=> {
             // document.getElementById("SellScreen").style.visibility= "hidden";
