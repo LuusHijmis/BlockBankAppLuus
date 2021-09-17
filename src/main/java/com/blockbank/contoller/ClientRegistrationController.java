@@ -42,12 +42,6 @@ public class ClientRegistrationController {
     public ResponseEntity<?> registerDTO(@RequestBody RegistrationDTO registrationDTO) {
         System.out.println(registrationDTO);
         UserDetails userDetails = clientregistrationservice.register(registrationDTO);
-        if (userDetails != null) {
-//            URI uri = URI.create(String.valueOf(userDetails));
-//            return ResponseEntity.created(uri).build();
-            return ResponseEntity.ok().body(userDetails);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.ok().body(userDetails);
     }
 }
