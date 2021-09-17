@@ -15,14 +15,29 @@
     <p id='results-table-holder'></p>
 </div>
 <div id="SellScreen">
-    <form id="SellForm">
+
         <h1>Sell transaction</h1>
-        <p id="assetID_f"><p>
-        <p id="assetName"> </p>
-        <p id="exchangeRate"> </p>
+    <table class="SellScreenTable">
+        <tr>
+            <td>Asset ID :</td>
+            <td><p id="assetID_f"><p></td>
+        </tr>
+        <tr>
+            <td>Asset Name :</td>
+            <td><p id="assetName"> </p></td>
+        </tr>
+        <tr>
+            <td>Exchange Rate € :</td>
+            <td><p id="exchangeRate"> </p></td>
+        </tr>
+    </table>
+
+
         <input id="sellAmount_f" type="number" name="Amount to sell" placeholder="Enter amount"><br>
-        <p id="transactionCosts"> </p>
-    </form>
+        <p id="transactionAmount"></p>
+        <p id="transactionFee"> </p>
+        <p id="tradeProfit"></p>
+
     <button id="Sell">Sell</button>
     <button id="Cancel">Cancel</button>
 </div>
