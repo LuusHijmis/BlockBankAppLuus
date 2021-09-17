@@ -17,6 +17,9 @@ td, th{
     border: 1px solid #ddd;
     padding: 8px;
 }
+td{
+    text-align: right;
+}
 
 tr:nth-child(even){
     background-color: #f2f2f2;

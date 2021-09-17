@@ -4,7 +4,7 @@ function main() {
         type: "GET",
         url: 'http://localhost:8080/portfolio/get/json',
         headers: {"Authorization": localStorage.getItem('Authentication')},
-        //data : JSON.stringify(dataRaw),
+        // data : JSON.stringify(dataRaw),
         contentType: "application/json",
         accepts: {json: "application/json"},
         success: function (data, status, xhr) {
@@ -63,14 +63,15 @@ function CreateTableFromJSON(data) {
 
             console.log(currentResults);
             var resultsHtml = '<table>';
-            resultsHtml += ' <tr><th>Asset ID</th><th>Asset Name</th><th>Symbol</th><th>Exchange Rate</th><th>Amount</th><th></th>' +
+            resultsHtml += ' <tr><th>Asset ID</th><th>Asset Name</th><th>Symbol</th><th>Exchange Rate (EUR)</th><th>Amount</th><th>Current Value</th><th></th>' +
                 '<th></th></th></tr>';
             currentResults.forEach(function (result){
             // currentResults.forEach(function (result) {
                 // add a class to the table cell here and also another attr, which we will call data-value which will contain 			the 	value of the data.
                 resultsHtml += '<tr><td dataValue="' + result.assetID + '" class="table-cell-action">' + result.assetID + '</td>' +
                     '<td>' + result.assetName + '</td><td>' + result.assetSymbol + '</td><td> ' + result.exchangeRate + '</td> ' +
-                    '<td>' + result.assetAmount + ' </td><td><button data-id="' + result.assetID + '" data-action="Buy" ' + ' class="button-click">Buy</button></td>' +
+                    '<td>' + result.assetAmount + ' </td><td>' + "\u20AC" + " " + parseFloat(result.exchangeRate * result.assetAmount).toFixed(2) + '</td>' +
+                    '<td><button data-id="' + result.assetID + '" data-action="Buy" ' + ' class="button-click">Buy</button></td>' +
                     '<td><button data-id="' + result.assetID + '" data-action="Sell" '+ ' class="button-click">Sell</button></td></tr>'
             });
 
