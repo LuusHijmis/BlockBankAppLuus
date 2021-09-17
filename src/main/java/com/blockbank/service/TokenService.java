@@ -11,6 +11,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.Verification;
 import com.blockbank.database.domain.UserDetails;
 import com.blockbank.database.repository.RootRepository;
 import org.slf4j.Logger;
@@ -55,8 +56,8 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             token = JWT.create().withIssuer(BANK_NAME)
                     .withPayload(payload)
-                    //.withIssuedAt(iat)
-                    //.withExpiresAt(exp)
+                    .withIssuedAt(iat)
+                    .withExpiresAt(exp)
                     .sign(algorithm);
             logger.info("Token Issued");
         } catch (JWTCreationException exception){
@@ -67,16 +68,10 @@ public class TokenService {
 
     public boolean verifyToken(String token) {
         DecodedJWT decodedJWT = JWT.decode(token);
-        Claim username = decodedJWT.getClaim("username");
-        UserDetails tokenUser = rootRepository.findUserByUsername(username.asString());
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer(BANK_NAME)
-                    .withClaim("username", tokenUser.getUsername())
-                    .withClaim("role", tokenUser.getRole())
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(token);
+            Verification verifier = JWT.require(algorithm);
+            verifier.build().verify(decodedJWT);
         } catch (JWTVerificationException exception){
             return false;
         }
