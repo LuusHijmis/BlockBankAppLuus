@@ -96,6 +96,7 @@ public class JdbcUserDao implements UserDao {
         );
         ps.setString(1, user.getPassword());
         ps.setString(2, user.getSalt());
+        ps.setString(3, user.getUsername());
         return ps;
     }
 
