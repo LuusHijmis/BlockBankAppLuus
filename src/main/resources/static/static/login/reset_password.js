@@ -35,14 +35,13 @@ function checkPasswordsMatch() {
 }
 
 document.addEventListener('DOMContentLoaded', resetPassword);
+
 function resetPassword() {
     document.getElementById('submit').addEventListener('click', () => {
 
-        //checkPasswordsMatch();
         let password = document.getElementById('pw1').value;
         let token = localStorage.getItem('Authorization').valueOf();
 
-        //send reset request
         fetch('http://localhost:8080/reset',
             {
                 method: 'POST',
