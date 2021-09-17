@@ -12,7 +12,14 @@ function main() {
             console.log(status);
             console.log(xhr);
             CreateTableFromJSON(data);
+            // document.getElementById("Sell").addEventListener('click', ()=>{
+            //     alert("Waarom doet tie niks!!!!");
+            //     // document.getElementById("SellScreen").style.visibility= "visible";
+            // });
             document.getElementById("Sell").addEventListener('click', ()=> {
+            // document.getElementById("SellScreen").style.visibility= "hidden";
+
+                    //document.getElementById('welcomeDiv').style.visibility = "block";
                     var transactionSort = "Sell";
                     var transactionAmount = document.getElementById("sellAmount_f").value;
                     var opposingUserID = 1;
@@ -54,6 +61,8 @@ function main() {
     })
 
 }
+
+
 
 function CreateTableFromJSON(data) {
 
@@ -114,13 +123,27 @@ function CreateTableFromJSON(data) {
             var selectedRowValues = filteredResults[0];
 
 // this will contain all the values for that row
+            var transactionamount = document.getElementById("sellAmount_f").value;
+            console.log(transactionamount);
+            var transCost = transactionCosts(transactionamount, document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate);
+            console.log(transCost);
             if($(this).attr('data-action') === "Sell") {
+                document.getElementById("SellScreen").style.visibility= "visible";
                 document.getElementById("assetID_f").innerHTML = selectedRowValues.assetID;
                 document.getElementById("assetName").innerHTML = selectedRowValues.assetName;
                 document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate;
-                document.getElementById("transactionCosts").innerHTML = "Transaction costs: ";
+                console.log(document.getElementById("exchangeRate").innerHTML = selectedRowValues.exchangeRate);
+                document.getElementById("transactionCosts").innerHTML = "Transaction costs: " + transCost;
+                // console.log(transactionCosts(document.getElementById("sellAmount_f").value,selectedRowValues.exchangeRate));
             } else {
                 window.location.replace("http://localhost:8080/static/transaction/transaction.html");
             }
+
         });
+
+}
+
+
+function transactionCosts (assetAmount,exchangeRate) {
+    return (assetAmount * exchangeRate) * 0.5;
 }
